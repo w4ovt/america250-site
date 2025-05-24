@@ -1,0 +1,86 @@
+/* styles/globals.css */
+
+/* === FONT IMPORTS === */
+@font-face {
+  font-family: 'american scribe';
+  src: url('/fonts/americanscribe.woff2') format('woff2'),
+       url('/fonts/americanscribe.woff') format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'goudystd-bold';
+  src: url('/fonts/goudystd-bold.otf') format('opentype');
+  font-weight: bold;
+  font-display: swap;
+}
+
+/* === BASE STYLES === */
+html, body {
+  padding: 0;
+  margin: 0;
+  font-family: 'goudystd-bold', serif;
+  background-color: #fffaf0;
+  color: #000;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* === HEADER IMAGE === */
+.america250-header-image {
+  display: block;
+  margin: 2rem auto;
+  max-width: 1200px;
+  width: 100%;
+}
+
+/* === HEADER STACK === */
+.america250-stack {
+  text-align: center;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* === TITLE & TAGLINE === */
+.subtitle-main.handcarved-title {
+  font-size: 4rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #7C4A1E;
+  letter-spacing: 2px;
+}
+
+.subtitle-tagline {
+  font-size: 1.6rem;
+  color: #5B3412;
+  margin-top: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+/* === MORSE CODE === */
+.morse-typewriter {
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  white-space: pre;
+}
+
+/* === RESPONSIVE ADJUSTMENTS === */
+@media screen and (max-width: 1200px) {
+  .subtitle-main.handcarved-title {
+    font-size: 2.5rem;
+  }
+
+  .subtitle-tagline {
+    font-size: 1.1rem;
+  }
+
+  .america250-header-image {
+    padding: 0 1rem;
+  }
+
+  .america250-stack {
+    padding: 0.5rem 1rem;
+  }
+}
