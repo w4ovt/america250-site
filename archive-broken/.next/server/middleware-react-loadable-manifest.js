@@ -1,1 +1,0 @@
-self.__REACT_LOADABLE_MANIFEST="{\"index.tsx -> ../components/quillhero/quillhero\":{\"id\":\"index.tsx -> ../components/quillhero/quillhero\",\"files\":[\"static/chunks/components_quillhero_quillhero_tsx.js\"]}}"
