@@ -1,6 +1,6 @@
 # america250-site
 
-A Next.js 13+ project for the America 250 radio archive fantastic site.
+A Next.js 13+ project for the America 250 radio archive site.
 
 ## Table of Contents
 
