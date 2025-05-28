@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-export default function activationcount() {
+export default function ActivationCount() {
   const [count, setCount] = useState<number | null>(null);
 
   useEffect(() => {
