@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.0",
+    "autoprefixer": "^10.4.21",
     "drizzle-kit": "^0.31.1",
     "drizzle-orm": "^0.43.1",
     "next": "^13.5.11",
