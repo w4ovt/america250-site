@@ -44,7 +44,7 @@ export default function VolunteerForm() {
     }
 
     try {
-      const res = await fetch('/api/volunteer', {
+      const res = await fetch('/api/activations', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),

@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { db } from '../../../../db/drizzle';
-import { volunteer_activations } from '../../../../db/schema';
-
+import { volunteer_activations } from '@db/schema';
 // POST /api/volunteer
 export async function POST(request: Request) {
   try {

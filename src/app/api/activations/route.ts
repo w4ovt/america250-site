@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { db } from '@db/drizzle';
-import { activations } from '@db/schema';
+import { volunteer_activations } from '@db/schema';
 import { eq } from 'drizzle-orm';
 
 export async function POST(req: Request) {
@@ -16,26 +16,24 @@ export async function POST(req: Request) {
     } = data;
 
     // Get the cumulative activation number (N + 1)
-    const totalCount = await db.select().from(activations);
+    const totalCount = await db.select().from(volunteer_activations);
     const activation_number = totalCount.length + 1;
 
     // Get the per-operator activation number (N + 1 for this operator)
     const operatorCount = await db
       .select()
-      .from(activations)
-      .where(eq(activations.operator_name, operator_name));
+      .from(volunteer_activations)
+      .where(eq(volunteer_activations.operator_name, operator_name));
     const operator_activation_number = operatorCount.length + 1;
 
     // Insert new activation
-    await db.insert(activations).values({
+    await db.insert(volunteer_activations).values({
       frequency,
       mode,
       operator_name,
       state,
-      start_time: new Date(start_time),
-      end_time: end_time ? new Date(end_time) : null,
-      activation_number,
-      operator_activation_number,
+      start_time,
+      end_time,
     });
 
     return NextResponse.json({
