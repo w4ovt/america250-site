@@ -1,11 +1,10 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 
 function playMorseAudio(morse: string) {
-  const AudioContextClass =
-    window.AudioContext || (window as any).webkitAudioContext;
+  const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
   const context = new AudioContextClass();
   let time = context.currentTime;
 
@@ -37,6 +36,8 @@ export default function Home() {
   const [morseOutput, setMorseOutput] = useState('');
   const [isOnAir, setIsOnAir] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const headerRef = useRef<HTMLHeadingElement>(null);
+  const [enableSoundLeft, setEnableSoundLeft] = useState<number | null>(null);
 
   const handlePlayAndRestart = () => {
     if (isPlaying) return;
@@ -60,88 +61,111 @@ export default function Home() {
   };
 
   useEffect(() => {
-    handlePlayAndRestart(); // autoplay on initial load
+    if (headerRef.current) {
+      const rect = headerRef.current.getBoundingClientRect();
+      setEnableSoundLeft(rect.left);
+    }
+  }, []);
+
+  useEffect(() => {
+    handlePlayAndRestart();
     // eslint-disable-next-line
   }, []);
 
   return (
     <main className="parchment-bg">
-      {/* SVG header with rich brown/mahogany frame and strong shadow */}
-      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
-        <svg
-          width="1504"
-          height="1024"
-          viewBox="0 0 1504 1024"
-          style={{ display: 'block', maxWidth: '100%', height: 'auto' }}
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            {/* Strong, warm drop shadow */}
-            <filter id="lifted-shadow" x="-20%" y="-20%" width="140%" height="140%">
-              <feDropShadow dx="0" dy="36" stdDeviation="28" floodColor="#4b2e19" floodOpacity="0.40" />
-            </filter>
-            {/* Rich brown to mahogany gradient */}
-            <linearGradient id="frame-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#6e3b18" />
-              <stop offset="50%" stopColor="#8b4513" />
-              <stop offset="100%" stopColor="#3e1e0a" />
-            </linearGradient>
-            {/* Rounded corners for image */}
-            <clipPath id="rounded-image">
-              <rect x="32" y="32" width="1440" height="960" rx="16" ry="16" />
-            </clipPath>
-          </defs>
-          {/* Frame with gradient and shadow */}
-          <rect
-            x="0"
-            y="0"
-            width="1504"
-            height="1024"
-            rx="32"
-            fill="url(#frame-gradient)"
-            filter="url(#lifted-shadow)"
-          />
-          {/* Header image centered inside frame, with rounded corners */}
-          <image
-            href="/america250-website-header.png"
-            x="32"
-            y="32"
-            width="1440"
-            height="960"
-            clipPath="url(#rounded-image)"
-            preserveAspectRatio="xMidYMin slice"
-          />
-        </svg>
+      {/* HEADER IMAGE - Centered, Framed, No White Box */}
+      <div className="america250-header-image-container">
+        <img
+          src="/america250-website-header.webp"
+          alt="Painting of a bald eagle, Betsy Ross flag, Independence Hall, K4A Amateur Radio Special Event—Signaling the American Spirit, Pennsylvania State House plaque"
+          className="america250-header-image"
+          draggable={false}
+        />
       </div>
 
-      <div className="america250-stack">
-        <h1 className="handcarved-title">AMERICA250</h1>
+      {/* HEADER TEXT */}
+      <div style={{ textAlign: 'center', marginTop: '2rem', marginBottom: '0.5rem', position: 'relative' }}>
+        <h1
+          ref={headerRef}
+          className="handcarved-title"
+          style={{ fontSize: '6.5rem', marginBottom: '0.4rem', marginTop: '1.2rem', lineHeight: '1.08' }}
+        >
+          AMERICA250
+        </h1>
+        <h2 className="subtitle-tagline" style={{
+          fontFamily: "'Goudy Oldstyle', serif",
+          fontWeight: 800,
+          fontSize: '2.15rem',
+          color: '#7a5230',
+          letterSpacing: '0.22em',
+          textShadow: '1px 1px 0 #fff6e3, 0 2px 8px #bca47a, 2px 2px 7px #f9ecd1',
+          margin: 0,
+          textTransform: 'uppercase'
+        }}>
+          SIGNALING THE SPIRIT OF AMERICA
+        </h2>
+      </div>
 
-        <div className="morse-block-wrapper">
+      {/* Morse code and Enable Sound container */}
+      <div style={{ position: 'relative', maxWidth: '700px', margin: '0 auto 3rem auto' }}>
+        {/* Enable Sound button absolute aligned to left edge of "A" */}
+        {enableSoundLeft !== null && (
           <button
-            className="enable-sound-button-fixed"
             onClick={handlePlayAndRestart}
             disabled={isPlaying}
+            aria-label="Enable Morse code sound"
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: enableSoundLeft,
+              transform: 'translate(-100%, -50%)',
+              width: '120px',
+              height: '120px',
+              background: 'none',
+              border: 'none',
+              padding: 0,
+              cursor: 'pointer',
+              zIndex: 10,
+            }}
           >
             <Image
               src="/enable-sound-button.png"
               alt="Enable Sound"
-              width={80}
-              height={80}
-              className="enable-sound-image"
+              width={120}
+              height={120}
+              style={{ display: 'block', height: 'auto' }}
             />
           </button>
+        )}
 
-          <div className="morse-typewriter">{morseOutput}</div>
+        {/* Morse code text centered - NO WRAP */}
+        <div
+          className="morse-typewriter"
+          style={{
+            fontFamily: "'Courier New', monospace",
+            fontSize: '1.8rem',
+            whiteSpace: 'nowrap',
+            textAlign: 'center',
+            lineHeight: '2rem',
+            paddingLeft: '1.25rem',
+            userSelect: 'none',
+          }}
+        >
+          {morseOutput}
         </div>
       </div>
 
-      <div className="onair-status-block">
+      {/* ON AIR / OFF AIR badge - Correct size, not boxed */}
+      <div
+        className="onair-status-block"
+        style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '2rem 0 2.8rem 0' }}
+      >
         <Image
           src={isOnAir ? '/onair-badge.png' : '/offair-badge.png'}
           alt={isOnAir ? 'ON AIR' : 'OFF AIR'}
-          width={250}
-          height={250}
+          width={210}
+          height={210}
           className="onair-badge"
         />
       </div>

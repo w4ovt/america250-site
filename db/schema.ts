@@ -1,13 +1,11 @@
-import { pgTable, serial, text, timestamp, integer } from 'drizzle-orm/pg-core';
+import { pgTable, varchar, serial } from 'drizzle-orm/pg-core';
 
-export const activations = pgTable('activations', {
+export const volunteer_activations = pgTable('volunteer_activations', {
   id: serial('id').primaryKey(),
-  frequency: text('frequency').notNull(),
-  mode: text('mode').notNull(),
-  operator_name: text('operator_name').notNull(),
-  state: text('state').notNull(),
-  start_time: timestamp('start_time', { withTimezone: true }).notNull(),
-  end_time: timestamp('end_time', { withTimezone: true }),
-  activation_number: integer('activation_number').notNull(), // cumulative
-  operator_activation_number: integer('operator_activation_number').notNull(), // per-operator
+  frequency: varchar('frequency', { length: 20 }).notNull(),
+  mode: varchar('mode', { length: 16 }).notNull(),
+  operator_name: varchar('operator_name', { length: 40 }).notNull(),
+  state: varchar('state', { length: 2 }).notNull(),
+  start_time: varchar('start_time', { length: 32 }).notNull(), // or timestamp if you want
+  end_time: varchar('end_time', { length: 32 }).notNull(),
 });
