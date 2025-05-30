@@ -7,15 +7,12 @@
   font-style: normal;
 }
 
-body, html {
+body,
+html {
   margin: 0;
   padding: 0;
   font-family: 'Goudy Oldstyle', serif;
-}
-
-/* Parchment Background */
-main.parchment-bg {
-  background-image: url('/america-250-md-parchment-1440_tall.webp');
+  background-image: url('/america-250-md-parchment-1440-tall.webp');
   background-repeat: repeat-y;
   background-size: 100% auto;
   background-position: top center;
@@ -115,4 +112,98 @@ main.parchment-bg {
 
 .onair-badge:hover {
   transform: scale(1.05);
+}
+/* === MOBILE RESPONSIVENESS (≤ 700px) === */
+@media (max-width: 700px) {
+  .handcarved-title {
+    font-size: 2.5rem;
+    letter-spacing: 0.07em;
+    margin-top: 1.2rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .america250-header-image {
+    max-width: 97vw;
+    border-radius: 7px;
+  }
+
+  .america250-stack {
+    margin-top: 1.2rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .morse-typewriter {
+    font-size: 1.2rem;
+    padding-left: 0.5rem;
+    letter-spacing: 0.18em;
+    min-height: 1.4rem;
+  }
+
+  .enable-sound-button-fixed {
+    left: 10%; /* a bit closer for narrow screens */
+    width: 56px;
+    height: 56px;
+  }
+
+  .enable-sound-image {
+    width: 56px;
+    height: 56px;
+  }
+
+  .onair-badge {
+    width: 96px !important;
+  }
+}
+
+/* === MOBILE TINY (≤ 400px) === */
+@media (max-width: 400px) {
+  .handcarved-title {
+    font-size: 1.22rem;
+    letter-spacing: 0.04em;
+  }
+
+  .america250-header-image {
+    max-width: 98vw;
+    border-radius: 4px;
+  }
+
+  .morse-typewriter {
+    font-size: 1rem;
+    letter-spacing: 0.13em;
+  }
+
+  .enable-sound-button-fixed,
+  .enable-sound-image {
+    width: 36px;
+    height: 36px;
+  }
+}
+/* === UNIVERSAL MOBILE RUGGEDIZATION (safety net) === */
+html, body {
+  box-sizing: border-box;
+  width: 100vw;
+  overflow-x: hidden !important;
+  /* On mobile, prevent sideways scrolling */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  max-width: 100vw;
+}
+
+/* Ensure images, SVGs, videos, and iframes can't overflow */
+img, svg, video, iframe {
+  max-width: 100vw;
+  height: auto;
+  display: block;
+}
+
+/* On tiny screens, pad page to prevent edge sticking */
+@media (max-width: 480px) {
+  body {
+    padding-left: 3vw;
+    padding-right: 3vw;
+  }
 }
