@@ -114,63 +114,29 @@ export default function Home() {
         </svg>
       </div>
 
-      <div
-        className="america250-stack"
-        style={{ textAlign: 'center', marginTop: '2rem', marginBottom: '2rem', position: 'relative' }}
-      >
-        <h1
-          className="handcarved-title"
-          style={{ fontSize: '8rem', marginBottom: '0.5rem' }} // Larger header text
-        >
-          AMERICA250
-        </h1>
+      <div className="america250-stack">
+        <h1 className="handcarved-title">AMERICA250</h1>
 
-        {/* Enable Sound button - absolutely positioned relative to this container */}
-        <button
-          onClick={handlePlayAndRestart}
-          disabled={isPlaying}
-          style={{
-            position: 'absolute',
-            left: '10%', // Adjust as needed for horizontal positioning
-            top: '50%',
-            transform: 'translateY(-50%)',
-            width: '120px',
-            height: 'auto',
-            background: 'none',
-            border: 'none',
-            padding: 0,
-            cursor: 'pointer',
-            zIndex: 10,
-          }}
-          aria-label="Enable Morse code sound"
-        >
-          <Image
-            src="/enable-sound-button.png"
-            alt="Enable Sound"
-            width={120}
-            height={120}
-            style={{ display: 'block', height: 'auto' }}
-          />
-        </button>
+        <div className="morse-block-wrapper">
+          <button
+            className="enable-sound-button-fixed"
+            onClick={handlePlayAndRestart}
+            disabled={isPlaying}
+          >
+            <Image
+              src="/enable-sound-button.png"
+              alt="Enable Sound"
+              width={120}
+              height={120}
+              className="enable-sound-image"
+            />
+          </button>
 
-        {/* Morse code text centered */}
-        <div
-          className="morse-typewriter"
-          style={{
-            fontFamily: "'Courier New', monospace",
-            fontSize: '1.75rem',
-            whiteSpace: 'pre',
-            textAlign: 'center', // center the text horizontally
-            lineHeight: '2rem',
-            maxWidth: '70%',
-            margin: '0 auto', // centers container
-          }}
-        >
-          {morseOutput}
+          <div className="morse-typewriter">{morseOutput}</div>
         </div>
       </div>
 
-      <div className="onair-status-block" style={{ display: 'flex', justifyContent: 'center', margin: '2rem 0' }}>
+      <div className="onair-status-block">
         <Image
           src={isOnAir ? '/onair-badge.png' : '/offair-badge.png'}
           alt={isOnAir ? 'ON AIR' : 'OFF AIR'}
