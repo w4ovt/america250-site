@@ -1,5 +1,3 @@
-// src/app/volunteer/page.tsx
-
 import VolunteerForm from './VolunteerForm';
 
 export default function VolunteerPage() {
