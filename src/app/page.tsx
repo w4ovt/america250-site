@@ -43,10 +43,12 @@ export default function Home() {
           position: 'relative',
         }}
       >
-        <img
+        <Image
           src="/america250-website-header.webp"
           alt="America 250 Header"
-          className="america250-header-image"           // 👈 ADD THIS LINE
+          width={1440}   // Use actual width in pixels
+          height={960}   // Use actual height in pixels
+          className="america250-header-image"
           style={{
             display: 'block',
             width: '100vw',
@@ -58,6 +60,7 @@ export default function Home() {
             border: 'none',
           }}
           draggable={false}
+          priority
         />
       </div>
       {/* Bronze separator bar beneath header image */}

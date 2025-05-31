@@ -59,7 +59,7 @@ const navLinks = [
   { name: <TwoLineLabel top="MEET THE" bottom="SIGNERS" />, path: '/signers' },
   { name: <TwoLineLabel top="PATRIOT" bottom="PAGE" />, path: '/patriots' },
   { name: <TwoLineLabel top="UPCOMING" bottom="EVENTS" />, path: '/events' },
-  { name: <TwoLineLabel top="VOLUNTEER" bottom="PAGE" />, path: '/volunteers' },
+  { name: <TwoLineLabel top="VOLUNTEER" bottom="PAGE" />, path: '/volunteer' },
   { name: <TwoLineLabel top="ACTIVATIONS" bottom="HISTORY" />, path: '/history' },
   { name: 'DONATIONS', path: '/donate' },
 ];

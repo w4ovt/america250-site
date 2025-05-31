@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import styles from './VolunteerForm.module.css';
 
 const MODE_OPTIONS = [
   'SSB', 'CW', 'FT8', 'FT4', 'FM', 'AM', 'PSK31', 'Olivia', 'Thor', 'EchoLink', 'RTTY'
@@ -34,9 +35,7 @@ export default function VolunteerForm() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    if (name === "state") {
-      setForm({ ...form, [name]: value.toUpperCase() });
-    } else if (name === "callsign") {
+    if (name === "state" || name === "callsign") {
       setForm({ ...form, [name]: value.toUpperCase() });
     } else {
       setForm({ ...form, [name]: value });
@@ -51,7 +50,6 @@ export default function VolunteerForm() {
     setError(null);
     setMessage(null);
 
-    // Front-end validation
     if (
       !form.frequency ||
       !form.mode ||
@@ -89,14 +87,13 @@ export default function VolunteerForm() {
         setError(data.error || 'Submission failed.');
       } else {
         setMessage('Activation logged successfully!');
-        setForm(initialForm); // Clear form
-        // Refresh activation count
+        setForm(initialForm);
         fetch('/api/activations/count')
           .then(res => res.json())
           .then(data => setActivationCount(data.count))
           .catch(() => setActivationCount(null));
       }
-    } catch (err: any) {
+    } catch {
       setError('Submission failed. Please try again.');
     } finally {
       setLoading(false);
@@ -104,53 +101,31 @@ export default function VolunteerForm() {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      style={{
-        background: 'rgba(255,255,240,0.96)',
-        border: '2px solid #B8860B',
-        borderRadius: '10px',
-        padding: '2rem',
-        maxWidth: 480,
-        margin: '2rem auto',
-        fontFamily: 'Goudy Oldstyle, serif',
-        boxShadow: '0 6px 32px #bbb8a0',
-      }}
-      aria-label="Volunteer Activation Form"
-    >
-      <h2 style={{ textAlign: 'center', fontSize: '1.6rem', marginBottom: '1.2rem' }}>
-        Volunteer Activation Form
-      </h2>
+    <form onSubmit={handleSubmit} className={styles.formContainer} aria-label="Volunteer Activation Form">
+      <h2 className={styles.title}>Volunteer Activation Form</h2>
 
-      <div
-        className="activation-count-banner"
-        style={{ marginBottom: '1.5rem', fontSize: '1.3rem', fontWeight: 'bold' }}
-      >
-        {activationCount !== null
-          ? <>Current activation number: <span style={{ color: '#7a5230' }}>{activationCount}</span></>
-          : <>Loading activation number...</>
-        }
+      <div className={styles.activationCount}>
+        Current activation number: <span>{activationCount !== null ? activationCount : 'Loading...'}</span>
       </div>
 
-      <label>
-        Frequency<br />
+      <label className={styles.label}>
+        Frequency
         <input
-          type="text"
           name="frequency"
           value={form.frequency}
           onChange={handleChange}
-          style={{ width: '100%', marginBottom: 12, fontSize: '1rem' }}
+          className={styles.input}
           required
         />
       </label>
 
-      <label>
-        Mode<br />
+      <label className={styles.label}>
+        Mode
         <select
           name="mode"
           value={form.mode}
           onChange={handleChange}
-          style={{ width: '100%', marginBottom: 12, fontSize: '1rem' }}
+          className={styles.select}
           required
         >
           {MODE_OPTIONS.map(mode => (
@@ -159,13 +134,13 @@ export default function VolunteerForm() {
         </select>
       </label>
 
-      <label>
-        Operator Name<br />
+      <label className={styles.label}>
+        Operator Name
         <select
           name="operator_name"
           value={form.operator_name}
           onChange={handleChange}
-          style={{ width: '100%', marginBottom: 12, fontSize: '1rem' }}
+          className={styles.select}
           required
         >
           {OPERATOR_OPTIONS.map(op => (
@@ -174,13 +149,13 @@ export default function VolunteerForm() {
         </select>
       </label>
 
-      <label>
-        Callsign<br />
+      <label className={styles.label}>
+        Callsign
         <select
           name="callsign"
           value={form.callsign}
           onChange={handleChange}
-          style={{ width: '100%', marginBottom: 12, fontSize: '1rem', textTransform: 'uppercase' }}
+          className={styles.select}
           required
         >
           {CALLSIGN_OPTIONS.map(callsign => (
@@ -189,86 +164,46 @@ export default function VolunteerForm() {
         </select>
       </label>
 
-      <label>
-        State<br />
+      <label className={styles.label}>
+        State
         <input
-          type="text"
           name="state"
-          value={form.state}
           maxLength={2}
+          value={form.state}
           onChange={handleChange}
-          style={{ width: '100%', marginBottom: 12, fontSize: '1rem', textTransform: 'uppercase' }}
+          className={styles.input}
           required
         />
       </label>
 
-      <label>
-        Start Time<br />
+      <label className={styles.label}>
+        Start Time
         <input
           type="datetime-local"
           name="start_time"
           value={form.start_time}
           onChange={handleChange}
-          style={{ width: '100%', marginBottom: 12, fontSize: '1rem' }}
+          className={styles.input}
           required
         />
       </label>
 
-      <label>
-        End Time<br />
+      <label className={styles.label}>
+        End Time
         <input
           type="datetime-local"
           name="end_time"
           value={form.end_time}
           onChange={handleChange}
-          style={{ width: '100%', marginBottom: 16, fontSize: '1rem' }}
+          className={styles.input}
           required
         />
       </label>
 
-      {error && (
-        <div
-          style={{
-            color: '#8B0000',
-            background: '#fff6f6',
-            border: '1px solid #e9b3b3',
-            padding: '0.5rem',
-            marginBottom: '1rem',
-            borderRadius: 6,
-          }}
-        >
-          {error}
-        </div>
-      )}
-      {message && (
-        <div
-          style={{
-            color: '#155724',
-            background: '#d4edda',
-            border: '1px solid #c3e6cb',
-            padding: '0.5rem',
-            marginBottom: '1rem',
-            borderRadius: 6,
-          }}
-        >
-          {message}
-        </div>
-      )}
+      {error && <div className={styles.error}>{error}</div>}
+      {message && <div className={styles.message}>{message}</div>}
 
-      <button
-        type="submit"
-        disabled={loading}
-        style={{
-          width: '100%',
-          padding: '0.75rem',
-          fontSize: '1.1rem',
-          background: '#B8860B',
-          color: '#fff',
-          border: 'none',
-          borderRadius: 6,
-          cursor: 'pointer',
-        }}
-      >
+      <button type="submit" disabled={loading} className={styles.submitButton}>
         {loading ? 'Submitting...' : 'Submit Activation'}
       </button>
     </form>

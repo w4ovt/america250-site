@@ -15,7 +15,9 @@
     "drizzle-orm": "^0.43.1",
     "next": "^13.5.11",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "version": "^0.1.2",
+    "view": "^1.1.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.27.0",

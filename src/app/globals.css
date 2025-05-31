@@ -187,7 +187,7 @@ html {
   display: block;
   margin: 0 auto;
   /* 👇👇👇 Add or edit this line to control brightness/contrast */
-  filter: brightness(1.7) contrast(1.6);
+  filter: brightness(1.5) contrast(1.5);
 }
 
 /* Subtitle Block */
@@ -234,4 +234,103 @@ html {
 
 .onair-badge:hover {
   transform: scale(1.05);
+}
+
+/* VolunteerForm.module.css */
+
+.form-container {
+  background: #fff8dc;
+  /* light parchment */
+  border: 2.5px solid #6b4423;
+  /* mahogany */
+  border-radius: 16px;
+  box-shadow: 0 6px 12px rgba(107, 68, 35, 0.3);
+  padding: 2.5rem;
+  max-width: 480px;
+  margin: 3rem auto;
+  font-family: 'Goudy Oldstyle', serif;
+  color: #3e2c14;
+}
+
+.form-title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  text-shadow: 0 1.2px 2px #b99958;
+}
+
+.activation-count-banner {
+  font-weight: 600;
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  color: #a2752a;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #5b3e11;
+}
+
+.form-input,
+.form-select {
+  width: 100%;
+  padding: 0.45rem 0.6rem;
+  margin-bottom: 1.25rem;
+  border: 1.8px solid #d1b874;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: 'Goudy Oldstyle', serif;
+  color: #3e2c14;
+  background-color: #fefae0;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-input:focus,
+.form-select:focus {
+  border-color: #7a4d12;
+  box-shadow: 0 0 6px 1.5px #a2752a8a;
+  outline: none;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 0.85rem;
+  background-color: #7a4d12;
+  /* mahogany */
+  color: #fff8dc;
+  /* parchment */
+  border: none;
+  border-radius: 10px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px #a2752a9a;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.submit-button:hover:enabled {
+  background-color: #996623;
+  box-shadow: 0 6px 22px #b2995f;
+}
+
+.error-message {
+  background-color: #ffe1e0;
+  border: 1.6px solid #b33a3a;
+  color: #8b0000;
+  padding: 0.7rem;
+  border-radius: 8px;
+  margin-bottom: 1.2rem;
+}
+
+.success-message {
+  background-color: #d7f2d7;
+  border: 1.6px solid #3e9f3e;
+  color: #155724;
+  padding: 0.7rem;
+  border-radius: 8px;
+  margin-bottom: 1.2rem;
 }
