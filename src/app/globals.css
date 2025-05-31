@@ -46,57 +46,6 @@ html {
   text-transform: uppercase;
 }
 
-/* Morse + Button Container */
-.morse-block-wrapper {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: -0.5rem;
-}
-
-/* Morse Stream */
-.morse-typewriter {
-  font-family: 'Courier New', monospace;
-  font-size: 1.75rem;
-  white-space: pre;
-  text-align: left;
-  padding-left: 1rem;
-  line-height: 2rem;
-}
-
-/* Optional blinking cursor */
-.morse-typewriter::after {
-  content: '|';
-  animation: blink 1s step-end infinite;
-}
-
-@keyframes blink {
-  50% {
-    opacity: 0;
-  }
-}
-
-/* Sound Button (Fixed Left) */
-.enable-sound-button-fixed {
-  position: absolute;
-  left: 20%;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  z-index: 10;
-}
-
-.enable-sound-image {
-  width: 80px;
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
 /* ON AIR / OFF AIR Block */
 .onair-status-block {
   display: flex;
