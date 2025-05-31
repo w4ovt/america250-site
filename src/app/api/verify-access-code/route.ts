@@ -1,45 +1,68 @@
 import { NextResponse } from 'next/server';
-import { db } from '../../../../db/drizzle';
+import { db } from '@db/drizzle';
 import { volunteer_activations } from '@db/schema';
-// POST /api/volunteer
-export async function POST(request: Request) {
-  try {
-    const data = await request.json();
+import { eq } from 'drizzle-orm';
 
-    // Basic validation (expand as needed)
-    const { frequency, mode, operator_name, state, start_time, end_time } = data;
+export async function POST(req: Request) {
+  try {
+    const data = await req.json();
+    const {
+      frequency,
+      mode,
+      operator_name,
+      callsign,       // NEW FIELD
+      state,
+      start_time,
+      end_time,
+    } = data;
+
+    // Validate all required fields
     if (
       !frequency ||
       !mode ||
       !operator_name ||
+      !callsign ||
       !state ||
       !start_time ||
       !end_time
     ) {
       return NextResponse.json(
-        { error: 'All fields are required.' },
+        { success: false, error: 'All fields are required.' },
         { status: 400 }
       );
     }
 
-    // Write to Neon DB
-    const result = await db.insert(volunteer_activations).values({
+    // Get the cumulative activation number (N + 1)
+    const totalCount = await db.select().from(volunteer_activations);
+    const activation_number = totalCount.length + 1;
+
+    // Get the per-operator activation number (N + 1 for this operator)
+    const operatorCount = await db
+      .select()
+      .from(volunteer_activations)
+      .where(eq(volunteer_activations.operator_name, operator_name));
+    const operator_activation_number = operatorCount.length + 1;
+
+    // Insert new activation
+    await db.insert(volunteer_activations).values({
       frequency,
       mode,
       operator_name,
+      callsign,     // NEW FIELD
       state,
       start_time,
       end_time,
     });
 
+    return NextResponse.json({
+      success: true,
+      activation_number,
+      operator_activation_number,
+    });
+  } catch (error) {
+    console.error('Submission error:', error);
     return NextResponse.json(
-      { message: 'Activation logged successfully.', result },
-      { status: 200 }
-    );
-  } catch (err: any) {
-    console.error('API error:', err);
-    return NextResponse.json(
-      { error: 'Internal server error.', details: err.message },
+      { success: false, error: 'Failed to submit activation' },
       { status: 500 }
     );
   }

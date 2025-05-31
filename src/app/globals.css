@@ -20,6 +20,164 @@ html {
   min-height: 100vh;
 }
 
+.america250-navbar {
+  width: 100vw;
+  height: 90px; /* Make this as tall as you want the nav */
+  display: flex;
+  align-items: center;
+  background: linear-gradient(to right, #6d4c28 0%, #896037 100%);
+  box-shadow: none;
+  position: relative;
+  z-index: 12;
+}
+
+.america250-navbar-inner {
+   width: 100vw;
+  max-width: 110vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 92px;        /* Set same as navbar */
+  gap: 2vw;
+  position: relative;
+}
+
+.navbar-home-link {
+  display: flex;
+  align-items: center;
+  height: 92px;
+  margin-right: 1vw;
+}
+
+.navbar-home-icon-label {
+   display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 92px;
+}
+
+.navbar-home-text {
+  font-family: 'Goudy Old Style', serif;
+  font-size: 2.14rem;
+  color: #f5e9c5;
+  font-weight: 700;
+  margin-left: 0.5rem;
+  letter-spacing: 0.07em;
+  /* Remove underline if present: */
+  text-decoration: none;
+}
+
+.america250-navbar-links {
+  display: flex;
+  gap: 3.4vw;
+  flex: 1;
+  justify-content: flex-start;
+  /* Left-align for better visual centering */
+}
+
+.america250-navbar-link {
+  text-decoration: none;
+  color: #cfb06e;
+  font-family: 'Goudy Old Style', serif;
+  font-weight: 600;
+  font-size: 1.18rem;
+  text-shadow: 0 1.2px 2px #5c421a70;
+  letter-spacing: 0.03em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: color 0.16s, text-shadow 0.18s;
+  line-height: 1.22;
+}
+
+.america250-navbar-link.active,
+.america250-navbar-link:hover {
+  color: #ffdb8a;
+  text-shadow: 0 2px 12px #c6a034c0;
+  cursor: pointer;
+}
+
+.navbar-link-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.18em;
+  font-size: 1.21em;
+  text-decoration: none !important;
+}
+
+.navbar-link-bottom {
+  margin-top: 0.06em;
+  font-size: 0.98em;
+  letter-spacing: 0.01em;
+  font-weight: 500;
+}
+
+.america250-navbar-separator {
+  width: 100vw;
+  height: 6px;
+  background: linear-gradient(90deg,
+      #c6a034 0%,
+      #b28e48 38%,
+      #ffdb8a 60%,
+      #9c7b37 100%);
+  border-bottom: 1.5px solid #6b5023;
+  box-shadow: 0 2px 6px #835f209c;
+  margin-bottom: 0;
+  margin-top: -2px;
+}
+
+/* Remove underline on all links */
+.america250-navbar-link,
+.america250-navbar-link:visited,
+.america250-navbar-link:active {
+  text-decoration: none !important;
+}
+
+.america250-navbar-hamburger {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .america250-navbar-hamburger {
+    display: block;
+    /* Add your mobile styles here */
+  }
+
+  .america250-navbar-links {
+    display: none;
+    /* Hide links, unless open */
+  }
+
+  .america250-navbar-links.open {
+    display: flex;
+    /* Show links if menu is open */
+    flex-direction: column;
+    background: #52381a;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    width: 100vw;
+    z-index: 20;
+    padding: 1.2rem 0;
+  }
+}
+
+/* Responsive: slightly smaller text/icon on mobile */
+@media (max-width: 900px) {
+  .america250-navbar-inner {
+    height: 62px;
+  }
+
+  .navbar-home-text {
+    font-size: 1.2rem;
+  }
+
+  .america250-navbar-links {
+    gap: 1vw;
+  }
+}
+
 /* Header Image */
 .america250-header-image {
   width: 100%;

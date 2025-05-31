@@ -1,11 +1,18 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+const MODE_OPTIONS = [
+  'SSB', 'CW', 'FT8', 'FT4', 'FM', 'AM', 'PSK31', 'Olivia', 'Thor', 'EchoLink', 'RTTY'
+];
+const OPERATOR_OPTIONS = ['Marc Bowen'];
+const CALLSIGN_OPTIONS = ['W4OVT'];
 
 const initialForm = {
   frequency: '',
-  mode: '',
-  operator_name: '',
+  mode: MODE_OPTIONS[0],
+  operator_name: OPERATOR_OPTIONS[0],
+  callsign: CALLSIGN_OPTIONS[0],
   state: '',
   start_time: '',
   end_time: '',
@@ -16,9 +23,24 @@ export default function VolunteerForm() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [activationCount, setActivationCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    fetch('/api/activations/count')
+      .then(res => res.json())
+      .then(data => setActivationCount(data.count))
+      .catch(() => setActivationCount(null));
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (name === "state") {
+      setForm({ ...form, [name]: value.toUpperCase() });
+    } else if (name === "callsign") {
+      setForm({ ...form, [name]: value.toUpperCase() });
+    } else {
+      setForm({ ...form, [name]: value });
+    }
     setError(null);
     setMessage(null);
   };
@@ -29,16 +51,27 @@ export default function VolunteerForm() {
     setError(null);
     setMessage(null);
 
-    // Basic front-end validation
+    // Front-end validation
     if (
       !form.frequency ||
       !form.mode ||
       !form.operator_name ||
+      !form.callsign ||
       !form.state ||
       !form.start_time ||
       !form.end_time
     ) {
       setError('All fields are required.');
+      setLoading(false);
+      return;
+    }
+    if (/\s/.test(form.callsign)) {
+      setError('Callsign must be a single word (no spaces).');
+      setLoading(false);
+      return;
+    }
+    if (form.state.length !== 2) {
+      setError('State must be a 2-letter abbreviation.');
       setLoading(false);
       return;
     }
@@ -57,6 +90,11 @@ export default function VolunteerForm() {
       } else {
         setMessage('Activation logged successfully!');
         setForm(initialForm); // Clear form
+        // Refresh activation count
+        fetch('/api/activations/count')
+          .then(res => res.json())
+          .then(data => setActivationCount(data.count))
+          .catch(() => setActivationCount(null));
       }
     } catch (err: any) {
       setError('Submission failed. Please try again.');
@@ -84,6 +122,16 @@ export default function VolunteerForm() {
         Volunteer Activation Form
       </h2>
 
+      <div
+        className="activation-count-banner"
+        style={{ marginBottom: '1.5rem', fontSize: '1.3rem', fontWeight: 'bold' }}
+      >
+        {activationCount !== null
+          ? <>Current activation number: <span style={{ color: '#7a5230' }}>{activationCount}</span></>
+          : <>Loading activation number...</>
+        }
+      </div>
+
       <label>
         Frequency<br />
         <input
@@ -98,26 +146,47 @@ export default function VolunteerForm() {
 
       <label>
         Mode<br />
-        <input
-          type="text"
+        <select
           name="mode"
           value={form.mode}
           onChange={handleChange}
           style={{ width: '100%', marginBottom: 12, fontSize: '1rem' }}
           required
-        />
+        >
+          {MODE_OPTIONS.map(mode => (
+            <option key={mode} value={mode}>{mode}</option>
+          ))}
+        </select>
       </label>
 
       <label>
         Operator Name<br />
-        <input
-          type="text"
+        <select
           name="operator_name"
           value={form.operator_name}
           onChange={handleChange}
           style={{ width: '100%', marginBottom: 12, fontSize: '1rem' }}
           required
-        />
+        >
+          {OPERATOR_OPTIONS.map(op => (
+            <option key={op} value={op}>{op}</option>
+          ))}
+        </select>
+      </label>
+
+      <label>
+        Callsign<br />
+        <select
+          name="callsign"
+          value={form.callsign}
+          onChange={handleChange}
+          style={{ width: '100%', marginBottom: 12, fontSize: '1rem', textTransform: 'uppercase' }}
+          required
+        >
+          {CALLSIGN_OPTIONS.map(callsign => (
+            <option key={callsign} value={callsign}>{callsign}</option>
+          ))}
+        </select>
       </label>
 
       <label>
