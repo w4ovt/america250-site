@@ -186,6 +186,8 @@ html {
   max-width: 1440px;
   display: block;
   margin: 0 auto;
+  /* 👇👇👇 Add or edit this line to control brightness/contrast */
+  filter: brightness(1.7) contrast(1.6);
 }
 
 /* Subtitle Block */

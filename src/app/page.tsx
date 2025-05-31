@@ -46,6 +46,7 @@ export default function Home() {
         <img
           src="/america250-website-header.webp"
           alt="America 250 Header"
+          className="america250-header-image"           // 👈 ADD THIS LINE
           style={{
             display: 'block',
             width: '100vw',
