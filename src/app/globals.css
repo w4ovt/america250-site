@@ -22,7 +22,8 @@ html {
 
 .america250-navbar {
   width: 100vw;
-  height: 90px; /* Make this as tall as you want the nav */
+  height: 90px;
+  /* Make this as tall as you want the nav */
   display: flex;
   align-items: center;
   background: linear-gradient(to right, #6d4c28 0%, #896037 100%);
@@ -32,12 +33,13 @@ html {
 }
 
 .america250-navbar-inner {
-   width: 100vw;
+  width: 100vw;
   max-width: 110vw;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 92px;        /* Set same as navbar */
+  height: 92px;
+  /* Set same as navbar */
   gap: 2vw;
   position: relative;
 }
@@ -50,7 +52,7 @@ html {
 }
 
 .navbar-home-icon-label {
-   display: flex;
+  display: flex;
   flex-direction: row;
   align-items: center;
   height: 92px;
@@ -193,15 +195,26 @@ html {
   margin-bottom: 2rem;
 }
 
-.handcarved-title {
-  font-family: 'baskerville-old-style', serif;
-  font-weight: normal;
-  font-size: 10rem;
-  letter-spacing: 0.5rem;
+.america250-header-text {
+  font-family: 'Goudy Old Style', serif;
+  font-size: clamp(4rem, 8vw, 9rem);
+  font-weight: bold;
+  font-style: normal;
+  /* Remove italics */
+  color: #2e1a08;
+  /* Deep brown/black */
+  letter-spacing: 0.07em;
   text-align: center;
-  margin-top: 1.5rem;
-  margin-bottom: 0.25rem;
-  text-transform: uppercase;
+  line-height: 1.02;
+  text-shadow:
+    0 3.5px 12px #d5b061,
+    0 2px 3px #5a4322,
+    0 0.5px 0 #fffbe8;
+  -webkit-text-stroke: 1.8px #b99c64;
+  /* soft bronze stroke */
+  /* Optional: background: linear-gradient(90deg, #f7ecd1 0%, #f0d493 100%); */
+  /* -webkit-background-clip: text; */
+  /* -webkit-text-fill-color: transparent; */
 }
 
 /* ON AIR / OFF AIR Block */

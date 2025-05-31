@@ -85,16 +85,7 @@ export default function Home() {
         }}
       >
         {/* --- PAGE TITLE --- */}
-        <h1
-          style={{
-            fontFamily: "'Goudy Old Style', serif",
-            fontSize: '6vw',
-            marginTop: '2vw',
-            marginBottom: '1.5vw',
-            letterSpacing: '0.03em',
-            textAlign: 'center',
-          }}
-        >
+        <h1 className="america250-header-text">
           AMERICA250
         </h1>
 
@@ -166,6 +157,6 @@ export default function Home() {
           animation: onAirFlash 1.07s steps(1) infinite;
         }
       `}</style>
-    </main>
+    </main >
   );
 }
