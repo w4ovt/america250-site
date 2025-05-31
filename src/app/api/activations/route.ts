@@ -31,6 +31,7 @@ export async function POST(req: Request) {
       frequency,
       mode,
       operator_name,
+      callsign,
       state,
       start_time,
       end_time,
