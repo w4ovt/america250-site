@@ -1,8 +1,8 @@
 /* styles/globals.css */
 
 @font-face {
-  font-family: 'Caslon Antique';
-  src: url('/fonts/caslon-antique.ttf') format('truetype');
+  font-family: 'Caslon';
+  src: url('/fonts/caslon.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -11,7 +11,7 @@ body,
 html {
   margin: 0;
   padding: 0;
-  font-family: 'Goudy Oldstyle', serif;
+  font-family: 'Caslon' serif;
   background-image: url('/america-250-md-parchment-1440-tall.webp');
   background-repeat: repeat-y;
   background-size: 100% auto;
@@ -20,14 +20,14 @@ html {
   min-height: 100vh;
 }
 
+/* --- Navigation --- */
 .america250-navbar {
   width: 100vw;
   height: 90px;
-  /* Make this as tall as you want the nav */
   display: flex;
   align-items: center;
   background: linear-gradient(to right, #6d4c28 0%, #896037 100%);
-  box-shadow: none;
+  box-shadow: none;  
   position: relative;
   z-index: 12;
 }
@@ -39,7 +39,6 @@ html {
   align-items: center;
   justify-content: center;
   height: 92px;
-  /* Set same as navbar */
   gap: 2vw;
   position: relative;
 }
@@ -59,13 +58,12 @@ html {
 }
 
 .navbar-home-text {
-  font-family: 'Goudy Old Style', serif;
+  font-family: 'Caslon', serif;
   font-size: 2.14rem;
   color: #f5e9c5;
   font-weight: 700;
   margin-left: 0.5rem;
   letter-spacing: 0.07em;
-  /* Remove underline if present: */
   text-decoration: none;
 }
 
@@ -74,13 +72,12 @@ html {
   gap: 3.4vw;
   flex: 1;
   justify-content: flex-start;
-  /* Left-align for better visual centering */
 }
 
 .america250-navbar-link {
   text-decoration: none;
   color: #cfb06e;
-  font-family: 'Goudy Old Style', serif;
+  font-family: 'Caslon', serif;
   font-weight: 600;
   font-size: 1.18rem;
   text-shadow: 0 1.2px 2px #5c421a70;
@@ -89,7 +86,7 @@ html {
   flex-direction: column;
   align-items: center;
   transition: color 0.16s, text-shadow 0.18s;
-  line-height: 1.22;
+  line-height: 1.25;
 }
 
 .america250-navbar-link.active,
@@ -104,7 +101,7 @@ html {
   flex-direction: column;
   align-items: center;
   gap: 0.18em;
-  font-size: 1.21em;
+  font-size: 1.25em;
   text-decoration: none !important;
 }
 
@@ -143,17 +140,12 @@ html {
 @media (max-width: 900px) {
   .america250-navbar-hamburger {
     display: block;
-    /* Add your mobile styles here */
   }
-
   .america250-navbar-links {
     display: none;
-    /* Hide links, unless open */
   }
-
   .america250-navbar-links.open {
     display: flex;
-    /* Show links if menu is open */
     flex-direction: column;
     background: #52381a;
     position: absolute;
@@ -168,29 +160,26 @@ html {
 /* Responsive: slightly smaller text/icon on mobile */
 @media (max-width: 900px) {
   .america250-navbar-inner {
-    height: 62px;
+    height: 65px;
   }
-
   .navbar-home-text {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
   }
-
   .america250-navbar-links {
     gap: 1vw;
   }
 }
 
-/* Header Image */
+/* --- Header Image --- */
 .america250-header-image {
   width: 100%;
   max-width: 1440px;
   display: block;
   margin: 0 auto;
-  /* 👇👇👇 Add or edit this line to control brightness/contrast */
-  filter: brightness(1.5) contrast(1.5);
+  filter: brightness(1.5) contrast(1.1);
 }
 
-/* Subtitle Block */
+/* --- Subtitle Block --- */
 .america250-stack {
   text-align: center;
   margin-top: 2rem;
@@ -198,28 +187,35 @@ html {
 }
 
 .america250-header-text {
-  font-family: 'Goudy Old Style', serif;
-  font-size: clamp(4rem, 8vw, 9rem);
+  font-family: 'Caslon', serif;
+  font-size: clamp(6rem, 12vw, 10rem);
   font-weight: bold;
-  font-style: normal;
-  /* Remove italics */
   color: #2e1a08;
-  /* Deep brown/black */
-  letter-spacing: 0.07em;
+  letter-spacing: 0.11em;
   text-align: center;
   line-height: 1.02;
   text-shadow:
-    0 3.5px 12px #d5b061,
-    0 2px 3px #5a4322,
-    0 0.5px 0 #fffbe8;
-  -webkit-text-stroke: 1.8px #b99c64;
-  /* soft bronze stroke */
-  /* Optional: background: linear-gradient(90deg, #f7ecd1 0%, #f0d493 100%); */
-  /* -webkit-background-clip: text; */
-  /* -webkit-text-fill-color: transparent; */
+    0 2.2px 8px #b99c64,
+    0 1.5px 0 #fffbe8,
+    0 0.5px 0 #6b4a1a,
+    0 3px 12px #b99c64aa;
+  -webkit-text-stroke: 1.2px #b99c64;
+  font-variant-ligatures: discretionary-ligatures;
+  font-variant-caps: all-petite-caps;
 }
 
-/* ON AIR / OFF AIR Block */
+.america250-header-subtitle {
+  font-family: 'Caslon', serif;
+  font-size: 4.2rem;
+  color: #7b5b2a;
+  letter-spacing: 0.06em;
+  font-style: italic;
+  margin-top: -4rem;
+  text-shadow: 0 1px 4px #e8dab2;
+  font-variant-caps: small-caps;
+}
+
+/* --- ON AIR / OFF AIR Block --- */
 .onair-status-block {
   display: flex;
   justify-content: center;
@@ -231,18 +227,14 @@ html {
   height: auto;
   transition: transform 0.3s ease-in-out;
 }
-
 .onair-badge:hover {
   transform: scale(1.05);
 }
 
-/* VolunteerForm.module.css */
-
+/* --- Volunteer Form Styling (modernized) --- */
 .form-container {
   background: #fff8dc;
-  /* light parchment */
   border: 2.5px solid #6b4423;
-  /* mahogany */
   border-radius: 16px;
   box-shadow: 0 6px 12px rgba(107, 68, 35, 0.3);
   padding: 2.5rem;
@@ -300,9 +292,7 @@ html {
   width: 100%;
   padding: 0.85rem;
   background-color: #7a4d12;
-  /* mahogany */
   color: #fff8dc;
-  /* parchment */
   border: none;
   border-radius: 10px;
   font-size: 1.15rem;

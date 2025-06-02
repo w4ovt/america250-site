@@ -1,31 +1,38 @@
 /* src/app/volunteer/VolunteerForm.module.css */
 
-.formContainer {
-  background: rgba(255, 255, 240, 0.96);
-  border: 6px solid #4a2e05; /* thicker mahogany border */
-  border-radius: 16px;
-  padding: 3rem 4rem;
-  max-width: 700px;
-  margin: 2rem auto;
+.panelContainer {
+  background: linear-gradient(180deg, #f8ecd8 80%, #ede0c5 100%);
+  border: 10px solid #6e4314;
+  border-radius: 26px;
+  max-width: 740px;
+  margin: 2.5rem auto 0 auto;
   font-family: 'Goudy Oldstyle', serif;
   box-shadow:
-    inset 0 0 20px #6a4b0d, /* inner glow for wood grain effect */
-    0 10px 40px rgba(74, 46, 5, 0.7); /* outer shadow */
+    0 0 0 10px #a37c4c,
+    0 8px 44px 0 #5d3b12a0,
+    inset 0 0 48px #c9a36b44;
+  padding: 3rem 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.title {
+.panelTitle {
   text-align: center;
   font-size: 2rem;
-  margin-bottom: 2rem;
   font-weight: bold;
   color: #4a2e05;
+  margin-bottom: 2rem;
+  font-family: 'Goudy Oldstyle', serif;
+  letter-spacing: 0.01em;
+  text-shadow: 0 1.2px 2px #b99958;
 }
 
-.activationCount {
-  margin-bottom: 1.5rem;
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #7a5230;
+.formFields {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .label {
@@ -35,6 +42,8 @@
   font-size: 1.25rem;
   text-transform: uppercase;
   color: #4a2e05;
+  width: 100%;
+  text-align: center;
 }
 
 .input,
@@ -48,6 +57,7 @@
   background-color: #fffbea;
   box-sizing: border-box;
   text-transform: uppercase;
+  text-align: center;
 }
 
 .input:focus,
@@ -57,27 +67,8 @@
   background-color: #fffdfa;
 }
 
-.error {
-  color: #8b0000;
-  background: #fff6f6;
-  border: 1px solid #e9b3b3;
-  padding: 0.75rem;
-  margin-bottom: 1.5rem;
-  border-radius: 6px;
-  font-size: 1.1rem;
-}
-
-.message {
-  color: #155724;
-  background: #d4edda;
-  border: 1px solid #c3e6cb;
-  padding: 0.75rem;
-  margin-bottom: 1.5rem;
-  border-radius: 6px;
-  font-size: 1.1rem;
-}
-
-.submitButton {
+.submitButton,
+.endButton {
   width: 100%;
   padding: 1.25rem 0;
   font-size: 1.5rem;
@@ -89,31 +80,31 @@
   transition: background-color 0.3s ease;
   font-weight: 700;
   letter-spacing: 0.05em;
+  margin-bottom: 1.2rem;
 }
 
-.submitButton:hover:not(:disabled) {
+.submitButton:hover:not(:disabled),
+.endButton:hover:not(:disabled) {
   background-color: #6a3e07;
 }
 
-.submitButton:disabled {
+.submitButton:disabled,
+.endButton:disabled {
   background-color: #d1b75a;
   cursor: not-allowed;
   opacity: 0.8;
 }
 
-/* Responsive adjustments for smaller screens */
+/* Responsive for both panels */
 @media (max-width: 768px) {
-  .formContainer {
-    padding: 2rem 2.5rem;
-    max-width: 90vw;
+  .panelContainer {
+    padding: 2rem 1rem;
+    max-width: 96vw;
+    border-width: 7px;
+    border-radius: 16px;
   }
-  .title {
-    font-size: 1.75rem;
-  }
-  .label,
-  .input,
-  .select,
-  .submitButton {
-    font-size: 1.1rem;
+
+  .panelTitle {
+    font-size: 1.5rem;
   }
 }

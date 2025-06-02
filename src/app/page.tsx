@@ -4,8 +4,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import NavBar from './components/NavBar';      // Adjust path as needed
-import MorseBlock from './components/MorseBlock'; // Adjust path as needed
+import MorseBlock from '@/components/MorseBlock';
 
 // Dummy fetch function; replace with actual Neon DB/API fetch for production
 async function fetchIsOnAir(): Promise<boolean> {
@@ -30,8 +29,7 @@ export default function Home() {
         overflowX: 'hidden',
       }}
     >
-      {/* --- NAVIGATION BAR AT TOP --- */}
-      <NavBar />
+
 
       {/* --- HEADER IMAGE --- */}
       <div
@@ -89,9 +87,8 @@ export default function Home() {
         }}
       >
         {/* --- PAGE TITLE --- */}
-        <h1 className="america250-header-text">
-          AMERICA250
-        </h1>
+        <h1 className="america250-header-text">AMERICA250</h1>
+        <div className="america250-header-subtitle">Commemorating America's Declaration of Independence</div>
 
         {/* --- MORSE CODE ANIMATION --- */}
         <MorseBlock />
