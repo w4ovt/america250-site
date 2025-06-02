@@ -88,62 +88,64 @@ export default function Home() {
       >
         {/* --- PAGE TITLE --- */}
         <h1 className="america250-header-text">AMERICA250</h1>
-        <div className="america250-header-subtitle">Commemorating America's Declaration of Independence</div>
-
-        {/* --- MORSE CODE ANIMATION --- */}
-        <MorseBlock />
-
-        {/* --- ON AIR / OFF AIR BADGE --- */}
-        <div
-          className="onair-status-block"
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            margin: '2.5vw 0 1.2vw 0',
-            width: '100%',
-            minHeight: 150,
-          }}
-        >
-          {isOnAir ? (
-            <Image
-              src="/onair-badge.png"
-              alt="ON AIR"
-              width={600}
-              height={600}
-              className="onair-badge onair-flash"
-              style={{
-                width: 600,
-                height: 'auto',
-                maxWidth: '98vw',
-                animation: 'onAirFlash 1s steps(1) infinite',
-                boxShadow: '0 0 36px #e73c07, 0 0 10px #ffd700',
-              }}
-              priority
-              draggable={false}
-            />
-          ) : (
-            <Image
-              src="/offair-badge.png"
-              alt="OFF AIR"
-              width={600}
-              height={600}
-              className="onair-badge"
-              style={{
-                width: 600,
-                height: 'auto',
-                maxWidth: '98vw',
-                filter: 'grayscale(35%)',
-              }}
-              priority
-              draggable={false}
-            />
-          )}
-        </div>
+      <div className="america250-header-subtitle">
+        Commemorating America&apos;s Declaration of Independence
       </div>
 
-      {/* --- ON AIR FLASH ANIMATION KEYFRAMES --- */}
-      <style jsx global>{`
+      {/* --- MORSE CODE ANIMATION --- */}
+      <MorseBlock />
+
+      {/* --- ON AIR / OFF AIR BADGE --- */}
+      <div
+        className="onair-status-block"
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          margin: '2.5vw 0 1.2vw 0',
+          width: '100%',
+          minHeight: 150,
+        }}
+      >
+        {isOnAir ? (
+          <Image
+            src="/onair-badge.png"
+            alt="ON AIR"
+            width={600}
+            height={600}
+            className="onair-badge onair-flash"
+            style={{
+              width: 600,
+              height: 'auto',
+              maxWidth: '98vw',
+              animation: 'onAirFlash 1s steps(1) infinite',
+              boxShadow: '0 0 36px #e73c07, 0 0 10px #ffd700',
+            }}
+            priority
+            draggable={false}
+          />
+        ) : (
+          <Image
+            src="/offair-badge.png"
+            alt="OFF AIR"
+            width={600}
+            height={600}
+            className="onair-badge"
+            style={{
+              width: 600,
+              height: 'auto',
+              maxWidth: '98vw',
+              filter: 'grayscale(35%)',
+            }}
+            priority
+            draggable={false}
+          />
+        )}
+      </div>
+    </div>
+
+      {/* --- ON AIR FLASH ANIMATION KEYFRAMES --- */ }
+  <style jsx global>{`
         @keyframes onAirFlash {
           0%, 60% {
             opacity: 1;
