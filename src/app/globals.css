@@ -1,326 +1,110 @@
-/* styles/globals.css */
-
+/* === FONT FACE DEFINITIONS === */
 @font-face {
-  font-family: 'Caslon';
-  src: url('/fonts/caslon.ttf') format('truetype');
+  font-family: 'caslon-antique';
+  src: url('/fonts/caslon-antique.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
-body,
+/* === GLOBAL BASE STYLES === */
 html {
+  box-sizing: border-box;
+  background-color: #f6ecd2; /* Fallback parchment color */
+}
+
+body {
   margin: 0;
   padding: 0;
-  font-family: 'Caslon' serif;
+  font-family: 'caslon-antique', serif;
   background-image: url('/america-250-md-parchment-1440-tall.webp');
   background-repeat: repeat-y;
   background-size: 100% auto;
   background-position: top center;
   background-attachment: fixed;
   min-height: 100vh;
+  background-color: #f6ecd2; /* Fallback parchment color */
 }
 
-/* --- Navigation --- */
-.america250-navbar {
-  width: 100vw;
-  height: 90px;
-  display: flex;
-  align-items: center;
-  background: linear-gradient(to right, #6d4c28 0%, #896037 100%);
-  box-shadow: none;  
-  position: relative;
-  z-index: 12;
+/* Always use border-box sizing everywhere */
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
 }
 
-.america250-navbar-inner {
-  width: 100vw;
-  max-width: 110vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 92px;
-  gap: 2vw;
-  position: relative;
-}
-
-.navbar-home-link {
-  display: flex;
-  align-items: center;
-  height: 92px;
-  margin-right: 1vw;
-}
-
-.navbar-home-icon-label {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  height: 92px;
-}
-
-.navbar-home-text {
-  font-family: 'Caslon', serif;
-  font-size: 2.14rem;
-  color: #f5e9c5;
-  font-weight: 700;
-  margin-left: 0.5rem;
-  letter-spacing: 0.07em;
-  text-decoration: none;
-}
-
-.america250-navbar-links {
-  display: flex;
-  gap: 3.4vw;
-  flex: 1;
-  justify-content: flex-start;
-}
-
-.america250-navbar-link {
-  text-decoration: none;
-  color: #cfb06e;
-  font-family: 'Caslon', serif;
-  font-weight: 600;
-  font-size: 1.18rem;
-  text-shadow: 0 1.2px 2px #5c421a70;
-  letter-spacing: 0.03em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: color 0.16s, text-shadow 0.18s;
-  line-height: 1.25;
-}
-
-.america250-navbar-link.active,
-.america250-navbar-link:hover {
-  color: #ffdb8a;
-  text-shadow: 0 2px 12px #c6a034c0;
-  cursor: pointer;
-}
-
-.navbar-link-label {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.18em;
-  font-size: 1.25em;
-  text-decoration: none !important;
-}
-
-.navbar-link-bottom {
-  margin-top: 0.06em;
-  font-size: 0.98em;
-  letter-spacing: 0.01em;
-  font-weight: 500;
-}
-
-.america250-navbar-separator {
-  width: 100vw;
-  height: 6px;
-  background: linear-gradient(90deg,
-      #c6a034 0%,
-      #b28e48 38%,
-      #ffdb8a 60%,
-      #9c7b37 100%);
-  border-bottom: 1.5px solid #6b5023;
-  box-shadow: 0 2px 6px #835f209c;
-  margin-bottom: 0;
-  margin-top: -2px;
-}
-
-/* Remove underline on all links */
-.america250-navbar-link,
-.america250-navbar-link:visited,
-.america250-navbar-link:active {
-  text-decoration: none !important;
-}
-
-.america250-navbar-hamburger {
-  display: none;
-}
-
-@media (max-width: 900px) {
-  .america250-navbar-hamburger {
-    display: block;
-  }
-  .america250-navbar-links {
-    display: none;
-  }
-  .america250-navbar-links.open {
-    display: flex;
-    flex-direction: column;
-    background: #52381a;
-    position: absolute;
-    top: 64px;
-    left: 0;
-    width: 100vw;
-    z-index: 20;
-    padding: 1.2rem 0;
-  }
-}
-
-/* Responsive: slightly smaller text/icon on mobile */
-@media (max-width: 900px) {
-  .america250-navbar-inner {
-    height: 65px;
-  }
-  .navbar-home-text {
-    font-size: 1.3rem;
-  }
-  .america250-navbar-links {
-    gap: 1vw;
-  }
-}
-
-/* --- Header Image --- */
-.america250-header-image {
-  width: 100%;
-  max-width: 1440px;
-  display: block;
-  margin: 0 auto;
-  filter: brightness(1.5) contrast(1.1);
-}
-
-/* --- Subtitle Block --- */
-.america250-stack {
-  text-align: center;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
-
-.america250-header-text {
-  font-family: 'Caslon', serif;
-  font-size: clamp(6rem, 12vw, 10rem);
-  font-weight: bold;
-  color: #2e1a08;
-  letter-spacing: 0.11em;
-  text-align: center;
-  line-height: 1.02;
-  text-shadow:
-    0 2.2px 8px #b99c64,
-    0 1.5px 0 #fffbe8,
-    0 0.5px 0 #6b4a1a,
-    0 3px 12px #b99c64aa;
-  -webkit-text-stroke: 1.2px #b99c64;
-  font-variant-ligatures: discretionary-ligatures;
-  font-variant-caps: all-petite-caps;
-}
-
-.america250-header-subtitle {
-  font-family: 'Caslon', serif;
-  font-size: 4.2rem;
-  color: #7b5b2a;
-  letter-spacing: 0.06em;
-  font-style: italic;
-  margin-top: -4rem;
-  text-shadow: 0 1px 4px #e8dab2;
-  font-variant-caps: small-caps;
-}
-
-/* --- ON AIR / OFF AIR Block --- */
-.onair-status-block {
-  display: flex;
-  justify-content: center;
-  margin: 2rem 0;
-}
-
-.onair-badge {
-  width: 250px;
-  height: auto;
-  transition: transform 0.3s ease-in-out;
-}
-.onair-badge:hover {
-  transform: scale(1.05);
-}
-
-/* --- Volunteer Form Styling (modernized) --- */
-.form-container {
-  background: #fff8dc;
-  border: 2.5px solid #6b4423;
-  border-radius: 16px;
-  box-shadow: 0 6px 12px rgba(107, 68, 35, 0.3);
-  padding: 2.5rem;
-  max-width: 480px;
-  margin: 3rem auto;
-  font-family: 'Goudy Oldstyle', serif;
-  color: #3e2c14;
-}
-
-.form-title {
-  text-align: center;
-  font-weight: 700;
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-  text-shadow: 0 1.2px 2px #b99958;
-}
-
-.activation-count-banner {
-  font-weight: 600;
-  font-size: 1.3rem;
-  margin-bottom: 1.5rem;
-  color: #a2752a;
-}
-
-.form-label {
-  display: block;
-  margin-bottom: 0.3rem;
-  font-weight: 600;
-  font-size: 1rem;
-  color: #5b3e11;
-}
-
-.form-input,
-.form-select {
-  width: 100%;
-  padding: 0.45rem 0.6rem;
-  margin-bottom: 1.25rem;
-  border: 1.8px solid #d1b874;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-family: 'Goudy Oldstyle', serif;
-  color: #3e2c14;
-  background-color: #fefae0;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.form-input:focus,
-.form-select:focus {
-  border-color: #7a4d12;
-  box-shadow: 0 0 6px 1.5px #a2752a8a;
+/* Remove outlines on mouse, keep for keyboard nav */
+*:focus:not(:focus-visible) {
   outline: none;
 }
 
-.submit-button {
-  width: 100%;
-  padding: 0.85rem;
-  background-color: #7a4d12;
-  color: #fff8dc;
+/* Remove default link styles */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+a:focus,
+a:hover {
+  text-decoration: underline;
+}
+
+/* Button resets */
+button {
+  font-family: inherit;
+  font-size: inherit;
+  background: none;
   border: none;
-  border-radius: 10px;
-  font-size: 1.15rem;
-  font-weight: 700;
+  color: inherit;
   cursor: pointer;
-  box-shadow: 0 4px 14px #a2752a9a;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  padding: 0;
+  margin: 0;
 }
 
-.submit-button:hover:enabled {
-  background-color: #996623;
-  box-shadow: 0 6px 22px #b2995f;
+/* Selection highlight */
+::selection {
+  background: #fff3cc;
+  color: #2e1a08;
 }
 
-.error-message {
-  background-color: #ffe1e0;
-  border: 1.6px solid #b33a3a;
-  color: #8b0000;
-  padding: 0.7rem;
-  border-radius: 8px;
-  margin-bottom: 1.2rem;
+/* Scrollbar (Webkit browsers only) */
+::-webkit-scrollbar {
+  width: 10px;
+  background: #ecd7ae;
 }
 
-.success-message {
-  background-color: #d7f2d7;
-  border: 1.6px solid #3e9f3e;
-  color: #155724;
-  padding: 0.7rem;
-  border-radius: 8px;
-  margin-bottom: 1.2rem;
+::-webkit-scrollbar-thumb {
+  background: #d0b075;
+  border-radius: 4px;
+}
+
+/* Heading defaults */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'caslon-antique', serif;
+  font-weight: bold;
+  color: #2e1a08;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+}
+
+/* Paragraph */
+p {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+  font-size: 1.08em;
+  line-height: 1.6;
+}
+
+/* Utility classes */
+.centered {
+  text-align: center;
+}
+
+.bold {
+  font-weight: bold;
 }

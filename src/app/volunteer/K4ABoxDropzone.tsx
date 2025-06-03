@@ -1,25 +1,16 @@
 // src/app/volunteer/K4ABoxDropzone.tsx
 
-import React, { useRef, useState, useEffect } from 'react';
+'use client';
+
+import React, { useRef, useState } from 'react';
+import Image from 'next/image';
 import styles from './VolunteerForm.module.css';
 
 const BOX_WIDTH = 700;
 const BOX_HEIGHT = 380;
 
 export default function K4ABoxDropzone() {
-  const [containerWidth, setContainerWidth] = useState(BOX_WIDTH);
   const audioRef = useRef<HTMLAudioElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleResize() {
-      const max = Math.min(window.innerWidth * 0.97, BOX_WIDTH);
-      setContainerWidth(max);
-    }
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   // Drag animation state
   const [isDragging, setIsDragging] = useState(false);
@@ -51,9 +42,6 @@ export default function K4ABoxDropzone() {
     }
   };
 
-  // Scale factor for responsiveness
-  const scale = containerWidth / BOX_WIDTH;
-
   return (
     <div className={styles.panelContainer} style={{ marginTop: '100px' }}>
       <div className={styles.panelTitle}>Drop .adi Log Files Here</div>
@@ -83,24 +71,23 @@ export default function K4ABoxDropzone() {
         Drag and Drop Your Log File Into the Box Below
       </div>
       <div
-        ref={containerRef}
         style={{
-          position: 'relative',
-          width: `${containerWidth}px`,
-          height: `${BOX_HEIGHT * scale}px`,
-          margin: '0 auto',
-          zIndex: 10,
-          userSelect: 'none',
-          maxWidth: '100vw',
-          touchAction: 'none',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          width: '100%',
+          minHeight: `${BOX_HEIGHT}px`,
           background: 'none',
           transition: 'box-shadow 0.3s',
           boxShadow: isDragging
             ? '0 12px 40px #d38e14b8, 0 2.5px 32px #a17c2399'
             : '0 8px 32px #b39c6866, 0 1.5px 22px #a68c5360',
+          userSelect: 'none',
+          touchAction: 'none',
+          margin: 0,
+          zIndex: 10,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: 0,
+          boxSizing: 'border-box'
         }}
         tabIndex={0}
         aria-label="K4A Log Dropbox"
@@ -110,12 +97,16 @@ export default function K4ABoxDropzone() {
         onDrop={handleDrop}
         role="region"
       >
-        <img
+        <Image
           src="/K4A-Log-Dropbox.png"
           alt="K4A Log Dropbox"
+          width={BOX_WIDTH}
+          height={BOX_HEIGHT}
           style={{
-            width: `${BOX_WIDTH * scale}px`,
-            height: `${BOX_HEIGHT * scale}px`,
+            width: '100%',
+            height: 'auto',
+            maxWidth: '100%',
+            maxHeight: '100%',
             pointerEvents: 'none',
             userSelect: 'none',
             display: 'block',
@@ -130,6 +121,7 @@ export default function K4ABoxDropzone() {
               : 'none',
           }}
           draggable={false}
+          priority={false}
         />
         <audio
           ref={audioRef}

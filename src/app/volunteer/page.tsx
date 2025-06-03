@@ -58,7 +58,7 @@ export default function VolunteerPage() {
               color: '#513404',
               letterSpacing: '0.02em',
               marginBottom: '2rem',
-              fontFamily: "'Goudy Oldstyle', serif"
+              fontFamily: "'goudystd', serif"
             }}>
               ENTER PIN NUMBER:
             </div>
@@ -76,7 +76,7 @@ export default function VolunteerPage() {
                 textAlign: 'center',
                 letterSpacing: '0.19em',
                 background: '#fff6e1',
-                fontFamily: "'Goudy Oldstyle', serif",
+                fontFamily: "'goudystd', serif",
                 marginBottom: 10
               }}
               maxLength={12}

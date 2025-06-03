@@ -1,12 +1,13 @@
 /* src/app/volunteer/VolunteerForm.module.css */
 
+/* USE YOUR ACTUAL FONT NAME: Replace with your registered font, e.g. 'goudystd' if that's your @font-face name. */
 .panelContainer {
+  width: 700px;
+  margin: 2.5rem auto 0 auto;
   background: linear-gradient(180deg, #f8ecd8 80%, #ede0c5 100%);
   border: 10px solid #6e4314;
   border-radius: 26px;
-  max-width: 740px;
-  margin: 2.5rem auto 0 auto;
-  font-family: 'Goudy Oldstyle', serif;
+  font-family: 'goudystd', serif;
   box-shadow:
     0 0 0 10px #a37c4c,
     0 8px 44px 0 #5d3b12a0,
@@ -15,6 +16,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-sizing: border-box;
 }
 
 .panelTitle {
@@ -23,7 +25,7 @@
   font-weight: bold;
   color: #4a2e05;
   margin-bottom: 2rem;
-  font-family: 'Goudy Oldstyle', serif;
+  font-family: 'goudystd', serif;
   letter-spacing: 0.01em;
   text-shadow: 0 1.2px 2px #b99958;
 }
@@ -98,10 +100,12 @@
 /* Responsive for both panels */
 @media (max-width: 768px) {
   .panelContainer {
+    width: 96vw;
     padding: 2rem 1rem;
-    max-width: 96vw;
     border-width: 7px;
     border-radius: 16px;
+    min-width: 0;
+    max-width: 98vw;
   }
 
   .panelTitle {

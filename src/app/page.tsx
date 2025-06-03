@@ -29,8 +29,6 @@ export default function Home() {
         overflowX: 'hidden',
       }}
     >
-
-
       {/* --- HEADER IMAGE --- */}
       <div
         style={{
@@ -44,8 +42,8 @@ export default function Home() {
         <Image
           src="/america250-website-header.webp"
           alt="America 250 Header"
-          width={1440}   // Use actual width in pixels
-          height={960}   // Use actual height in pixels
+          width={1440}
+          height={960}
           className="america250-header-image"
           style={{
             display: 'block',
@@ -56,6 +54,7 @@ export default function Home() {
             margin: 0,
             padding: 0,
             border: 'none',
+            filter: 'brightness(1.4) contrast(1.24)', // <-- RESTORED
           }}
           draggable={false}
           priority
@@ -87,65 +86,99 @@ export default function Home() {
         }}
       >
         {/* --- PAGE TITLE --- */}
-        <h1 className="america250-header-text">AMERICA250</h1>
-      <div className="america250-header-subtitle">
-        Commemorating America&apos;s Declaration of Independence
+        <h1
+          className="america250-header-text"
+          style={{
+            fontFamily: "'baskerville-old-style', serif",
+            fontSize: '3.5rem',
+            letterSpacing: '0.09em',
+            color: '#6c4624',
+            fontWeight: 700,
+            marginTop: '1.8rem',
+            marginBottom: '1.15rem',
+            textTransform: 'uppercase',
+            textAlign: 'center',
+          }}
+        >
+          AMERICA 250
+        </h1>
+
+        {/* --- MORSE CODE ANIMATION --- */}
+        <div style={{ marginBottom: '0.6rem', width: '100%', display: 'flex', justifyContent: 'center' }}>
+          <MorseBlock />
+        </div>
+
+        {/* --- SUBTITLE --- */}
+        <div
+          className="america250-header-subtitle"
+          style={{
+            fontFamily: "'americanscribe', serif",
+            fontSize: '1.6rem',
+            color: '#6c4624',
+            marginBottom: '1.8rem',
+            fontStyle: 'italic',
+            letterSpacing: '0.04em',
+            textTransform: 'uppercase',
+            textAlign: 'center',
+            maxWidth: 900,
+            marginLeft: 'auto',
+            marginRight: 'auto',
+          }}
+        >
+          Commemorating America&apos;s Declaration of Independence
+        </div>
+
+        {/* --- ON AIR / OFF AIR BADGE --- */}
+        <div
+          className="onair-status-block"
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            margin: '2.5vw 0 1.2vw 0',
+            width: '100%',
+            minHeight: 150,
+          }}
+        >
+          {isOnAir ? (
+            <Image
+              src="/onair-badge.png"
+              alt="ON AIR"
+              width={600}
+              height={600}
+              className="onair-badge onair-flash"
+              style={{
+                width: 600,
+                height: 'auto',
+                maxWidth: '98vw',
+                animation: 'onAirFlash 1s steps(1) infinite',
+                boxShadow: '0 0 36px #e73c07, 0 0 10px #ffd700',
+              }}
+              priority
+              draggable={false}
+            />
+          ) : (
+            <Image
+              src="/offair-badge.png"
+              alt="OFF AIR"
+              width={600}
+              height={600}
+              className="onair-badge"
+              style={{
+                width: 600,
+                height: 'auto',
+                maxWidth: '98vw',
+                filter: 'grayscale(35%)',
+              }}
+              priority
+              draggable={false}
+            />
+          )}
+        </div>
       </div>
 
-      {/* --- MORSE CODE ANIMATION --- */}
-      <MorseBlock />
-
-      {/* --- ON AIR / OFF AIR BADGE --- */}
-      <div
-        className="onair-status-block"
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          margin: '2.5vw 0 1.2vw 0',
-          width: '100%',
-          minHeight: 150,
-        }}
-      >
-        {isOnAir ? (
-          <Image
-            src="/onair-badge.png"
-            alt="ON AIR"
-            width={600}
-            height={600}
-            className="onair-badge onair-flash"
-            style={{
-              width: 600,
-              height: 'auto',
-              maxWidth: '98vw',
-              animation: 'onAirFlash 1s steps(1) infinite',
-              boxShadow: '0 0 36px #e73c07, 0 0 10px #ffd700',
-            }}
-            priority
-            draggable={false}
-          />
-        ) : (
-          <Image
-            src="/offair-badge.png"
-            alt="OFF AIR"
-            width={600}
-            height={600}
-            className="onair-badge"
-            style={{
-              width: 600,
-              height: 'auto',
-              maxWidth: '98vw',
-              filter: 'grayscale(35%)',
-            }}
-            priority
-            draggable={false}
-          />
-        )}
-      </div>
-    </div>
-
-      {/* --- ON AIR FLASH ANIMATION KEYFRAMES --- */ }
-  <style jsx global>{`
+      {/* --- ON AIR FLASH ANIMATION KEYFRAMES --- */}
+      <style jsx global>{`
         @keyframes onAirFlash {
           0%, 60% {
             opacity: 1;
@@ -160,6 +193,6 @@ export default function Home() {
           animation: onAirFlash 1.07s steps(1) infinite;
         }
       `}</style>
-    </main >
+    </main>
   );
 }
