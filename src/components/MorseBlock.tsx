@@ -5,6 +5,7 @@ import Image from 'next/image';
 import styles from './MorseBlock.module.css';
 
 const MORSE = '·- -- · ·-· ·· -·-· ·- ··--- ····· -----';
+const SUBTITLE = '“COMMEMORATING AMERICA\'S DECLARATION OF INDEPENDENCE”';
 
 function playMorseAudio(morse: string, onDone: () => void) {
   const AudioContextClass =
@@ -87,8 +88,8 @@ export default function MorseBlock() {
   }, []);
 
   return (
-    <div className={styles.morseContainerParent}>
-      <div className={styles.playButtonFixedWrapper}>
+    <div className={styles.morseCenterWrap}>
+      <div className={styles.morseRow}>
         <button
           className={styles.playButton}
           onClick={handlePlay}
@@ -99,18 +100,24 @@ export default function MorseBlock() {
           <Image
             src="/play-button.webp"
             alt="PLAY"
-            width={70}
-            height={70}
-            style={{ objectFit: 'contain', width: '100%', height: '100%' }}
+            width={150}
+            height={88}
+            style={{
+              objectFit: 'contain',
+              width: '100%',
+              height: 'auto',
+              maxWidth: '150px',
+              maxHeight: '88px',
+              display: 'block',
+            }}
             draggable={false}
             priority
           />
         </button>
-      </div>
-      <div className={styles.morseCodeCenterWrapper}>
-        <span className={styles.morseCodeStreamBackground}>
+        <div className={styles.morseCodeShell}>
+          <span className={styles.ghost}>{MORSE}</span>
           <span className={styles.morseCodeStream}>{display}</span>
-        </span>
+        </div>
       </div>
     </div>
   );

@@ -16,27 +16,24 @@
 }
 
 .toolbar-inner {
-  width: 100vw;
-  max-width: 1440px;
+  width: 1440px;             /* or whatever your site’s fixed max width is */
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 18px 0;
+  padding: 24px 0;
   box-sizing: border-box;
 }
 
 .navlist {
   display: flex;
   flex-direction: row;
-  gap: 48px;
-  /* More space between items for single line */
+  gap: 64px;                /* space between each nav link, adjust as needed */
   list-style: none;
   padding: 0;
   margin: 0;
-  width: 100%;
+  width: auto;              /* prevent stretching */
   justify-content: center;
-  flex-wrap: nowrap;
-  /* Force single-line layout */
 }
 
 .navitem {

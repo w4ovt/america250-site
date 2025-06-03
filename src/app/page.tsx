@@ -116,6 +116,7 @@ export default function Home() {
             fontSize: '1.6rem',
             color: '#6c4624',
             marginBottom: '1.8rem',
+            marginTop: '3rem', // <-- Add this line
             fontStyle: 'italic',
             letterSpacing: '0.04em',
             textTransform: 'uppercase',
@@ -125,7 +126,7 @@ export default function Home() {
             marginRight: 'auto',
           }}
         >
-          Commemorating America&apos;s Declaration of Independence
+          “COMMEMORATING AMERICA It&apos;s DECLARATION OF INDEPENDENCE”
         </div>
 
         {/* --- ON AIR / OFF AIR BADGE --- */}
