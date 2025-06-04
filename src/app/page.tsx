@@ -1,5 +1,3 @@
-// src/app/page.tsx
-
 'use client';
 
 import React, { useEffect, useState } from 'react';
@@ -54,7 +52,7 @@ export default function Home() {
             margin: 0,
             padding: 0,
             border: 'none',
-            filter: 'brightness(1.4) contrast(1.24)', // <-- RESTORED
+            filter: 'brightness(1.4) contrast(1.24)',
           }}
           draggable={false}
           priority
@@ -86,20 +84,7 @@ export default function Home() {
         }}
       >
         {/* --- PAGE TITLE --- */}
-        <h1
-          className="america250-header-text"
-          style={{
-            fontFamily: "'baskerville-old-style', serif",
-            fontSize: '3.5rem',
-            letterSpacing: '0.09em',
-            color: '#6c4624',
-            fontWeight: 700,
-            marginTop: '1.8rem',
-            marginBottom: '1.15rem',
-            textTransform: 'uppercase',
-            textAlign: 'center',
-          }}
-        >
+        <h1 className="america250-header-text">
           AMERICA 250
         </h1>
 
@@ -109,23 +94,7 @@ export default function Home() {
         </div>
 
         {/* --- SUBTITLE --- */}
-        <div
-          className="america250-header-subtitle"
-          style={{
-            fontFamily: "'americanscribe', serif",
-            fontSize: '1.6rem',
-            color: '#6c4624',
-            marginBottom: '1.8rem',
-            marginTop: '3rem', // <-- Add this line
-            fontStyle: 'italic',
-            letterSpacing: '0.04em',
-            textTransform: 'uppercase',
-            textAlign: 'center',
-            maxWidth: 900,
-            marginLeft: 'auto',
-            marginRight: 'auto',
-          }}
-        >
+        <div className="america250-header-subtitle">
           “COMMEMORATING AMERICA It&apos;s DECLARATION OF INDEPENDENCE”
         </div>
 
@@ -145,15 +114,14 @@ export default function Home() {
             <Image
               src="/onair-badge.png"
               alt="ON AIR"
-              width={600}
-              height={600}
+              width={350}
+              height={233}
+              sizes="(max-width: 600px) 80vw, 350px"
               className="onair-badge onair-flash"
               style={{
-                width: 600,
+                maxWidth: 'clamp(180px, 80vw, 350px)',
                 height: 'auto',
-                maxWidth: '98vw',
-                animation: 'onAirFlash 1s steps(1) infinite',
-                boxShadow: '0 0 36px #e73c07, 0 0 10px #ffd700',
+                boxShadow: '0 0 36px #e73c07, 0 0 10px #ffd700'
               }}
               priority
               draggable={false}
@@ -162,38 +130,81 @@ export default function Home() {
             <Image
               src="/offair-badge.png"
               alt="OFF AIR"
-              width={600}
-              height={600}
+              width={350}
+              height={233}
+              sizes="(max-width: 600px) 80vw, 350px"
               className="onair-badge"
               style={{
-                width: 600,
+                maxWidth: 'clamp(180px, 80vw, 350px)',
                 height: 'auto',
-                maxWidth: '98vw',
-                filter: 'grayscale(35%)',
+                filter: 'grayscale(35%)'
               }}
               priority
               draggable={false}
             />
           )}
         </div>
-      </div>
 
-      {/* --- ON AIR FLASH ANIMATION KEYFRAMES --- */}
-      <style jsx global>{`
-        @keyframes onAirFlash {
-          0%, 60% {
-            opacity: 1;
-            filter: drop-shadow(0 0 32px #e73c07) brightness(1.15);
+        {/* --- ON AIR FLASH ANIMATION KEYFRAMES & RESPONSIVE STYLES --- */}
+        <style jsx global>{`
+          @keyframes onAirFlash {
+            0%, 60% {
+              opacity: 1;
+              filter: drop-shadow(0 0 32px #e73c07) brightness(1.15);
+            }
+            70%, 100% {
+              opacity: 0.4;
+              filter: drop-shadow(0 0 2px #e73c07) brightness(0.85);
+            }
           }
-          70%, 100% {
-            opacity: 0.4;
-            filter: drop-shadow(0 0 2px #e73c07) brightness(0.85);
+          .onair-flash {
+            animation: onAirFlash 1.07s steps(1) infinite;
           }
-        }
-        .onair-flash {
-          animation: onAirFlash 1.07s steps(1) infinite;
-        }
-      `}</style>
+          .america250-header-text {
+            font-family: 'baskerville-old-style', serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            letter-spacing: 0.09em;
+            color: #6c4624;
+            font-weight: 700;
+            margin-top: 1.2rem;
+            margin-bottom: 0.7rem;
+            text-transform: uppercase;
+            text-align: center;
+          }
+          .america250-header-subtitle {
+            font-family: 'americanscribe', serif;
+            font-size: clamp(1rem, 4vw, 1.6rem);
+            color: #6c4624;
+            margin-bottom: 1.2rem;
+            margin-top: 2rem;
+            font-style: italic;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            text-align: center;
+            max-width: 90vw;
+            margin-left: auto;
+            margin-right: auto;
+          }
+          .onair-badge {
+            width: 100%;
+            max-width: clamp(180px, 80vw, 350px);
+            height: auto;
+          }
+          @media (max-width: 600px) {
+            .america250-header-text {
+              margin-top: 0.7rem;
+              margin-bottom: 0.5rem;
+            }
+            .america250-header-subtitle {
+              margin-top: 1rem;
+              margin-bottom: 0.7rem;
+            }
+            .onair-status-block {
+              min-height: 90px;
+            }
+          }
+        `}</style>
+      </div>
     </main>
   );
 }
