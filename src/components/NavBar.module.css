@@ -34,6 +34,7 @@
   width: 100%;
   justify-content: center;
   white-space: nowrap;
+  flex-wrap: nowrap;
 }
 
 .navitem {
@@ -101,27 +102,48 @@
   }
 }
 
-/* MOBILE styles: max 700px, fully responsive nav */
+/* MOBILE styles: TWO ROWS under 700px */
 @media (max-width: 700px) {
   .toolbar-inner {
-    padding: 4px 0;
-    width: 100%;
-    box-sizing: border-box;
+    flex-direction: column;
+    padding: 0;
+    width: 100vw;
     max-width: 100vw;
   }
   .navlist {
-    gap: 2vw;
-    width: 100%;
-    justify-content: space-between;
-    padding: 0 2vw;
-    /* ensures text does not overflow left/right */
-    overflow-x: hidden;
+    flex-wrap: wrap;
+    gap: 0;
+    justify-content: center;
+    width: 100vw;
+    padding: 0;
+  }
+  .navitem {
+    flex: 1 1 33%;
+    display: flex;
+    justify-content: center;
+    min-width: 32vw;
+    margin: 0;
+    padding: 0;
   }
   .navlink {
-    font-size: clamp(0.79rem, 3.8vw, 1.01rem);
-    padding: 0 0.14em;
-    font-weight: 400;
+    font-size: clamp(0.9rem, 3vw, 1.05rem);
+    padding: 0.9vw 0.12em 0.7vw 0.12em;
+    margin: 0.2vw 0;
     letter-spacing: 0.09em;
-    /* reduce to fit five items */
+    width: 100%;
+    text-align: center;
+    line-height: 1.13;
+  }
+  /* Force line-break between 3rd and 4th item */
+  .navitem:nth-child(3) {
+    /* Add after this item */
+    border-right: none;
+  }
+  .navitem:nth-child(3)::after {
+    content: "";
+    display: block;
+    width: 100vw;
+    height: 0;
+    flex-basis: 100%;
   }
 }
