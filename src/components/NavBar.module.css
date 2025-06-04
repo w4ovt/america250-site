@@ -14,25 +14,16 @@
 }
 
 .toolbar-inner {
-  width: 1440px;
+  width: 100%;
+  max-width: 1440px;
   margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px 0;
-  box-sizing: border-box;
+  /* ... */
 }
 
 .navlist {
   display: flex;
-  flex-direction: row;
-  gap: 64px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  width: auto !important;
-  flex: 0 1 auto !important;
-  justify-content: center !important;
+  /* ... */
+  overflow-x: auto;
 }
 
 .navitem {
@@ -87,9 +78,13 @@
   outline-offset: 2px;
 }
 
-@media (max-width: 900px) {
-  .toolbar-inner {
-    padding: 10px 0;
+@media (max-width: 640px) {
+  .navlist {
+    width: auto !important;
+    flex: 0 1 auto !important;
+    overflow-x: auto;
+
+
   }
 
   .navlink {
@@ -109,7 +104,8 @@
     flex-direction: row;
     gap: 10px;
     justify-content: center;
-    width: auto !important; /* Prevent stretching on mobile */
+    width: auto !important;
+    /* Prevent stretching on mobile */
     flex: 0 1 auto !important;
   }
 
