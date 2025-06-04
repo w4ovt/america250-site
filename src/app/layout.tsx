@@ -8,17 +8,13 @@ export const metadata = {
   description: 'Signaling the Spirit of America',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+import { ReactNode } from 'react';
+
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className="parchment-bg">
-        {/* Navbar appears on every page */}
+      <body style={{ minHeight: '100vh', margin: 0, padding: 0 }}>
         <NavBar />
-        {/* Main page content */}
         {children}
       </body>
     </html>
