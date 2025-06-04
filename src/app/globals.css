@@ -7,6 +7,13 @@
 }
 
 @font-face {
+  font-family: 'americanscribe';
+  src: url('/fonts/americanscribe.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'baskerville-old-style';
   src: url('/fonts/baskerville-old-style.ttf') format('truetype');
   font-weight: normal;
@@ -16,21 +23,24 @@
 /* === GLOBAL BASE STYLES === */
 html {
   box-sizing: border-box;
-  background-color: #f6ecd2; /* Fallback parchment color */
+  background-color: #f6ecd2;
+  /* Fallback parchment color */
 }
 
 body {
   margin: 0;
   padding: 0;
   font-family: 'caslon-antique', serif;
-  font-size: clamp(1rem, 2.5vw, 1.15rem); /* Responsive font size */
+  font-size: clamp(1rem, 2.5vw, 1.15rem);
+  /* Responsive font size */
   background-image: url('/america-250-md-parchment-1440-tall.webp');
   background-repeat: repeat-y;
   background-size: 100% auto;
   background-position: top center;
   background-attachment: fixed;
   min-height: 100vh;
-  background-color: #f6ecd2; /* Fallback parchment color */
+  background-color: #f6ecd2;
+  /* Fallback parchment color */
 }
 
 /* Always use border-box sizing everywhere */
@@ -104,9 +114,11 @@ h6 {
 h1 {
   font-size: clamp(2rem, 8vw, 3.5rem);
 }
+
 h2 {
   font-size: clamp(1.5rem, 6vw, 2.5rem);
 }
+
 h3 {
   font-size: clamp(1.2rem, 4vw, 2rem);
 }
@@ -137,10 +149,17 @@ p {
     font-size: 1rem;
     background-size: cover;
   }
-  h1, h2, h3, h4, h5, h6 {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     margin-top: 0.7em;
     margin-bottom: 0.3em;
   }
+
   p {
     font-size: 1em;
     padding-left: 2vw;
