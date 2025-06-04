@@ -11,7 +11,7 @@
   padding: 0;
   position: relative;
   z-index: 20;
-  overflow-x: visible;
+  overflow: visible;
 }
 
 .toolbar-inner {
@@ -28,12 +28,12 @@
 .navlist {
   display: flex;
   flex-direction: row;
-  gap: 48px;
+  gap: 38px; /* Reduced from 64px */
   list-style: none;
   padding: 0;
   margin: 0;
+  width: 100%;
   justify-content: center;
-  width: auto;
   white-space: nowrap;
   overflow: visible;
 }
@@ -44,15 +44,14 @@
 }
 
 .navlink {
-  font-family: 'baskerville-old-style', serif !important;
-  font-size: clamp(1rem, 2.5vw, 1.56rem);
-  font-weight: 400 !important;
-  font-style: normal;
+  font-family: 'baskerville-old-style', serif;
+  font-size: clamp(0.94rem, 2vw, 1.23rem);
+  font-weight: 700;
   color: #f8eddc;
   letter-spacing: 0.13em;
   text-transform: uppercase;
   white-space: nowrap;
-  padding: 0 0.7em;
+  padding: 0 0.6em;
   background: none;
   border: none;
   outline: none;
@@ -84,6 +83,7 @@
   z-index: 10;
 }
 
+/* Underline is handled by global a:hover */
 .navlink:focus,
 .navlink:active {
   outline: 2px solid #e7d09c;
@@ -94,13 +94,16 @@
 @media (max-width: 900px) {
   .toolbar-inner {
     padding: 0;
+    max-width: 100vw;
   }
+
   .navlist {
-    gap: 18px;
+    gap: 15px;
   }
+
   .navlink {
     font-size: 1rem;
-    padding: 0 0.4em;
+    padding: 0 0.35em;
   }
 }
 
@@ -108,17 +111,27 @@
 @media (max-width: 640px) {
   .toolbar-inner {
     padding: 0;
-    width: 100%;
+    width: 100vw;
+    max-width: 100vw;
     box-sizing: border-box;
   }
+
   .navlist {
-    gap: 4px;
-    width: 100%;
+    gap: 3px;
+    width: 100vw;
+    overflow-x: auto;
     justify-content: flex-start;
     white-space: nowrap;
+    scrollbar-width: none;
   }
+
+  .navlist::-webkit-scrollbar {
+    display: none;
+  }
+
   .navlink {
     font-size: 0.93rem;
-    padding: 0 0.2em;
+    padding: 0 0.16em;
+    white-space: nowrap;
   }
 }
