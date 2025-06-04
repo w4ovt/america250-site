@@ -95,7 +95,10 @@ export default function Home() {
 
         {/* --- SUBTITLE --- */}
         <div className="america250-header-subtitle">
-          “COMMEMORATING AMERICA It&apos;s DECLARATION OF INDEPENDENCE”
+          “AND FOR THE SUPPORT OF THIS DECLARATION, 
+          WITH A FIRM RELIANCE ON THE PROTECTION OF DIVINE PROVIDENCE, 
+          WE MUTUALLY PLEDGE TO EACH OTHER OUR LIVES, OUR FORTUNES, 
+          AND OUR SACRED HONOR”
         </div>
 
         {/* --- ON AIR / OFF AIR BADGE --- */}
@@ -172,7 +175,7 @@ export default function Home() {
             text-align: center;
           }
           .america250-header-subtitle {
-            font-family: 'americanscribe', serif;
+            font-family: 'lamarpen', serif;
             font-size: clamp(1rem, 4vw, 1.6rem);
             color: #6c4624;
             margin-bottom: 1.2rem;

@@ -23,7 +23,7 @@ export default function NavBar() {
               <Link href="/volunteer" className={styles.navlink}>VOLUNTEER PAGE</Link>
             </li>
             <li className={styles.navitem}>
-              <Link href="/activations-history" className={styles.navlink}>ACTIVATION HISTORY</Link>
+              <Link href="/activation-history" className={styles.navlink}>ACTIVATION HISTORY</Link>
             </li>
             <li className={styles.navitem}>
               <Link href="/about-us" className={styles.navlink}>ABOUT US</Link>
