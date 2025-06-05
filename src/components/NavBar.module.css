@@ -102,48 +102,34 @@
   }
 }
 
-/* MOBILE styles: TWO ROWS under 700px */
-@media (max-width: 700px) {
+/* === MOBILE STYLES === */
+@media (max-width: 640px) {
   .toolbar-inner {
     flex-direction: column;
-    padding: 0;
-    width: 100vw;
-    max-width: 100vw;
+    padding: 6px 0;
+    width: 100%;
+    box-sizing: border-box;
   }
   .navlist {
     flex-wrap: wrap;
-    gap: 0;
+    gap: 6px 12px;
+    width: 100%;
     justify-content: center;
-    width: 100vw;
-    padding: 0;
+    overflow-x: unset;
+    white-space: normal;
+    padding: 0 6px;
   }
   .navitem {
-    flex: 1 1 33%;
+    flex: 1 0 40%;
+    min-width: 110px;
     display: flex;
     justify-content: center;
-    min-width: 32vw;
-    margin: 0;
-    padding: 0;
   }
   .navlink {
-    font-size: clamp(0.9rem, 3vw, 1.05rem);
-    padding: 0.9vw 0.12em 0.7vw 0.12em;
-    margin: 0.2vw 0;
-    letter-spacing: 0.09em;
-    width: 100%;
+    font-size: 0.90rem;
+    padding: 0.3em 0.1em;
+    letter-spacing: 0.11em;
     text-align: center;
-    line-height: 1.13;
-  }
-  /* Force line-break between 3rd and 4th item */
-  .navitem:nth-child(3) {
-    /* Add after this item */
-    border-right: none;
-  }
-  .navitem:nth-child(3)::after {
-    content: "";
-    display: block;
-    width: 100vw;
-    height: 0;
-    flex-basis: 100%;
+    line-height: 1.1;
   }
 }
