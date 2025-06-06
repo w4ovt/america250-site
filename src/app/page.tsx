@@ -27,7 +27,7 @@ export default function Home() {
         overflowX: 'hidden',
       }}
     >
-      {/* --- HEADER IMAGE --- */}
+      {/* --- LARGE HEADER IMAGE (PARCHMENT MOTIF) --- */}
       <div
         style={{
           width: '100vw',
@@ -58,7 +58,7 @@ export default function Home() {
           priority
         />
       </div>
-      {/* Bronze separator bar beneath header image */}
+      {/* --- BRONZE SEPARATOR BAR --- */}
       <div
         style={{
           width: '100vw',
@@ -72,142 +72,143 @@ export default function Home() {
           pointerEvents: 'none',
         }}
       />
-      {/* --- MAIN CONTENT --- */}
+      {/* --- CROPPED IMAGE-BASED PAGE TITLE (SORA HEADER) --- */}
       <div
+        className="header-image-container"
         style={{
-          width: '100vw',
-          margin: 0,
-          padding: 0,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          margin: "2rem 0",
         }}
       >
-        {/* --- PAGE TITLE --- */}
-        <h1 className="america250-header-text">
-          AMERICA 250
-        </h1>
+        <picture>
+          <source srcSet="/america250-header.webp" type="image/webp" />
+          <img
+            src="/america250-header.png"
+            alt="AMERICA 250"
+            className="america250-header-image"
+            style={{
+              width: "100%",
+              maxWidth: "1200px", // Adjust as needed for your preferred size
+              height: "auto",
+              display: "block",
+              margin: 0,
+              padding: 0,
+            }}
+            draggable={false}
+          />
+        </picture>
+      </div>
+      {/* --- MORSE CODE ANIMATION --- */}
+      <div style={{ marginBottom: '0.6rem', width: '100%', display: 'flex', justifyContent: 'center' }}>
+        <MorseBlock />
+      </div>
 
-        {/* --- MORSE CODE ANIMATION --- */}
-        <div style={{ marginBottom: '0.6rem', width: '100%', display: 'flex', justifyContent: 'center' }}>
-          <MorseBlock />
-        </div>
-
-        {/* --- SUBTITLE --- */}
+      {/* --- SUBTITLE & PLAQUE --- */}
+      <div className="subtitle-plaque">
         <div className="america250-header-subtitle">
-          “AND FOR THE SUPPORT OF THIS DECLARATION, 
-          WITH A FIRM RELIANCE ON THE PROTECTION OF DIVINE PROVIDENCE, 
-          WE MUTUALLY PLEDGE TO EACH OTHER OUR LIVES, OUR FORTUNES, 
-          AND OUR SACRED HONOR”
+          “And for the support of this Declaration, with a firm reliance on the protection of divine Providence, we mutually pledge to each other our Lives, our Fortunes and our sacred Honor.”
         </div>
-
-        {/* --- ON AIR / OFF AIR BADGE --- */}
-        <div
-          className="onair-status-block"
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            margin: '2.5vw 0 1.2vw 0',
-            width: '100%',
-            minHeight: 150,
-          }}
-        >
-          {isOnAir ? (
-            <Image
-              src="/onair-badge.png"
-              alt="ON AIR"
-              width={350}
-              height={233}
-              sizes="(max-width: 600px) 80vw, 350px"
-              className="onair-badge onair-flash"
-              style={{
-                maxWidth: 'clamp(180px, 80vw, 350px)',
-                height: 'auto',
-                boxShadow: '0 0 36px #e73c07, 0 0 10px #ffd700'
-              }}
-              priority
-              draggable={false}
-            />
-          ) : (
-            <Image
-              src="/offair-badge.png"
-              alt="OFF AIR"
-              width={350}
-              height={233}
-              sizes="(max-width: 600px) 80vw, 350px"
-              className="onair-badge"
-              style={{
-                maxWidth: 'clamp(180px, 80vw, 350px)',
-                height: 'auto',
-                filter: 'grayscale(35%)'
-              }}
-              priority
-              draggable={false}
-            />
-          )}
+        <div className="subtitle-brass-plate">
+          Declaration of Independence - Signers Pledge, July 4th, 1776
         </div>
+      </div>
 
-        {/* --- ON AIR FLASH ANIMATION KEYFRAMES & RESPONSIVE STYLES --- */}
-        <style jsx global>{`
-          @keyframes onAirFlash {
-            0%, 60% {
-              opacity: 1;
-              filter: drop-shadow(0 0 32px #e73c07) brightness(1.15);
-            }
-            70%, 100% {
-              opacity: 0.4;
-              filter: drop-shadow(0 0 2px #e73c07) brightness(0.85);
-            }
+      {/* --- ON AIR / OFF AIR BADGE --- */}
+      <div
+        className="onair-status-block"
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          margin: '2.5vw 0 1.2vw 0',
+          width: '100%',
+          minHeight: 150,
+        }}
+      >
+        {isOnAir ? (
+          <Image
+            src="/onair-badge.png"
+            alt="ON AIR"
+            width={350}
+            height={233}
+            sizes="(max-width: 600px) 80vw, 350px"
+            className="onair-badge onair-flash"
+            style={{
+              maxWidth: 'clamp(180px, 80vw, 350px)',
+              height: 'auto',
+              boxShadow: '0 0 36px #e73c07, 0 0 10px #ffd700'
+            }}
+            priority
+            draggable={false}
+          />
+        ) : (
+          <Image
+            src="/offair-badge.png"
+            alt="OFF AIR"
+            width={350}
+            height={233}
+            sizes="(max-width: 600px) 80vw, 350px"
+            className="onair-badge"
+            style={{
+              maxWidth: 'clamp(180px, 80vw, 350px)',
+              height: 'auto',
+              filter: 'grayscale(35%)'
+            }}
+            priority
+            draggable={false}
+          />
+        )}
+      </div>
+
+      {/* --- ON AIR FLASH ANIMATION KEYFRAMES & RESPONSIVE STYLES --- */}
+      <style jsx global>{`
+        @keyframes onAirFlash {
+          0%, 60% {
+            opacity: 1;
+            filter: drop-shadow(0 0 32px #e73c07) brightness(1.15);
           }
-          .onair-flash {
-            animation: onAirFlash 1.07s steps(1) infinite;
+          70%, 100% {
+            opacity: 0.4;
+            filter: drop-shadow(0 0 2px #e73c07) brightness(0.85);
           }
-          .america250-header-text {
-            font-family: 'baskerville-old-style', serif;
-            font-size: clamp(2rem, 6vw, 3.5rem);
-            letter-spacing: 0.09em;
-            color: #6c4624;
-            font-weight: 700;
-            margin-top: 1.2rem;
-            margin-bottom: 0.7rem;
-            text-transform: uppercase;
-            text-align: center;
+        }
+        .onair-flash {
+          animation: onAirFlash 1.07s steps(1) infinite;
+        }
+        .america250-header-subtitle {
+          font-family: 'lamarpen', serif;
+          font-size: clamp(1rem, 4vw, 1.6rem);
+          color: #6c4624;
+          margin-bottom: 1.2rem;
+          margin-top: 2rem;
+          font-style: normal;
+          letter-spacing: 0.04em;
+          text-transform: none;
+          text-align: center;
+          max-width: 90vw;
+          margin-left: auto;
+          margin-right: auto;
+        }
+        .onair-badge {
+          width: 100%;
+          max-width: clamp(180px, 80vw, 350px);
+          height: auto;
+        }
+        @media (max-width: 600px) {
+          .america250-header-image {
+            max-width: 98vw !important;
           }
           .america250-header-subtitle {
-            font-family: 'lamarpen', serif;
-            font-size: clamp(1rem, 4vw, 1.6rem);
-            color: #6c4624;
-            margin-bottom: 1.2rem;
-            margin-top: 2rem;
-            font-style: italic;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            text-align: center;
-            max-width: 90vw;
-            margin-left: auto;
-            margin-right: auto;
+            margin-top: 1rem;
+            margin-bottom: 0.7rem;
           }
-          .onair-badge {
-            width: 100%;
-            max-width: clamp(180px, 80vw, 350px);
-            height: auto;
+          .onair-status-block {
+            min-height: 90px;
           }
-          @media (max-width: 600px) {
-            .america250-header-text {
-              margin-top: 0.7rem;
-              margin-bottom: 0.5rem;
-            }
-            .america250-header-subtitle {
-              margin-top: 1rem;
-              margin-bottom: 0.7rem;
-            }
-            .onair-status-block {
-              min-height: 90px;
-            }
-          }
-        `}</style>
-      </div>
+        }
+      `}</style>
     </main>
   );
 }
