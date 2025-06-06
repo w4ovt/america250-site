@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import MorseBlock from '@/components/MorseBlock';
 
 // Dummy fetch function; replace with actual Neon DB/API fetch for production
 async function fetchIsOnAir(): Promise<boolean> {
@@ -99,10 +98,6 @@ export default function Home() {
             draggable={false}
           />
         </picture>
-      </div>
-      {/* --- MORSE CODE ANIMATION --- */}
-      <div style={{ marginBottom: '0.6rem', width: '100%', display: 'flex', justifyContent: 'center' }}>
-        <MorseBlock />
       </div>
 
       {/* --- SUBTITLE & PLAQUE --- */}

@@ -109,6 +109,11 @@ button {
   margin-left: auto;
   margin-right: auto;
 }
+@media (max-width: 700px) {
+  .desktop-only {
+    display: none !important;
+  }
+}
 
 /* Utility classes */
 .centered {
@@ -116,26 +121,4 @@ button {
 }
 .bold {
   font-weight: bold;
-}
-
-/* === MOBILE FRIENDLY ENHANCEMENTS === */
-@media (max-width: 600px) {
-  body {
-    font-size: 1rem;
-    background-size: cover;
-  }
-  .main-content h1,
-  .main-content h2,
-  .main-content h3,
-  .main-content h4,
-  .main-content h5,
-  .main-content h6 {
-    margin-top: 0.7em;
-    margin-bottom: 0.3em;
-  }
-  .main-content p {
-    font-size: 1em;
-    padding-left: 2vw;
-    padding-right: 2vw;
-  }
 }
