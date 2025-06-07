@@ -1,3 +1,5 @@
+// src/app/page.tsx
+
 'use client';
 
 import React, { useEffect, useState } from 'react';
@@ -15,6 +17,9 @@ export default function Home() {
     fetchIsOnAir().then(setIsOnAir);
   }, []);
 
+  // Optimized pledge text formatting for different screen sizes
+  const pledgeText = `And for the support of this Declaration, with a firm reliance on the protection of divine Providence, we mutually pledge to each other our Lives, our Fortunes and our sacred Honor.`;
+
   return (
     <main
       className="parchment-bg"
@@ -26,7 +31,7 @@ export default function Home() {
         overflowX: 'hidden',
       }}
     >
-      {/* --- LARGE HEADER IMAGE (PARCHMENT MOTIF) --- */}
+      {/* --- HEADER IMAGE (HERO ART) --- */}
       <div
         style={{
           width: '100vw',
@@ -57,21 +62,8 @@ export default function Home() {
           priority
         />
       </div>
-      {/* --- BRONZE SEPARATOR BAR --- */}
-      <div
-        style={{
-          width: '100vw',
-          height: '7px',
-          background: 'linear-gradient(90deg, rgba(255,226,154,0) 0%, #ffe29a 12%, #d5a94a 26%, #fff4c0 50%, #d5a94a 74%, #ffe29a 88%, rgba(255,226,154,0) 100%)',
-          margin: 0,
-          padding: 0,
-          border: 'none',
-          boxShadow: '0 2px 8px #a9781396',
-          zIndex: 10,
-          pointerEvents: 'none',
-        }}
-      />
-      {/* --- CROPPED IMAGE-BASED PAGE TITLE (SORA HEADER) --- */}
+
+      {/* --- SORA AMERICA250 TITLE IMAGE --- */}
       <div
         className="header-image-container"
         style={{
@@ -89,7 +81,7 @@ export default function Home() {
             className="america250-header-image"
             style={{
               width: "100%",
-              maxWidth: "1200px", // Adjust as needed for your preferred size
+              maxWidth: "1200px",
               height: "auto",
               display: "block",
               margin: 0,
@@ -100,15 +92,44 @@ export default function Home() {
         </picture>
       </div>
 
-      {/* --- SUBTITLE & PLAQUE --- */}
-      <div className="subtitle-plaque">
-        <div className="america250-header-subtitle">
-          “And for the support of this Declaration, with a firm reliance on the protection of divine Providence, we mutually pledge to each other our Lives, our Fortunes and our sacred Honor.”
-        </div>
-        <div className="subtitle-brass-plate">
-          Declaration of Independence - Signers Pledge, July 4th, 1776
-        </div>
+      {/* --- MAHOGANY SEPARATOR ABOVE TITLE BLOCK --- */}
+      <div className="mahogany-separator" aria-hidden="true"></div>
+
+      {/* --- MAIN TITLE TEXT BLOCK WITH DATE ON NEW LINE --- */}
+      <div className="america250-page-title">
+        <span className="america250-title-line">america250</span>
+        <span className="america250-title-line">amateur radio</span>
+        <span className="america250-title-line">special event</span>
+        <span className="america250-page-title-date">july 01 – 13, 2025</span>
       </div>
+
+      {/* --- MAHOGANY SEPARATOR BELOW TITLE BLOCK --- */}
+      <div className="mahogany-separator" aria-hidden="true"></div>
+
+      {/* === PLEDGE QUOTE WITH QUILL/INKWELL (Responsive) === */}
+      <section>
+        <div className="pledge-quote-block">
+          {/* Quill positioned based on screen size */}
+          <img
+            src="/inkwell.webp"
+            alt="Quill and Inkwell"
+            className="pledge-quill-img"
+            draggable={false}
+          />
+          <div className="pledge-quote-text">
+            {pledgeText}
+          </div>
+        </div>
+        <div className="pledge-plaque">
+          <img
+            src="/plague.webp"
+            alt="Declaration of Independence Signer's Pledge Plaque"
+            style={{ display: 'block', margin: '0 auto', borderRadius: 5 }}
+            draggable={false}
+          />
+        </div>
+        <div className="mahogany-separator" aria-hidden="true"></div>
+      </section>
 
       {/* --- ON AIR / OFF AIR BADGE --- */}
       <div
@@ -157,7 +178,7 @@ export default function Home() {
         )}
       </div>
 
-      {/* --- ON AIR FLASH ANIMATION KEYFRAMES & RESPONSIVE STYLES --- */}
+      {/* --- ON AIR FLASH ANIMATION KEYFRAMES & RESPONSIVE TITLE STYLES --- */}
       <style jsx global>{`
         @keyframes onAirFlash {
           0%, 60% {
@@ -172,35 +193,28 @@ export default function Home() {
         .onair-flash {
           animation: onAirFlash 1.07s steps(1) infinite;
         }
-        .america250-header-subtitle {
-          font-family: 'lamarpen', serif;
-          font-size: clamp(1rem, 4vw, 1.6rem);
-          color: #6c4624;
-          margin-bottom: 1.2rem;
-          margin-top: 2rem;
-          font-style: normal;
-          letter-spacing: 0.04em;
-          text-transform: none;
-          text-align: center;
-          max-width: 90vw;
-          margin-left: auto;
-          margin-right: auto;
-        }
-        .onair-badge {
-          width: 100%;
-          max-width: clamp(180px, 80vw, 350px);
-          height: auto;
-        }
-        @media (max-width: 600px) {
-          .america250-header-image {
-            max-width: 98vw !important;
+
+        /* === AMERICA250 TITLE RESPONSIVE LINE CONTROL === */
+        /* Desktop: 3 lines (amateur radio + special event on one line) */
+        @media (min-width: 1200px) {
+          .america250-title-line {
+            display: block;
+            white-space: normal;
           }
-          .america250-header-subtitle {
-            margin-top: 1rem;
-            margin-bottom: 0.7rem;
+          .america250-title-line:nth-child(2),
+          .america250-title-line:nth-child(3) {
+            display: inline;
+            white-space: pre;
           }
-          .onair-status-block {
-            min-height: 90px;
+          .america250-title-line:nth-child(3)::before {
+            content: " ";
+          }
+        }
+        /* Portrait/mobile: 4 lines, each phrase on its own line */
+        @media (max-width: 1199px) {
+          .america250-title-line {
+            display: block !important;
+            white-space: nowrap;
           }
         }
       `}</style>

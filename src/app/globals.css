@@ -1,5 +1,13 @@
 /* === FONT FACE DEFINITIONS === */
 @font-face {
+  font-family: 'old claude';
+  src: url('/fonts/oldclaude.woff2') format('woff2'),
+       url('/fonts/oldclaude.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
   font-family: 'baskerville-old-style';
   src: url('/fonts/baskerville-old-style.ttf') format('truetype');
   font-weight: normal;
@@ -10,14 +18,14 @@
   src: url('/fonts/lamarpen.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 /* === GLOBAL BASE STYLES === */
 html {
   box-sizing: border-box;
 }
-html,
-body {
+html, body {
   width: 100%;
   max-width: 100vw;
   overflow-x: hidden;
@@ -38,23 +46,10 @@ body {
   min-height: 100vh;
   background-color: #f6ecd2;
 }
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-}
-*:focus:not(:focus-visible) {
-  outline: none;
-}
-a {
-  color: inherit;
-  text-decoration: none;
-  transition: color 0.15s;
-}
-a:focus,
-a:hover {
-  text-decoration: underline;
-}
+*, *::before, *::after { box-sizing: inherit; }
+*:focus:not(:focus-visible) { outline: none; }
+a { color: inherit; text-decoration: none; transition: color 0.15s; }
+a:focus, a:hover { text-decoration: underline; }
 button {
   font-family: inherit;
   font-size: inherit;
@@ -65,60 +60,253 @@ button {
   padding: 0;
   margin: 0;
 }
-::selection {
-  background: #fff3cc;
-  color: #2e1a08;
-}
-::-webkit-scrollbar {
-  width: 10px;
-  background: #ecd7ae;
-}
-::-webkit-scrollbar-thumb {
-  background: #d0b075;
+::selection { background: #fff3cc; color: #2e1a08; }
+::-webkit-scrollbar { width: 10px; background: #ecd7ae; }
+::-webkit-scrollbar-thumb { background: #d0b075; border-radius: 4px; }
+
+/* Utility classes */
+.centered { text-align: center; }
+.bold { font-weight: bold; }
+
+/* === MAHOGANY SEPARATOR BAR === */
+.mahogany-separator {
+  width: 100%;
+  height: 7px;
+  background: linear-gradient(
+    90deg,
+    rgba(46,26,8,0) 0%,
+    #6d3b19 12%,
+    #935d2d 28%,
+    #43290c 50%,
+    #935d2d 72%,
+    #6d3b19 88%,
+    rgba(46,26,8,0) 100%
+  );
+  margin: 1.8rem 0 1.8rem 0;
+  border: none;
   border-radius: 4px;
+  box-shadow: 0 2px 7px 0 #6d3b191a;
+  pointer-events: none;
 }
 
-/* === MAIN CONTENT HEADINGS (SCOPED) === */
-.main-content h1,
-.main-content h2,
-.main-content h3,
-.main-content h4,
-.main-content h5,
-.main-content h6 {
-  font-family: 'baskerville-old-style', serif;
-  font-weight: bold;
-  color: #2e1a08;
-  margin-top: 1.2em;
-  margin-bottom: 0.5em;
+/* === AMERICA250 PAGE TITLE BLOCK === */
+.america250-page-title {
+  font-family: 'old claude', 'baskerville-old-style', serif;
+  font-variant: small-caps;
+  text-transform: lowercase;
+  font-weight: normal;
+  text-align: center;
+  letter-spacing: 0.045em;
+  font-size: clamp(3.75rem, 12vw, 6.9rem);
+  color: #43290c;
+  margin: 2.2rem auto 1rem auto;
+  padding: 0.45em 0.7em;
+  max-width: 97vw;
+  border-radius: 8px;
+  line-height: 1;
+  word-spacing: 0.09em;
 }
-.main-content h1 {
-  font-size: clamp(2rem, 8vw, 3.5rem);
+.america250-page-title-date {
+  display: block;
+  margin-top: 0.18em;
+  font-size: 0.69em;
+  letter-spacing: 0.03em;
 }
-.main-content h2 {
-  font-size: clamp(1.5rem, 6vw, 2.5rem);
-}
-.main-content h3 {
-  font-size: clamp(1.2rem, 4vw, 2rem);
-}
-.main-content p {
-  margin-top: 0.8em;
-  margin-bottom: 0.8em;
-  font-size: 1.08em;
-  line-height: 1.6;
-  max-width: 90vw;
-  margin-left: auto;
-  margin-right: auto;
-}
-@media (max-width: 700px) {
-  .desktop-only {
-    display: none !important;
+
+/* === DESKTOP LAYOUT (1200px and above) === */
+@media (min-width: 1200px) {
+  .pledge-quote-block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    margin: 0 auto;
+    padding: 0 20px;
+    max-width: 1600px;
+    width: 100%;
+  }
+
+  .pledge-quill-img {
+    width: 240px;
+    height: auto;
+    flex-shrink: 0;
+  }
+
+  .pledge-quote-text {
+    font-family: 'lamarpen', serif;
+    font-size: 3.6rem;
+    color: #6c4624;
+    text-align: left;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1.3;
+    letter-spacing: 0;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-width: 1300px;
+    flex: 1 0 auto;
+  }
+
+  .pledge-plaque {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 1.2rem auto 0.8rem auto;
+    width: 100%;
+  }
+  
+  .pledge-plaque img {
+    width: 680px;
+    height: auto;
+    max-width: 90vw;
+    box-shadow: 0 3px 16px #5b412a42;
   }
 }
 
-/* Utility classes */
-.centered {
-  text-align: center;
+/* === LANDSCAPE LAYOUT (768px to 1199px) === */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .pledge-quote-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 95vw;
+    gap: 0.8em;
+    min-height: unset;
+    margin: 0 auto;
+    padding: 0 3vw;
+  }
+  
+  .pledge-quill-img {
+    width: 88px;
+    min-width: 88px;
+    height: auto;
+    margin: 0 auto 0.25em auto;
+    display: block;
+  }
+  
+  .pledge-quote-text {
+    font-family: 'lamarpen', serif;
+    font-size: clamp(2.2rem, 4.8vw, 3.2rem);
+    color: #6c4624;
+    text-align: center;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1.18;
+    letter-spacing: 0.015em;
+    margin: 0 auto;
+    padding: 0;
+    white-space: pre-line;
+    max-width: 90vw;
+    width: 100%;
+  }
+  
+  .pledge-plaque {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 1.8rem auto 0.8rem auto;
+    width: 100%;
+  }
+  
+  .pledge-plaque img {
+    width: 320px;
+    height: auto;
+    max-width: 80vw;
+    box-shadow: 0 3px 16px #5b412a42;
+  }
 }
-.bold {
-  font-weight: bold;
+
+/* === PORTRAIT LAYOUT (under 768px) === */
+@media (max-width: 767px) {
+  .pledge-quote-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 100vw;
+    gap: 0.4em;
+    min-height: unset;
+    margin: 0.5em auto 0 auto;
+    padding: 0 4vw;
+  }
+  
+  .pledge-quill-img {
+    width: 72px;
+    min-width: 72px;
+    height: auto;
+    margin: 0 auto 0.3em auto;
+    display: block;
+  }
+  
+  .pledge-quote-text {
+    font-family: 'lamarpen', serif;
+    font-size: clamp(1.35rem, 6.5vw, 2.1rem);
+    color: #6c4624;
+    text-align: center;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1.22;
+    letter-spacing: 0.012em;
+    margin: 0 auto;
+    padding: 0;
+    white-space: pre-line;
+    max-width: 96vw;
+    width: 100%;
+  }
+  
+  .pledge-plaque {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 1.6rem auto 0.8rem auto;
+    width: 100%;
+  }
+  
+  .pledge-plaque img {
+    width: 200px;
+    height: auto;
+    max-width: 88vw;
+    box-shadow: 0 3px 16px #5b412a42;
+  }
+
+  /* Portrait title adjustment - 4 lines */
+  .america250-page-title {
+    font-size: 1.8rem;
+    line-height: 0.95;
+    word-spacing: 0.05em;
+    padding: 0.45em 0.5em;
+    max-width: 95vw;
+  }
+  
+  .america250-page-title span {
+    white-space: nowrap;
+  }
+}
+
+/* === VERY SMALL SCREENS (under 480px) === */
+@media (max-width: 479px) {
+  .pledge-quill-img {
+    width: 60px;
+    min-width: 60px;
+    margin-bottom: 0.35em;
+  }
+  
+  .pledge-quote-text {
+    font-size: clamp(1.1rem, 7vw, 1.8rem);
+    max-width: 98vw;
+    line-height: 1.25;
+  }
+  
+  .pledge-plaque img {
+    width: 170px;
+    max-width: 92vw;
+  }
+
+  /* Specific title formatting for very small screens */
+  .america250-page-title {
+    font-size: clamp(2.8rem, 9vw, 4.8rem);
+    line-height: 0.9;
+    word-spacing: 0.03em;
+  }
 }
