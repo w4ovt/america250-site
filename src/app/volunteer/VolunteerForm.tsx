@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import styles from "./VolunteerForm.module.css";
 
+// Hardcoded for example; replace with your data source
 const VOLUNTEERS = [
   { name: "Marc", callsign: "W4OVT", state: "NC" },
   { name: "Ken", callsign: "K7ARN", state: "AZ" },
@@ -26,15 +27,14 @@ const MODES = [
   "SSB","CW","AM","FM","FT8","FT4","PSK31","Olivia","EchoLink"
 ];
 
-export default function VolunteerForm() {
+// === MAIN COMPONENT START ===
+export default function VolunteerForm({ locked = false }: { locked?: boolean }) {
   const [selectedVolunteer, setSelectedVolunteer] = useState("");
   const [callsign, setCallsign] = useState("");
   const [state, setState] = useState("");
   const [frequency, setFrequency] = useState("");
   const [mode, setMode] = useState("");
-  const [activationNumber, setActivationNumber] = useState(""); // To be used for end activation
-  const [startTime] = useState(""); // Placeholder: implement as needed
-  const [endTime] = useState(""); // Placeholder: implement as needed
+  const [activationNumber, setActivationNumber] = useState(""); // For ending activation
 
   // Autofill callsign and state when volunteer selected
   function handleVolunteerChange(e: React.ChangeEvent<HTMLSelectElement>) {
@@ -64,10 +64,9 @@ export default function VolunteerForm() {
   }
 
   return (
-    <div className={styles.panelContainer}>
+    <div className={styles.panelContainer} aria-disabled={locked}>
       <div className={styles.panelTitle}>Volunteer Activation Form</div>
       <form className={styles.formFields} onSubmit={handleSubmit} autoComplete="off">
-        {/* Operator Name Dropdown */}
         <label className={styles.label} htmlFor="operatorName">Operator Name</label>
         <select
           className={styles.select}
@@ -75,6 +74,7 @@ export default function VolunteerForm() {
           value={selectedVolunteer}
           onChange={handleVolunteerChange}
           required
+          disabled={locked}
         >
           <option value="" disabled>Select Operator</option>
           {VOLUNTEERS.map(vol => (
@@ -82,7 +82,6 @@ export default function VolunteerForm() {
           ))}
         </select>
 
-        {/* Callsign Dropdown */}
         <label className={styles.label} htmlFor="callsign">Call Sign</label>
         <select
           className={styles.select}
@@ -90,6 +89,7 @@ export default function VolunteerForm() {
           value={callsign}
           onChange={e => setCallsign(e.target.value)}
           required
+          disabled={locked}
         >
           <option value="" disabled>Select Callsign</option>
           {VOLUNTEERS.map(vol => (
@@ -97,7 +97,6 @@ export default function VolunteerForm() {
           ))}
         </select>
 
-        {/* State Dropdown */}
         <label className={styles.label} htmlFor="state">State</label>
         <select
           className={styles.select}
@@ -105,6 +104,7 @@ export default function VolunteerForm() {
           value={state}
           onChange={e => setState(e.target.value)}
           required
+          disabled={locked}
         >
           <option value="" disabled>Select State</option>
           {STATES.map(abbr => (
@@ -112,7 +112,6 @@ export default function VolunteerForm() {
           ))}
         </select>
 
-        {/* Frequency */}
         <label className={styles.label} htmlFor="frequency">Frequency (MHz)</label>
         <input
           className={styles.input}
@@ -121,10 +120,10 @@ export default function VolunteerForm() {
           value={frequency}
           onChange={e => setFrequency(e.target.value)}
           required
+          disabled={locked}
           autoComplete="off"
         />
 
-        {/* Mode Dropdown */}
         <label className={styles.label} htmlFor="mode">Mode</label>
         <select
           className={styles.select}
@@ -132,6 +131,7 @@ export default function VolunteerForm() {
           value={mode}
           onChange={e => setMode(e.target.value)}
           required
+          disabled={locked}
         >
           <option value="" disabled>Select Mode</option>
           {MODES.map(mode => (
@@ -139,7 +139,7 @@ export default function VolunteerForm() {
           ))}
         </select>
 
-        <button className={styles.submitButton} type="submit">
+        <button className={styles.submitButton} type="submit" disabled={locked}>
           Submit Activation
         </button>
       </form>
@@ -156,16 +156,37 @@ export default function VolunteerForm() {
             onChange={e => setActivationNumber(e.target.value)}
             placeholder="Activation Number"
             required
+            disabled={locked}
             autoComplete="off"
           />
           <button
             className={styles.endButton}
             type="submit"
+            disabled={locked}
           >
             End Activation
           </button>
         </form>
       </div>
+      {locked && (
+        <div
+          style={{
+            background: "#ffe1b2",
+            color: "#842100",
+            fontWeight: 600,
+            marginTop: "1.2rem",
+            padding: "0.9rem 1.6rem",
+            borderRadius: 10,
+            fontSize: "1.11rem",
+            textAlign: "center",
+            letterSpacing: "0.01em",
+            boxShadow: "0 0 6px #efdbb3"
+          }}
+          aria-live="polite"
+        >
+          Please enter the Volunteer PIN above to activate this form.
+        </div>
+      )}
     </div>
   );
 }

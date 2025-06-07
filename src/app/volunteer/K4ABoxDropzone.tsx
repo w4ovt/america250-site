@@ -9,11 +9,18 @@ import styles from './VolunteerForm.module.css';
 const BOX_WIDTH = 700;
 const BOX_HEIGHT = 380;
 
-export default function K4ABoxDropzone() {
+type K4ABoxDropzoneProps = {
+  locked?: boolean;
+};
+
+export default function K4ABoxDropzone({ locked = false }: K4ABoxDropzoneProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   // Drag animation state
   const [isDragging, setIsDragging] = useState(false);
+
+  // Optionally, for more advanced UX, you could use a toast/snackbar here
+  // For now, a simple alert on unauthorized drop
 
   // Drag event handlers
   const handleDrag = (e: React.DragEvent<HTMLDivElement>) => {
@@ -34,11 +41,18 @@ export default function K4ABoxDropzone() {
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     handleDrag(e);
     setIsDragging(false);
+
+    if (locked) {
+      alert('Please enter volunteer PIN to upload logs.');
+      return;
+    }
+
     audioRef.current?.play();
     const files = e.dataTransfer.files;
     if (files && files.length > 0) {
       // Handle dropped files here
       console.log('Dropped files:', files);
+      // ...your file upload/processing logic here
     }
   };
 
@@ -87,7 +101,9 @@ export default function K4ABoxDropzone() {
           alignItems: 'center',
           justifyContent: 'center',
           padding: 0,
-          boxSizing: 'border-box'
+          boxSizing: 'border-box',
+          cursor: locked ? 'not-allowed' : 'pointer',
+          opacity: 1, // Always fully visible
         }}
         tabIndex={0}
         aria-label="K4A Log Dropbox"
