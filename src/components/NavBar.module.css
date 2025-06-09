@@ -62,7 +62,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 3vw;
+  gap: 2.1vw;              /* slightly reduced for more fit, optional */
   width: auto;
   max-width: 92vw;
   margin: 0 auto;
@@ -70,6 +70,10 @@
   list-style: none;
   background: none;
   box-sizing: border-box;
+  flex-wrap: nowrap;       /* <<< ADDED: prevent wrapping */
+  overflow-x: auto;        /* <<< ADDED: horizontal scroll if needed */
+  scrollbar-width: thin;   /* Optional: Firefox slim scroll */
+  white-space: nowrap;     /* Extra insurance, but flex handles it */
 }
 
 /* --- NAVIGATION ITEM --- */
