@@ -2,30 +2,50 @@
 @font-face {
   font-family: 'old claude';
   src: url('/fonts/oldclaude.woff2') format('woff2'),
-       url('/fonts/oldclaude.woff') format('woff');
+    url('/fonts/oldclaude.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: 'baskerville-old-style';
   src: url('/fonts/baskerville-old-style.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
   font-family: 'lamarpen';
   src: url('/fonts/lamarpen.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
+
+  @font-face {
+    font-family: 'universal-bold';
+    src: url('/fonts/universal-bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+  }
 }
 
 /* === GLOBAL BASE STYLES === */
+:root {
+  --mahogany: #683f1b;
+  --parchment: #f7ecd2;
+  --linen: #f7f1e2;
+  --linen-alt: #e8dcc3;
+  --bronze: #c7a159;
+  --bronze-dark: #866228;
+}
+
 html {
   box-sizing: border-box;
 }
-html, body {
+
+html,
+body {
   width: 100%;
   max-width: 100vw;
   overflow-x: hidden;
@@ -33,6 +53,7 @@ html, body {
   padding: 0;
   box-sizing: inherit;
 }
+
 body {
   margin: 0;
   padding: 0;
@@ -46,10 +67,28 @@ body {
   min-height: 100vh;
   background-color: #f6ecd2;
 }
-*, *::before, *::after { box-sizing: inherit; }
-*:focus:not(:focus-visible) { outline: none; }
-a { color: inherit; text-decoration: none; transition: color 0.15s; }
-a:focus, a:hover { text-decoration: underline; }
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+a:focus,
+a:hover {
+  text-decoration: underline;
+}
+
 button {
   font-family: inherit;
   font-size: inherit;
@@ -60,28 +99,43 @@ button {
   padding: 0;
   margin: 0;
 }
-::selection { background: #fff3cc; color: #2e1a08; }
-::-webkit-scrollbar { width: 10px; background: #ecd7ae; }
-::-webkit-scrollbar-thumb { background: #d0b075; border-radius: 4px; }
+
+::selection {
+  background: #fff3cc;
+  color: #2e1a08;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  background: #ecd7ae;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d0b075;
+  border-radius: 4px;
+}
 
 /* Utility classes */
-.centered { text-align: center; }
-.bold { font-weight: bold; }
+.centered {
+  text-align: center;
+}
+
+.bold {
+  font-weight: bold;
+}
 
 /* === MAHOGANY SEPARATOR BAR === */
 .mahogany-separator {
   width: 100%;
   height: 7px;
-  background: linear-gradient(
-    90deg,
-    rgba(46,26,8,0) 0%,
-    #6d3b19 12%,
-    #935d2d 28%,
-    #43290c 50%,
-    #935d2d 72%,
-    #6d3b19 88%,
-    rgba(46,26,8,0) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(46, 26, 8, 0) 0%,
+      #6d3b19 12%,
+      #935d2d 28%,
+      #43290c 50%,
+      #935d2d 72%,
+      #6d3b19 88%,
+      rgba(46, 26, 8, 0) 100%);
   margin: 1.8rem 0 1.8rem 0;
   border: none;
   border-radius: 4px;
@@ -106,6 +160,7 @@ button {
   line-height: 1;
   word-spacing: 0.09em;
 }
+
 .america250-page-title-date {
   display: block;
   margin-top: 0.18em;
@@ -156,7 +211,7 @@ button {
     margin: 1.2rem auto 0.8rem auto;
     width: 100%;
   }
-  
+
   .pledge-plaque img {
     width: 680px;
     height: auto;
@@ -177,7 +232,7 @@ button {
     margin: 0 auto;
     padding: 0 3vw;
   }
-  
+
   .pledge-quill-img {
     width: 88px;
     min-width: 88px;
@@ -185,7 +240,7 @@ button {
     margin: 0 auto 0.25em auto;
     display: block;
   }
-  
+
   .pledge-quote-text {
     font-family: 'lamarpen', serif;
     font-size: clamp(2.2rem, 4.8vw, 3.2rem);
@@ -201,7 +256,7 @@ button {
     max-width: 90vw;
     width: 100%;
   }
-  
+
   .pledge-plaque {
     display: flex;
     justify-content: center;
@@ -209,7 +264,7 @@ button {
     margin: 1.8rem auto 0.8rem auto;
     width: 100%;
   }
-  
+
   .pledge-plaque img {
     width: 320px;
     height: auto;
@@ -230,7 +285,7 @@ button {
     margin: 0.5em auto 0 auto;
     padding: 0 4vw;
   }
-  
+
   .pledge-quill-img {
     width: 72px;
     min-width: 72px;
@@ -238,7 +293,7 @@ button {
     margin: 0 auto 0.3em auto;
     display: block;
   }
-  
+
   .pledge-quote-text {
     font-family: 'lamarpen', serif;
     font-size: clamp(1.35rem, 6.5vw, 2.1rem);
@@ -254,7 +309,7 @@ button {
     max-width: 96vw;
     width: 100%;
   }
-  
+
   .pledge-plaque {
     display: flex;
     justify-content: center;
@@ -262,7 +317,7 @@ button {
     margin: 1.6rem auto 0.8rem auto;
     width: 100%;
   }
-  
+
   .pledge-plaque img {
     width: 200px;
     height: auto;
@@ -278,7 +333,7 @@ button {
     padding: 0.45em 0.5em;
     max-width: 95vw;
   }
-  
+
   .america250-page-title span {
     white-space: nowrap;
   }
@@ -291,13 +346,13 @@ button {
     min-width: 60px;
     margin-bottom: 0.35em;
   }
-  
+
   .pledge-quote-text {
     font-size: clamp(1.1rem, 7vw, 1.8rem);
     max-width: 98vw;
     line-height: 1.25;
   }
-  
+
   .pledge-plaque img {
     width: 170px;
     max-width: 92vw;
@@ -308,5 +363,14 @@ button {
     font-size: clamp(2.8rem, 9vw, 4.8rem);
     line-height: 0.9;
     word-spacing: 0.03em;
+  }
+
+  /* === CONSISTENT EDGE-TO-EDGE LAYOUT === */
+  .fullwidth-block {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box;
   }
 }

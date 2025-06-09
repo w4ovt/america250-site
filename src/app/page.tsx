@@ -1,9 +1,8 @@
-// src/app/page.tsx
-
 'use client';
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import ActivationTable from '../components/ActivationTable';
 
 // Dummy fetch function; replace with actual Neon DB/API fetch for production
 async function fetchIsOnAir(): Promise<boolean> {
@@ -17,30 +16,23 @@ export default function Home() {
     fetchIsOnAir().then(setIsOnAir);
   }, []);
 
-  // Optimized pledge text formatting for different screen sizes
   const pledgeText = `And for the support of this Declaration, with a firm reliance on the protection of divine Providence, we mutually pledge to each other our Lives, our Fortunes and our sacred Honor.`;
 
   return (
     <main
-      className="parchment-bg"
+      className="parchment-bg fullwidth-block"
       style={{
-        margin: 0,
-        padding: 0,
         minHeight: '100vh',
         width: '100vw',
+        maxWidth: '100vw',
+        margin: 0,
+        padding: 0,
         overflowX: 'hidden',
+        boxSizing: 'border-box',
       }}
     >
       {/* --- HEADER IMAGE (HERO ART) --- */}
-      <div
-        style={{
-          width: '100vw',
-          overflow: 'hidden',
-          margin: 0,
-          padding: 0,
-          position: 'relative',
-        }}
-      >
+      <div className="fullwidth-block" style={{ position: 'relative', overflow: 'hidden' }}>
         <Image
           src="/america250-website-header.webp"
           alt="America 250 Header"
@@ -64,15 +56,11 @@ export default function Home() {
       </div>
 
       {/* --- SORA AMERICA250 TITLE IMAGE --- */}
-      <div
-        className="header-image-container"
-        style={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          margin: "2rem 0",
-        }}
-      >
+      <div className="header-image-container fullwidth-block" style={{
+        display: "flex",
+        justifyContent: "center",
+        margin: "2rem 0",
+      }}>
         <picture>
           <source srcSet="/america250-header.webp" type="image/webp" />
           <img
@@ -80,7 +68,7 @@ export default function Home() {
             alt="AMERICA 250"
             className="america250-header-image"
             style={{
-              width: "100%",
+              width: "100vw",
               maxWidth: "1200px",
               height: "auto",
               display: "block",
@@ -93,10 +81,10 @@ export default function Home() {
       </div>
 
       {/* --- MAHOGANY SEPARATOR ABOVE TITLE BLOCK --- */}
-      <div className="mahogany-separator" aria-hidden="true"></div>
+      <div className="mahogany-separator fullwidth-block" aria-hidden="true"></div>
 
       {/* --- MAIN TITLE TEXT BLOCK WITH DATE ON NEW LINE --- */}
-      <div className="america250-page-title">
+      <div className="america250-page-title fullwidth-block">
         <span className="america250-title-line">america250</span>
         <span className="america250-title-line">amateur radio</span>
         <span className="america250-title-line">special event</span>
@@ -104,12 +92,11 @@ export default function Home() {
       </div>
 
       {/* --- MAHOGANY SEPARATOR BELOW TITLE BLOCK --- */}
-      <div className="mahogany-separator" aria-hidden="true"></div>
+      <div className="mahogany-separator fullwidth-block" aria-hidden="true"></div>
 
       {/* === PLEDGE QUOTE WITH QUILL/INKWELL (Responsive) === */}
-      <section>
+      <section className="fullwidth-block">
         <div className="pledge-quote-block">
-          {/* Quill positioned based on screen size */}
           <img
             src="/inkwell.webp"
             alt="Quill and Inkwell"
@@ -128,18 +115,17 @@ export default function Home() {
             draggable={false}
           />
         </div>
-        <div className="mahogany-separator" aria-hidden="true"></div>
+        <div className="mahogany-separator fullwidth-block" aria-hidden="true"></div>
       </section>
 
       {/* --- ON AIR / OFF AIR BADGE --- */}
       <div
-        className="onair-status-block"
+        className="onair-status-block fullwidth-block"
         style={{
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           margin: '2.5vw 0 1.2vw 0',
-          width: '100%',
           minHeight: 150,
         }}
       >
@@ -178,6 +164,11 @@ export default function Home() {
         )}
       </div>
 
+      {/* --- ACTIVATION TABLE (patriotic form overlay) --- */}
+      <div className="fullwidth-block">
+        <ActivationTable />
+      </div>
+
       {/* --- ON AIR FLASH ANIMATION KEYFRAMES & RESPONSIVE TITLE STYLES --- */}
       <style jsx global>{`
         @keyframes onAirFlash {
@@ -195,7 +186,6 @@ export default function Home() {
         }
 
         /* === AMERICA250 TITLE RESPONSIVE LINE CONTROL === */
-        /* Desktop: 3 lines (amateur radio + special event on one line) */
         @media (min-width: 1200px) {
           .america250-title-line {
             display: block;
@@ -210,7 +200,6 @@ export default function Home() {
             content: " ";
           }
         }
-        /* Portrait/mobile: 4 lines, each phrase on its own line */
         @media (max-width: 1199px) {
           .america250-title-line {
             display: block !important;

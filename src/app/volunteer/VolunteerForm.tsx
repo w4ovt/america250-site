@@ -1,9 +1,8 @@
-// src/app/volunteer/VolunteerForm.tsx
+'use client';
 
 import React, { useState } from "react";
 import styles from "./VolunteerForm.module.css";
 
-// Hardcoded for example; replace with your data source
 const VOLUNTEERS = [
   { name: "Marc", callsign: "W4OVT", state: "NC" },
   { name: "Ken", callsign: "K7ARN", state: "AZ" },
@@ -27,16 +26,22 @@ const MODES = [
   "SSB","CW","AM","FM","FT8","FT4","PSK31","Olivia","EchoLink"
 ];
 
-// === MAIN COMPONENT START ===
 export default function VolunteerForm({ locked = false }: { locked?: boolean }) {
+  // Regular form state
   const [selectedVolunteer, setSelectedVolunteer] = useState("");
   const [callsign, setCallsign] = useState("");
   const [state, setState] = useState("");
   const [frequency, setFrequency] = useState("");
   const [mode, setMode] = useState("");
-  const [activationNumber, setActivationNumber] = useState(""); // For ending activation
 
-  // Autofill callsign and state when volunteer selected
+  // Activation number & message logic
+  const [activationNumber, setActivationNumber] = useState<string | null>(null);
+  const [activationMessage, setActivationMessage] = useState<string | null>(null);
+
+  // End Activation state
+  const [endActivationInput, setEndActivationInput] = useState(""); // for controlled input
+
+  // Handle volunteer select
   function handleVolunteerChange(e: React.ChangeEvent<HTMLSelectElement>) {
     const name = e.target.value;
     setSelectedVolunteer(name);
@@ -45,11 +50,16 @@ export default function VolunteerForm({ locked = false }: { locked?: boolean }) 
     setState(vol ? vol.state : "");
   }
 
+  // Handle new activation
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // TODO: Connect to backend
-    alert("Activation Submitted");
-    // Reset form fields
+    // Simulate assignment of unique activation number (replace with backend-generated value if needed)
+    const newActivationNumber = Math.floor(10000 + Math.random() * 90000).toString();
+    setActivationNumber(newActivationNumber);
+    setActivationMessage(
+      `Your Activation Number is: ${newActivationNumber}. Please use this number below to end your activation.`
+    );
+    setEndActivationInput(newActivationNumber); // auto-fill the field for user
     setSelectedVolunteer("");
     setCallsign("");
     setState("");
@@ -57,15 +67,39 @@ export default function VolunteerForm({ locked = false }: { locked?: boolean }) 
     setMode("");
   }
 
+  // Handle end activation
   function handleEndActivation(e: React.FormEvent) {
     e.preventDefault();
-    alert("Activation Ended");
-    setActivationNumber("");
+    // Here you would call backend API to end activation
+    setActivationMessage("Your activation has ended. Thank you for volunteering!");
+    setActivationNumber(null);
+    setEndActivationInput("");
   }
 
   return (
     <div className={styles.panelContainer} aria-disabled={locked}>
       <div className={styles.panelTitle}>Volunteer Activation Form</div>
+      {/* Show activation assignment message */}
+      {activationMessage && (
+        <div
+          style={{
+            background: "#fdf3ce",
+            color: "#714800",
+            fontWeight: 600,
+            fontSize: "1.5rem",
+            margin: "2rem 0 0.7rem 0",
+            borderRadius: 8,
+            padding: "0.9rem 2rem",
+            textAlign: "center",
+            letterSpacing: "0.01em",
+            boxShadow: "0 0 6px #efdbb3"
+          }}
+          aria-live="polite"
+        >
+          {activationMessage}
+        </div>
+      )}
+      {/* --- ACTIVATE SECTION --- */}
       <form className={styles.formFields} onSubmit={handleSubmit} autoComplete="off">
         <label className={styles.label} htmlFor="operatorName">Operator Name</label>
         <select
@@ -144,25 +178,25 @@ export default function VolunteerForm({ locked = false }: { locked?: boolean }) 
         </button>
       </form>
 
-      {/* End Activation Section */}
+      {/* --- END ACTIVATION SECTION --- */}
       <div style={{ margin: "2rem 0 0 0", width: "100%" }}>
         <form onSubmit={handleEndActivation} className={styles.formFields} autoComplete="off">
-          <label className={styles.label} htmlFor="activationNumber">Enter Activation Number</label>
+          <label className={styles.label} htmlFor="activationNumber">Activation Number</label>
           <input
             className={styles.input}
             id="activationNumber"
             type="text"
-            value={activationNumber}
-            onChange={e => setActivationNumber(e.target.value)}
+            value={endActivationInput}
+            onChange={e => setEndActivationInput(e.target.value)}
             placeholder="Activation Number"
             required
-            disabled={locked}
+            disabled={locked || !activationNumber}
             autoComplete="off"
           />
           <button
             className={styles.endButton}
             type="submit"
-            disabled={locked}
+            disabled={locked || !activationNumber}
           >
             End Activation
           </button>
