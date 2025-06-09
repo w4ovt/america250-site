@@ -1,4 +1,4 @@
-/* === NavBar.module.css — Fully Audited, Ornate, and Centered === */
+/* === NavBar.module.css — Fully Audited: Top Brass Bar Only, Responsive, Production-Ready === */
 
 /* --- ORNATE BRASS SEPARATOR BAR (TOP) --- */
 .brassGradientBar {
@@ -62,18 +62,16 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 2.1vw;                /* Slightly reduced for more fit */
-  width: auto;
-  max-width: 92vw;
+  gap: 1.5vw;
+  width: 100%;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 0 2vw;
+  padding: 0 1vw;
   list-style: none;
   background: none;
   box-sizing: border-box;
-  flex-wrap: nowrap;         /* Prevent wrapping */
-  overflow-x: auto;          /* Horizontal scroll if needed */
-  scrollbar-width: thin;     /* Firefox slim scroll */
-  white-space: nowrap;
+  flex-wrap: wrap;           /* Wrap at overflow for accessibility */
+  white-space: normal;
 }
 
 /* --- NAVIGATION ITEM --- */
@@ -90,7 +88,7 @@
   all: unset;
   display: block;
   font-family: 'baskerville-old-style', serif !important;
-  font-size: clamp(1.3rem, 2vw, 2.2rem);
+  font-size: clamp(1.1rem, 2vw, 2rem);
   font-weight: 700 !important;
   color: #f8eddc !important;
   letter-spacing: 0.09em;
@@ -138,31 +136,6 @@
   border-radius: 2px;
   box-shadow: 0 0 2px #b87333;
   opacity: 0.85;
-}
-
-/* --- ORNATE BRASS SEPARATOR BAR (BOTTOM) --- */
-.bronzeBar {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 10px;
-  background: linear-gradient(
-    90deg,
-    rgba(255,226,154,0) 0%,
-    #ffe29a 7%,
-    #d5a94a 18%,
-    #fff4c0 35%,
-    #d5a94a 65%,
-    #ffe29a 93%,
-    rgba(255,226,154,0) 100%
-  );
-  box-shadow:
-    0 -2px 10px #a97813a0,
-    0 0 0 2px #fff4c0 inset,
-    0 -1px 0 0 #d5a94a inset;
-  z-index: 30;
-  pointer-events: none;
 }
 
 /* --- HAMBURGER MENU --- */
