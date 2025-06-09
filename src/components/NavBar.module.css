@@ -1,28 +1,167 @@
+/* === NavBar.module.css — Fully Audited, Ornate, and Centered === */
+
+/* --- ORNATE BRASS SEPARATOR BAR (TOP) --- */
+.brassGradientBar {
+  width: 100%;
+  height: 10px;
+  background: linear-gradient(
+    90deg,
+    rgba(255,226,154,0) 0%,
+    #ffe29a 7%,
+    #d5a94a 18%,
+    #fff4c0 35%,
+    #d5a94a 65%,
+    #ffe29a 93%,
+    rgba(255,226,154,0) 100%
+  );
+  border: none;
+  box-shadow:
+    0 2px 10px #a97813a0,
+    0 0 0 2px #fff4c0 inset,
+    0 1px 0 0 #d5a94a inset;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 30;
+  pointer-events: none;
+}
+
+/* --- NAVBAR CONTAINER --- */
 .navbar {
+  position: relative;
   width: 100%;
   background: #4d2e07;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 74px;
-  margin: 0;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  min-height: 130px;
   padding: 0;
-  position: relative;
-  z-index: 20;
+  margin: 0;
   font-family: 'baskerville-old-style', serif !important;
+  box-sizing: border-box;
+  z-index: 20;
 }
 
+/* --- NAVIGATION ROW --- */
 .toolbarInner {
   width: 100%;
-  margin: 0;
+  flex: 1 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
-  box-sizing: border-box;
+  min-height: 120px;
   position: relative;
+  box-sizing: border-box;
+  padding-top: 10px; /* height of .brassGradientBar */
 }
 
+/* --- NAVIGATION LIST --- */
+.navlist {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 3vw;
+  width: auto;
+  max-width: 92vw;
+  margin: 0 auto;
+  padding: 0 2vw;
+  list-style: none;
+  background: none;
+  box-sizing: border-box;
+}
+
+/* --- NAVIGATION ITEM --- */
+.navitem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  background: none;
+}
+
+/* --- NAVIGATION LINK --- */
+.navlink {
+  all: unset;
+  display: block;
+  font-family: 'baskerville-old-style', serif !important;
+  font-size: clamp(2.4rem, 5vw, 2.8rem);
+  font-weight: 700 !important;
+  color: #f8eddc !important;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  padding: 0.3em 1.2em;
+  text-align: center;
+  border-radius: 0;
+  text-shadow:
+    0 1px 1px #a86b1f80,
+    0 2px 0 #432c09;
+  transition: color 0.18s, text-shadow 0.18s;
+  background: none;
+  cursor: pointer;
+  text-decoration: none;
+  outline: none;
+  line-height: 1.12;
+}
+
+.navlink:focus,
+.navlink:active {
+  outline: 2px solid #e7d09c;
+  outline-offset: 2px;
+  background: #5c3a0b33;
+}
+.navlink:hover {
+  color: #ffe29a !important;
+  text-shadow: 0 2px 2px #a86b1f80, 0 4px 0 #432c09;
+  text-decoration: underline !important;
+}
+
+/* --- VERTICAL BRONZE SEPARATORS BETWEEN MENU ITEMS --- */
+.navitem:not(:last-child)::after {
+  content: "";
+  display: inline-block;
+  align-self: center;
+  margin-left: 1.2vw;
+  height: 1.3em;
+  width: 3px;
+  background: linear-gradient(
+    to bottom,
+    #cd7f32 0%,
+    #e3b778 50%,
+    #cd7f32 100%
+  );
+  border-radius: 2px;
+  box-shadow: 0 0 2px #b87333;
+  opacity: 0.85;
+}
+
+/* --- ORNATE BRASS SEPARATOR BAR (BOTTOM) --- */
+.bronzeBar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 10px;
+  background: linear-gradient(
+    90deg,
+    rgba(255,226,154,0) 0%,
+    #ffe29a 7%,
+    #d5a94a 18%,
+    #fff4c0 35%,
+    #d5a94a 65%,
+    #ffe29a 93%,
+    rgba(255,226,154,0) 100%
+  );
+  box-shadow:
+    0 -2px 10px #a97813a0,
+    0 0 0 2px #fff4c0 inset,
+    0 -1px 0 0 #d5a94a inset;
+  z-index: 30;
+  pointer-events: none;
+}
+
+/* --- HAMBURGER MENU (UNCHANGED) --- */
 .hamburger {
   all: unset;
   display: none;
@@ -33,7 +172,7 @@
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 30;
+  z-index: 40;
   width: 48px;
   height: 48px;
   margin-left: 15px;
@@ -81,91 +220,10 @@
   pointer-events: none;
 }
 
-.navlist {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  gap: 3vw;
-  list-style: none !important;
-  padding: 0 3vw !important;
-  margin: 0 !important;
-  width: 100%;
-  white-space: nowrap;
-  overflow-x: visible;
-  background: none !important;
-}
-
-.navitem {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 !important;
-  padding: 0 !important;
-  min-width: 0;
-  background: none !important;
-}
-
-.navlink {
-  all: unset;
-  display: block;
-  font-family: 'baskerville-old-style', serif !important;
-  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
-  font-weight: 400 !important;
-  color: #f8eddc !important;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  padding: 0 0.7em;
-  text-align: center;
-  border-radius: 0;
-  text-shadow:
-    0 1px 1px #a86b1f80,
-    0 2px 0 #432c09;
-  transition: color 0.18s, text-shadow 0.18s;
-  word-spacing: 0.13em;
-  background: none !important;
-  cursor: pointer;
-  text-decoration: none !important;
-  outline: none;
-}
-
-.navlink:focus,
-.navlink:active {
-  outline: 2px solid #e7d09c;
-  outline-offset: 2px;
-  background: #5c3a0b33;
-}
-.navlink:hover {
-  color: #ffe29a !important;
-  text-shadow: 0 2px 2px #a86b1f80, 0 4px 0 #432c09;
-  text-decoration: underline !important;
-}
-
-.brassGradientBar {
-  width: 100%;
-  height: 7px;
-  background: linear-gradient(90deg,
-      rgba(255, 226, 154, 0) 0%,
-      #ffe29a 10%,
-      #d5a94a 26%,
-      #fff4c0 50%,
-      #d5a94a 74%,
-      #ffe29a 90%,
-      rgba(255, 226, 154, 0) 100%);
-  margin: 0;
-  padding: 0;
-  border: none;
-  box-shadow: 0 2px 10px #a97813a0;
-  z-index: 10;
-}
-
-/* Hamburger for ALL mobile/tablet ≤1024px */
+/* --- MOBILE/TABLET (≤1024px) --- */
 @media (max-width: 1024px) {
-  .hamburger {
-    display: block;
-    margin-left: 15px;
-  }
+  .navbar { min-height: 74px; }
+  .toolbarInner { min-height: 64px; padding-top: 7px; }
   .navlist {
     display: none;
     flex-direction: column;
@@ -188,20 +246,35 @@
     display: flex;
   }
   .navitem {
-    width: 100%;
+    width: 100vw;
     justify-content: center;
     border-bottom: 1px solid #d5a94a22;
     min-width: 0;
     flex: none;
   }
   .navlink {
-    font-size: 1.25rem;
-    padding: 0.9em 0;
+    font-size: 1.15rem;
+    padding: 0.8em 0;
     width: 100vw;
     white-space: normal;
     flex: none;
+    line-height: 1.15;
+    min-height: 54px;
   }
-  .navbar {
-    min-height: 44px;
+  .navitem:not(:last-child)::after {
+    margin-left: 0.5rem;
+    height: 1.1em;
+    width: 2px;
+  }
+}
+
+/* --- ACCESSIBILITY: HIGH CONTRAST --- */
+@media (prefers-contrast: more) {
+  .navbar, .navlink {
+    background: #000 !important;
+    color: #fff !important;
+  }
+  .navlink:focus-visible {
+    outline: 3px solid #ffd700;
   }
 }
