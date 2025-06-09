@@ -32,6 +32,7 @@ export default function VolunteerPage() {
         padding: 0,
         overflowX: 'hidden',
         boxSizing: 'border-box',
+
       }}
     >
       {/* --- NCS GUIDE BUTTON (ornate, increased by 25%) --- */}
