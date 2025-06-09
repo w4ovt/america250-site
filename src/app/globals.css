@@ -9,25 +9,27 @@
 }
 
 @font-face {
-  font-family: 'baskerville-old-style';
+  font-family: baskerville-old-style;
   src: url('/fonts/baskerville-old-style.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'lamarpen';
+  font-family: lamarpen;
   src: url('/fonts/lamarpen.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 
-  @font-face {
-    font-family: 'universal-bold';
-    src: url('/fonts/universal-bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-  }
+}
+
+@font-face {
+  font-family: universal-bold;
+  src: url('/fonts/universal-bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+
 }
 
 /* === GLOBAL BASE STYLES === */
@@ -57,7 +59,7 @@ body {
 body {
   margin: 0;
   padding: 0;
-  font-family: 'baskerville-old-style', serif;
+  font-family: baskerville-old-style, serif;
   font-size: clamp(1rem, 2.5vw, 1.15rem);
   background-image: url('/america-250-md-parchment-1440-tall.webp');
   background-repeat: repeat-y;
@@ -129,14 +131,14 @@ button {
   width: 100%;
   height: 7px;
   background: linear-gradient(90deg,
-      rgba(46, 26, 8, 0) 0%,
+      rgb(46 26 8 / 0%) 0%,
       #6d3b19 12%,
       #935d2d 28%,
       #43290c 50%,
       #935d2d 72%,
       #6d3b19 88%,
-      rgba(46, 26, 8, 0) 100%);
-  margin: 1.8rem 0 1.8rem 0;
+      rgb(46 26 8 / 0%) 100%);
+  margin: 1.8rem 0;
   border: none;
   border-radius: 4px;
   box-shadow: 0 2px 7px 0 #6d3b191a;
@@ -145,7 +147,7 @@ button {
 
 /* === AMERICA250 PAGE TITLE BLOCK === */
 .america250-page-title {
-  font-family: 'old claude', 'baskerville-old-style', serif;
+  font-family: 'old claude', baskerville-old-style, serif;
   font-variant: small-caps;
   text-transform: lowercase;
   font-weight: normal;
@@ -153,7 +155,7 @@ button {
   letter-spacing: 0.045em;
   font-size: clamp(3.75rem, 12vw, 6.9rem);
   color: #43290c;
-  margin: 2.2rem auto 1rem auto;
+  margin: 2.2rem auto 1rem;
   padding: 0.45em 0.7em;
   max-width: 97vw;
   border-radius: 8px;
@@ -169,7 +171,7 @@ button {
 }
 
 /* === DESKTOP LAYOUT (1200px and above) === */
-@media (min-width: 1200px) {
+@media (width >= 1200px) {
   .pledge-quote-block {
     display: flex;
     flex-direction: row;
@@ -189,7 +191,7 @@ button {
   }
 
   .pledge-quote-text {
-    font-family: 'lamarpen', serif;
+    font-family: lamarpen, serif;
     font-size: 3.6rem;
     color: #6c4624;
     text-align: left;
@@ -208,7 +210,7 @@ button {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    margin: 1.2rem auto 0.8rem auto;
+    margin: 1.2rem auto 0.8rem;
     width: 100%;
   }
 
@@ -221,7 +223,7 @@ button {
 }
 
 /* === LANDSCAPE LAYOUT (768px to 1199px) === */
-@media (min-width: 768px) and (max-width: 1199px) {
+@media (width >= 768px) and (width <= 1199px) {
   .pledge-quote-block {
     display: flex;
     flex-direction: column;
@@ -237,12 +239,12 @@ button {
     width: 88px;
     min-width: 88px;
     height: auto;
-    margin: 0 auto 0.25em auto;
+    margin: 0 auto 0.25em;
     display: block;
   }
 
   .pledge-quote-text {
-    font-family: 'lamarpen', serif;
+    font-family: lamarpen, serif;
     font-size: clamp(2.2rem, 4.8vw, 3.2rem);
     color: #6c4624;
     text-align: center;
@@ -261,7 +263,7 @@ button {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    margin: 1.8rem auto 0.8rem auto;
+    margin: 1.8rem auto 0.8rem;
     width: 100%;
   }
 
@@ -274,7 +276,7 @@ button {
 }
 
 /* === PORTRAIT LAYOUT (under 768px) === */
-@media (max-width: 767px) {
+@media (width <= 767px) {
   .pledge-quote-block {
     display: flex;
     flex-direction: column;
@@ -282,7 +284,7 @@ button {
     max-width: 100vw;
     gap: 0.4em;
     min-height: unset;
-    margin: 0.5em auto 0 auto;
+    margin: 0.5em auto 0;
     padding: 0 4vw;
   }
 
@@ -290,12 +292,12 @@ button {
     width: 72px;
     min-width: 72px;
     height: auto;
-    margin: 0 auto 0.3em auto;
+    margin: 0 auto 0.3em;
     display: block;
   }
 
   .pledge-quote-text {
-    font-family: 'lamarpen', serif;
+    font-family: lamarpen, serif;
     font-size: clamp(1.35rem, 6.5vw, 2.1rem);
     color: #6c4624;
     text-align: center;
@@ -314,7 +316,7 @@ button {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    margin: 1.6rem auto 0.8rem auto;
+    margin: 1.6rem auto 0.8rem;
     width: 100%;
   }
 
@@ -340,7 +342,7 @@ button {
 }
 
 /* === VERY SMALL SCREENS (under 480px) === */
-@media (max-width: 479px) {
+@media (width <= 479px) {
   .pledge-quill-img {
     width: 60px;
     min-width: 60px;
