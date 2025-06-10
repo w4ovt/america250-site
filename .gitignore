@@ -67,3 +67,4 @@ build/
 # Parcel cache
 .cache/
 .vercel
+nextjs-css-chunk-bug-repo/
