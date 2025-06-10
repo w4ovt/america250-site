@@ -3,9 +3,9 @@
 @font-face {
   font-family: 'old claude';
   src: url('/fonts/oldclaude.woff2') format('woff2'),
-       url('/fonts/oldclaude.woff') format('woff'),
-       url('/fonts/oldclaude.otf') format('opentype'),
-       url('/fonts/oldclaude.ttf') format('truetype');
+    url('/fonts/oldclaude.woff') format('woff'),
+    url('/fonts/oldclaude.otf') format('opentype'),
+    url('/fonts/oldclaude.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -14,8 +14,8 @@
 @font-face {
   font-family: librebaskerville-bold;
   src: url('/fonts/librebaskerville-bold.woff2') format('woff2'),
-       url('/fonts/librebaskerville-bold.woff') format('woff'),
-       url('/fonts/librebaskerville-bold.ttf') format('truetype');
+    url('/fonts/librebaskerville-bold.woff') format('woff'),
+    url('/fonts/librebaskerville-bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -24,9 +24,9 @@
 @font-face {
   font-family: lamarpen;
   src: url('/fonts/lamarpen.woff2') format('woff2'),
-       url('/fonts/lamarpen.woff') format('woff'),
-       url('/fonts/lamarpen.otf') format('opentype'),
-       url('/fonts/lamarpen.ttf') format('truetype');
+    url('/fonts/lamarpen.woff') format('woff'),
+    url('/fonts/lamarpen.otf') format('opentype'),
+    url('/fonts/lamarpen.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -35,9 +35,9 @@
 @font-face {
   font-family: universal-bold;
   src: url('/fonts/universal-bold.woff2') format('woff2'),
-       url('/fonts/universal-bold.woff') format('woff'),
-       url('/fonts/universal-bold.otf') format('opentype'),
-       url('/fonts/universal-bold.ttf') format('truetype');
+    url('/fonts/universal-bold.woff') format('woff'),
+    url('/fonts/universal-bold.otf') format('opentype'),
+    url('/fonts/universal-bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -186,7 +186,7 @@ button {
 }
 
 /* === DESKTOP LAYOUT (1200px and above) === */
-@media (width >= 1200px) {
+@media (width >=1200px) {
   .pledge-quote-block {
     display: flex;
     flex-direction: row;
@@ -238,7 +238,7 @@ button {
 }
 
 /* === LANDSCAPE LAYOUT (768px to 1199px) === */
-@media (width >= 768px) and (width <= 1199px) {
+@media (width >=768px) and (width <=1199px) {
   .pledge-quote-block {
     display: flex;
     flex-direction: column;
@@ -291,7 +291,7 @@ button {
 }
 
 /* === PORTRAIT LAYOUT (under 768px) === */
-@media (width <= 767px) {
+@media (width <=767px) {
   .pledge-quote-block {
     display: flex;
     flex-direction: column;
@@ -357,7 +357,7 @@ button {
 }
 
 /* === VERY SMALL SCREENS (under 480px) === */
-@media (width <= 479px) {
+@media (width <=479px) {
   .pledge-quill-img {
     width: 60px;
     min-width: 60px;
@@ -388,6 +388,25 @@ button {
     max-width: 100vw !important;
     margin: 0 !important;
     padding: 0 !important;
+    box-sizing: border-box;
+  }
+}
+
+/* === Responsive PIN form container for Volunteer Page === */
+@media (max-width: 767px) {
+  .pin-form-container {
+    max-width: 98vw !important;
+    min-width: 0 !important;
+    padding-left: 4vw !important;
+    padding-right: 4vw !important;
+    box-sizing: border-box;
+  }
+
+  .pin-form-container form {
+    min-width: 0 !important;
+    max-width: 98vw !important;
+    padding-left: 4vw !important;
+    padding-right: 4vw !important;
     box-sizing: border-box;
   }
 }

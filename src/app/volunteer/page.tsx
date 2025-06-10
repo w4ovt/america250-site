@@ -41,7 +41,7 @@ export default function VolunteerPage() {
           minHeight: '100vh',
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',  // <-- Ensures horizontal centering
+          alignItems: 'center',
           justifyContent: 'flex-start',
           gap: '2.5rem',
           paddingTop: '4.5rem',
@@ -92,9 +92,10 @@ export default function VolunteerPage() {
 
         {/* --- PIN ENTRY --- */}
         <div
+          className="pin-form-container"
           style={{
-            width: 900,
-            maxWidth: '98vw',
+            width: '100%',
+            maxWidth: 900,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
