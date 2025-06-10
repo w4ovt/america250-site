@@ -1,8 +1,11 @@
 /* === FONT FACE DEFINITIONS === */
+
 @font-face {
   font-family: 'old claude';
   src: url('/fonts/oldclaude.woff2') format('woff2'),
-    url('/fonts/oldclaude.woff') format('woff');
+       url('/fonts/oldclaude.woff') format('woff'),
+       url('/fonts/oldclaude.otf') format('opentype'),
+       url('/fonts/oldclaude.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -13,23 +16,37 @@
   src: url('/fonts/baskerville-old-style.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: lamarpen;
-  src: url('/fonts/lamarpen.ttf') format('truetype');
+  src: url('/fonts/lamarpen.woff2') format('woff2'),
+       url('/fonts/lamarpen.woff') format('woff'),
+       url('/fonts/lamarpen.otf') format('opentype'),
+       url('/fonts/lamarpen.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
-
 }
 
 @font-face {
   font-family: universal-bold;
-  src: url('/fonts/universal-bold.otf') format('opentype');
+  src: url('/fonts/universal-bold.woff2') format('woff2'),
+       url('/fonts/universal-bold.woff') format('woff'),
+       url('/fonts/universal-bold.otf') format('opentype'),
+       url('/fonts/universal-bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
+  font-display: swap;
+}
 
+@font-face {
+  font-family: goudystd;
+  src: url('/fonts/goudystd.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 /* === GLOBAL BASE STYLES === */
