@@ -1,4 +1,4 @@
-/* === NavBar.module.css — Fully Audited: Top Brass Bar Only, Responsive, Production-Ready === */
+/* === NavBar.module.css — Audited, Zero Errors, Production-Ready === */
 
 /* --- ORNATE BRASS SEPARATOR BAR (TOP) --- */
 .brassGradientBar {
@@ -38,7 +38,7 @@
   min-height: 130px;
   padding: 0;
   margin: 0;
-  font-family: 'baskerville-old-style', serif !important;
+  font-family: 'librebaskerville-bold', serif !important;
   box-sizing: border-box;
   z-index: 20;
 }
@@ -65,11 +65,11 @@
   gap: 1vw;
   width: 100%;
   max-width: 100%;
-  padding: 0 .25vw;
+  padding: 0 0.25vw;
   list-style: none;
   background: none;
   box-sizing: border-box;
-  flex-wrap: wrap;           /* Wrap at overflow for accessibility */
+  flex-wrap: wrap;
   white-space: normal;
 }
 
@@ -86,13 +86,13 @@
 .navlink {
   all: unset;
   display: block;
-  font-family: 'baskerville-old-style', serif !important;
-  font-size: clamp(1.1rem, 2vw, 2rem);
+  font-family: librebaskerville-bold, serif !important;
+  font-size: 1.35rem;              /* INCREASED SIZE for visibility */
   font-weight: 700 !important;
   color: #f8eddc !important;
   letter-spacing: 0.09em;
   text-transform: uppercase;
-  padding: 0.3em 1.2em;
+  padding: 0.33em 1.3em;
   text-align: center;
   border-radius: 0;
   text-shadow:
@@ -103,7 +103,7 @@
   cursor: pointer;
   text-decoration: none;
   outline: none;
-  line-height: 1.12;
+  line-height: 1.14;
 }
 
 .navlink:focus,
@@ -112,6 +112,7 @@
   outline-offset: 2px;
   background: #5c3a0b33;
 }
+
 .navlink:hover {
   color: #ffe29a !important;
   text-shadow: 0 2px 2px #a86b1f80, 0 4px 0 #432c09;
@@ -191,15 +192,23 @@
 .hamburger::after {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: transparent;
   pointer-events: none;
 }
 
 /* --- MOBILE/TABLET (≤1024px) --- */
 @media (max-width: 1024px) {
-  .navbar { min-height: 74px; }
-  .toolbarInner { min-height: 64px; padding-top: 7px; }
+  .navbar {
+    min-height: 74px;
+  }
+  .toolbarInner {
+    min-height: 64px;
+    padding-top: 7px;
+  }
   .navlist {
     display: none;
     flex-direction: column;
@@ -242,7 +251,6 @@
     height: 1.1em;
     width: 2px;
   }
-  /* Show hamburger menu in mobile/tablet */
   .hamburger {
     display: block;
   }
@@ -250,7 +258,8 @@
 
 /* --- ACCESSIBILITY: HIGH CONTRAST --- */
 @media (prefers-contrast: more) {
-  .navbar, .navlink {
+  .navbar,
+  .navlink {
     background: #000 !important;
     color: #fff !important;
   }

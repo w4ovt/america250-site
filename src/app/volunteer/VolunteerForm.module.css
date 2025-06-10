@@ -1,53 +1,52 @@
-/* src/app/volunteer/VolunteerForm.module.css */
+/* === VolunteerForm.module.css — Clean, Responsive, Sanely Sized === */
 
-/* Main panel for the volunteer form and wide assets */
+/* --- MAIN PANEL CONTAINER --- */
 .panelContainer,
 .widePanel {
-  width: 2000px;
-  max-width: 98vw;
-  margin: 2.5rem auto 0 auto;
+  width: 100%;
+  max-width: 820px;
+  margin: 2.2rem auto 0 auto;
   background: linear-gradient(180deg, #f8ecd8 80%, #ede0c5 100%);
-  border: 10px solid #6e4314;
-  border-radius: 26px;
+  border: 8px solid #6e4314;
+  border-radius: 20px;
   font-family: 'goudystd', serif;
   box-shadow:
-    0 0 0 10px #a37c4c,
-    0 8px 44px 0 #5d3b12a0,
-    inset 0 0 48px #c9a36b44;
-  padding: 3rem 4rem;
+    0 0 0 8px #a37c4c,
+    0 8px 32px 0 #5d3b12a0,
+    inset 0 0 32px #c9a36b44;
+  padding: 2rem 2.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
 }
 
-/* NCS Guide button wrapper */
+/* --- NCS GUIDE BUTTON STYLES --- */
 .ncsGuideButton {
   width: 100%;
   background: linear-gradient(90deg, #f5e1bc 0%, #c5a564 100%);
-  border: 3px solid #a47c37;
-  border-radius: 17px;
-  padding: 1.5rem 2.5rem;
+  border: 2.5px solid #a47c37;
+  border-radius: 12px;
+  padding: 1rem 1.8rem;
   box-shadow: 0 4px 16px #7c552028, 0 1.5px 10px #9a7c4722;
-  font-family: 'old claude', 'baskerville-old-style', serif;
+  font-family: 'old claude', 'librebaskerville-bold', serif;
   text-align: center;
   margin-bottom: 0;
 }
 
-/* NCS Guide link */
 .ncsGuideLink {
   display: inline-block;
   width: 100%;
   background: linear-gradient(180deg, #fff6e0 70%, #b49768 100%);
   color: #43290c;
-  border: 2.5px solid #ad8a45;
-  border-radius: 9px;
+  border: 2px solid #ad8a45;
+  border-radius: 8px;
   font-weight: 700;
-  padding: 2rem 4rem;
-  font-size: 2.8rem;
+  padding: 1.3rem 2.2rem;
+  font-size: 1.25rem;
   text-decoration: none;
   box-shadow: 0 2px 9px #cfad7533;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.045em;
   transition: background 0.18s, box-shadow 0.18s;
   text-align: center;
 }
@@ -59,24 +58,24 @@
 }
 
 .ncsGuideIcon {
-  margin-right: 24px;
-  font-size: 2.4em;
+  margin-right: 16px;
+  font-size: 1.4em;
   vertical-align: middle;
 }
 
-/* Title styling */
+/* --- FORM TITLE --- */
 .panelTitle {
   text-align: center;
-  font-size: 3.5rem;
+  font-size: 2.1rem;
   font-weight: bold;
   color: #4a2e05;
-  margin-bottom: 2rem;
+  margin-bottom: 1.4rem;
   font-family: 'goudystd', serif;
   letter-spacing: 0.01em;
   text-shadow: 0 1.2px 2px #b99958;
 }
 
-/* Form fields container */
+/* --- FORM FIELDS LAYOUT --- */
 .formFields {
   width: 100%;
   display: flex;
@@ -84,27 +83,27 @@
   align-items: center;
 }
 
-/* Label styling */
+/* --- LABEL STYLING --- */
 .label {
   display: block;
   font-weight: 700;
-  margin-bottom: 0.5rem;
-  font-size: 2.5rem;
+  margin-bottom: 0.38rem;
+  font-size: 1.18rem;
   text-transform: uppercase;
   color: #4a2e05;
   width: 100%;
   text-align: center;
 }
 
-/* Input and select styling */
+/* --- INPUT & SELECT --- */
 .input,
 .select {
   width: 100%;
-  margin-bottom: 40px;
-  font-size: 2.5rem;
-  padding: 24px 32px;
-  border: 3px solid #b8860b;
-  border-radius: 12px;
+  margin-bottom: 1.1rem;
+  font-size: 1.12rem;
+  padding: 0.75em 1.1em;
+  border: 2px solid #b8860b;
+  border-radius: 8px;
   background-color: #fffbea;
   box-sizing: border-box;
   text-transform: uppercase;
@@ -113,26 +112,26 @@
 
 .input:focus,
 .select:focus {
-  outline: 6px solid #b8860b;
-  outline-offset: 6px;
+  outline: 4px solid #b8860b;
+  outline-offset: 3px;
   background-color: #fffdfa;
 }
 
-/* Submit and end buttons */
+/* --- BUTTONS --- */
 .submitButton,
 .endButton {
   width: 100%;
-  padding: 2.5rem 0;
-  font-size: 3rem;
+  padding: 1.1rem 0;
+  font-size: 1.17rem;
   background: #4a2e05;
   color: #fffbea;
   border: none;
-  border-radius: 24px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.2s;
   font-weight: 700;
-  letter-spacing: 0.1em;
-  margin-bottom: 2.4rem;
+  letter-spacing: 0.07em;
+  margin-bottom: 1.2rem;
 }
 
 .submitButton:hover:not(:disabled),
@@ -144,48 +143,33 @@
 .endButton:disabled {
   background-color: #d1b75a;
   cursor: not-allowed;
-  opacity: 0.8;
+  opacity: 0.82;
 }
 
-/* Responsive for all wide panels */
-@media (max-width: 1200px) {
+/* --- RESPONSIVE: TABLET & MOBILE --- */
+@media (max-width: 900px) {
   .panelContainer,
   .widePanel {
-    width: 95vw;
-    max-width: 98vw;
-    padding: 2rem 1rem;
-    border-width: 7px;
-    border-radius: 16px;
-    min-width: 0;
+    max-width: 99vw;
+    padding: 1.1rem 0.6rem;
+    border-width: 4px;
+    border-radius: 9px;
   }
-
-  .panelTitle {
-    font-size: 2.5rem;
-  }
-  .label {
-    font-size: 1.5rem;
-  }
-  .input,
-  .select {
-    font-size: 1.5rem;
-    padding: 14px 18px;
-    margin-bottom: 20px;
-    border-width: 2px;
-    border-radius: 8px;
-  }
-  .submitButton,
-  .endButton {
-    font-size: 1.5rem;
-    padding: 1.25rem 0;
-    border-radius: 12px;
-    margin-bottom: 1.2rem;
-  }
-  .ncsGuideLink {
-    font-size: 1.5rem;
-    padding: 1rem 2rem;
-  }
-  .ncsGuideIcon {
-    font-size: 1.2em;
-    margin-right: 12px;
-  }
+  .panelTitle { font-size: 1.32rem; }
+  .label { font-size: 1rem; }
+  .input, .select { font-size: 1rem; padding: 0.6em 0.7em; }
+  .submitButton, .endButton { font-size: 1rem; padding: 0.7em 0; }
+  .ncsGuideLink { font-size: 1rem; padding: 0.7em 1em; }
+  .ncsGuideIcon { font-size: 1em; margin-right: 8px; }
+}
+.centeredPage {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* If you want vertical centering: use 'center' */
+  gap: 2.8rem;
+  padding-top: 3.4rem;
+  box-sizing: border-box;
 }

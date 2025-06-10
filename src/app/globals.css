@@ -12,9 +12,11 @@
 }
 
 @font-face {
-  font-family: baskerville-old-style;
-  src: url('/fonts/baskerville-old-style.ttf') format('truetype');
-  font-weight: normal;
+  font-family: librebaskerville-bold;
+  src: url('/fonts/librebaskerville-bold.woff2') format('woff2'),
+       url('/fonts/librebaskerville-bold.woff') format('woff'),
+       url('/fonts/librebaskerville-bold.ttf') format('truetype');
+  font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
@@ -74,17 +76,13 @@ body {
 }
 
 body {
+  font-family: 'librebaskerville-bold', serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #43290c;
+  background-color: var(--linen);
   margin: 0;
   padding: 0;
-  font-family: baskerville-old-style, serif;
-  font-size: clamp(1rem, 2.5vw, 1.15rem);
-  background-image: url('/america-250-md-parchment-1440-tall.webp');
-  background-repeat: repeat-y;
-  background-size: 100% auto;
-  background-position: top center;
-  background-attachment: fixed;
-  min-height: 100vh;
-  background-color: #f6ecd2;
 }
 
 *,
@@ -164,7 +162,7 @@ button {
 
 /* === AMERICA250 PAGE TITLE BLOCK === */
 .america250-page-title {
-  font-family: 'old claude', baskerville-old-style, serif;
+  font-family: 'old claude', librebaskerville-bold, serif;
   font-variant: small-caps;
   text-transform: lowercase;
   font-weight: normal;
