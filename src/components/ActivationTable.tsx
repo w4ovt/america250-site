@@ -1,5 +1,3 @@
-// src/components/ActivationTable.tsx
-
 'use client';
 
 import React, { useEffect, useState } from 'react';
@@ -44,7 +42,7 @@ export default function ActivationTable() {
     return () => clearInterval(interval);
   }, []);
 
-  // Pad table to a minimum of 5 rows for desktop display (use negative unique IDs for dummy rows)
+  // Ensure a minimum of 5 rows (dummy rows if no activations)
   const MIN_ROWS = 5;
   const PADDED_ROWS = [
     ...rows,
@@ -84,19 +82,8 @@ export default function ActivationTable() {
                 {error}
               </td>
             </tr>
-          ) : rows.length === 0 ? (
-            // Ensure 5 rows are displayed when there are no activations
-            [...Array(MIN_ROWS).keys()].map((_, idx) => (
-              <tr key={`dummy-${idx}`}>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-            ))
           ) : (
+            // Display the padded rows, ensuring a minimum of 5
             PADDED_ROWS.map((row, idx) => (
               <tr key={typeof row.id === 'number' ? row.id : `dummy-${idx}`}>
                 <td>{typeof row.id === 'number' ? row.id : ''}</td>
@@ -116,10 +103,9 @@ export default function ActivationTable() {
           <div className={styles.card} style={{ textAlign: 'center' }}>Loading activations...</div>
         ) : error ? (
           <div className={styles.card} style={{ color: '#b40000' }}>{error}</div>
-        ) : rows.length === 0 ? (
-          <div className={styles.card}>No activations are currently ON AIR.</div>
         ) : (
-          rows.map((row, idx) => (
+          // Display mobile cards for each row
+          PADDED_ROWS.map((row, idx) => (
             <div className={styles.card} key={typeof row.id === 'number' ? row.id : `mobile-dummy-${idx}`}>
               <div className={styles.cardRow}>
                 <span className={styles.cardLabel}>ID:</span>

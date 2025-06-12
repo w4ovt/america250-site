@@ -97,7 +97,7 @@ export default function Home() {
       {/* --- MAHOGANY SEPARATOR ABOVE TITLE BLOCK --- */}
       <div className="mahogany-separator fullwidth-block" aria-hidden="true"></div>
 
-      {/* --- MAIN TITLE TEXT BLOCK WITH DATE ON NEW LINE --- */}
+      {/* --- MAIN TITLE TEXT BLOCK WITH DATE --- */}
       <div className="america250-page-title fullwidth-block">
         <span className="america250-title-line">america250</span>
         <span className="america250-title-line">amateur radio</span>
@@ -133,84 +133,84 @@ export default function Home() {
       </section>
 
       {/* --- ON AIR / OFF AIR BADGE --- */}
-      <div
-        className="onair-status-block fullwidth-block"
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          margin: '2.5vw 0 1.2vw 0',
-          minHeight: 210,
-        }}
-      >
-        {isOnAir ? (
-         // === ON AIR BADGE STACK: BG + FLASHING TEXT ===
 <div
-  className="onair-badge-stack"
+  className="onair-status-block fullwidth-block"
   style={{
-    position: 'relative',
-    width: 'clamp(220px, 95vw, 700px)',  // Match off-air badge clamp
-    maxWidth: 700,                      // Match off-air badge maxWidth
-    margin: '0 auto',
-    display: 'block',
-    background: 'transparent',
-    height: 'auto'
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: '2.5vw 0 1.2vw 0',
+    minHeight: 210,
   }}
 >
-  {/* Static badge background */}
-  <img
-    src="/onair-badge-blank.png"
-    alt="ON AIR Badge Background"
-    width={700}
-    height={466}
-    style={{
-      width: '100%',
-      height: 'auto',
-      display: 'block',
-      border: 'none',
-      position: 'relative',
-      zIndex: 1,
-      maxWidth: '100%',                // Ensures full scaling
-    }}
-    draggable={false}
-  />
-  {/* Flashing ON AIR text */}
-  <img
-    src="/onair-badge-text.png"
-    alt="ON AIR"
-    width={700}
-    height={466}
-    className="onair-text-flash"
-    style={{
-      width: '100%',
-      height: 'auto',
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      zIndex: 2,
-      pointerEvents: 'none',
-      userSelect: 'none',
-      maxWidth: '100%',                // Ensures full scaling
-    }}
-    draggable={false}
-            />
-          </div>
-        ) : (
-          <Image
-            src="/offair-badge.png"
-            alt="OFF AIR"
-            width={500}
-            height={333}
-            sizes="(max-width: 900px) 95vw, 700px"
-            className="onair-badge"
-            style={{
-              maxWidth: 'clamp(220px, 95vw, 700px)',
-              width: '100%',
-              height: 'auto',
-              filter: 'grayscale(35%)',
-            }}
-            priority
-            draggable={false}
+  {isOnAir ? (
+    // === ON AIR BADGE STACK: BG + FLASHING TEXT ===
+    <div
+      className="onair-badge-stack"
+      style={{
+        position: 'relative',
+        width: 'clamp(220px, 95vw, 700px)',
+        maxWidth: 700,
+        margin: '0 auto',
+        display: 'block',
+        background: 'transparent',
+        height: 'auto',
+      }}
+    >
+      {/* Static badge background */}
+      <img
+        src="/onair-badge-blank.png"
+        alt="ON AIR Badge Background"
+        width={700}
+        height={466}
+        style={{
+          width: '100%',
+          height: 'auto',
+          display: 'block',
+          border: 'none',
+          position: 'relative',
+          zIndex: 1,
+          maxWidth: '100%',
+        }}
+        draggable={false}
+      />
+      {/* Flashing ON AIR text */}
+      <img
+        src="/onair-badge-text.png"
+        alt="ON AIR"
+        width={700}
+        height={466}
+        className="onair-text-flash"
+        style={{
+          width: '100%',
+          height: 'auto',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          zIndex: 2,
+          pointerEvents: 'none',
+          userSelect: 'none',
+          maxWidth: '100%',
+        }}
+        draggable={false}
+      />
+    </div>
+  ) : (
+    <Image
+      src="/offair-badge.png"
+      alt="OFF AIR"
+      width={500}
+      height={333}
+      sizes="(max-width: 900px) 50vw, 700px"
+      className="onair-badge"
+      style={{
+        maxWidth: 'clamp(220px, 95vw, 700px)',
+        width: '100%',
+        height: 'auto',
+        filter: 'grayscale(35%)',
+      }}
+      priority
+      draggable={false}
           />
         )}
       </div>

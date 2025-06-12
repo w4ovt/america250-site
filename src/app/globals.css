@@ -132,15 +132,6 @@ button {
   border-radius: 4px;
 }
 
-/* Utility classes */
-.centered {
-  text-align: center;
-}
-
-.bold {
-  font-weight: bold;
-}
-
 /* === MAHOGANY SEPARATOR BAR === */
 .mahogany-separator {
   width: 100%;
@@ -433,12 +424,21 @@ button {
   transition: filter 0.13s;
 }
 
-.onair-badge-stack {
-  position: relative;
-  width: clamp(220px, 95vw, 700px);
-  max-width: 700px;
-  margin: 0 auto;
-  display: block;
-  background: transparent;
-  height: auto;
+/* Strictly limit OffAir and OnAir badges to 50vw on mobile and tablet */
+@media only screen and (max-width: 900px) {
+  /* Target Next.js Image wrapper and image */
+  .onair-badge, .onair-badge-stack, .onair-badge img, .onair-badge-stack img {
+    max-width: 50vw !important;
+    width: 50vw !important;
+    height: auto !important;
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  /* If using Next.js <Image>, also target the wrapper */
+  .onair-badge :where(img), .onair-badge-stack :where(img) {
+    max-width: 50vw !important;
+    width: 50vw !important;
+    height: auto !important;
+  }
 }
