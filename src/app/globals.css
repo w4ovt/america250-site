@@ -410,3 +410,35 @@ button {
     box-sizing: border-box;
   }
 }
+
+/* === ON AIR BADGE TEXT FLASH EFFECT === */
+@keyframes onairTextFlash {
+
+  0%,
+  55% {
+    opacity: 1;
+    filter: drop-shadow(0 0 5px #2b020223) drop-shadow(0 0 5px #f98686d1) brightness(1);
+  }
+
+  65%,
+  100% {
+    opacity: 0.36;
+    filter: drop-shadow(0 0 2px #9a282856) brightness(0.95);
+  }
+}
+
+.onair-text-flash {
+  animation: onairTextFlash 2.05s steps(1) infinite;
+  will-change: filter, opacity;
+  transition: filter 0.13s;
+}
+
+.onair-badge-stack {
+  position: relative;
+  width: clamp(220px, 95vw, 700px);
+  max-width: 700px;
+  margin: 0 auto;
+  display: block;
+  background: transparent;
+  height: auto;
+}

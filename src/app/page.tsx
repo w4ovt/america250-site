@@ -4,16 +4,30 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import ActivationTable from '../components/ActivationTable';
 
-// Dummy fetch function; replace with actual Neon DB/API fetch for production
-async function fetchIsOnAir(): Promise<boolean> {
-  return false; // Replace with API call logic
-}
-
 export default function Home() {
   const [isOnAir, setIsOnAir] = useState(false);
 
+  // Poll every 15 seconds for ON AIR status
   useEffect(() => {
-    fetchIsOnAir().then(setIsOnAir);
+    let mounted = true;
+
+    async function fetchOnAirStatus() {
+      try {
+        const res = await fetch('/api/activations/onair');
+        const data = await res.json();
+        if (mounted) setIsOnAir(Boolean(data.onAir));
+      } catch {
+        if (mounted) setIsOnAir(false);
+      }
+    }
+
+    fetchOnAirStatus();
+    const interval = setInterval(fetchOnAirStatus, 15000);
+
+    return () => {
+      mounted = false;
+      clearInterval(interval);
+    };
   }, []);
 
   const pledgeText = `And for the support of this Declaration, with a firm reliance on the protection of divine Providence, we mutually pledge to each other our Lives, our Fortunes and our sacred Honor.`;
@@ -126,37 +140,74 @@ export default function Home() {
           justifyContent: 'center',
           alignItems: 'center',
           margin: '2.5vw 0 1.2vw 0',
-          minHeight: 150,
+          minHeight: 210,
         }}
       >
         {isOnAir ? (
-          <Image
-            src="/onair-badge.png"
-            alt="ON AIR"
-            width={350}
-            height={233}
-            sizes="(max-width: 600px) 80vw, 350px"
-            className="onair-badge onair-flash"
-            style={{
-              maxWidth: 'clamp(180px, 80vw, 350px)',
-              height: 'auto',
-              boxShadow: '0 0 36px #e73c07, 0 0 10px #ffd700'
-            }}
-            priority
-            draggable={false}
-          />
+         // === ON AIR BADGE STACK: BG + FLASHING TEXT ===
+<div
+  className="onair-badge-stack"
+  style={{
+    position: 'relative',
+    width: 'clamp(220px, 95vw, 700px)',  // Match off-air badge clamp
+    maxWidth: 700,                      // Match off-air badge maxWidth
+    margin: '0 auto',
+    display: 'block',
+    background: 'transparent',
+    height: 'auto'
+  }}
+>
+  {/* Static badge background */}
+  <img
+    src="/onair-badge-blank.png"
+    alt="ON AIR Badge Background"
+    width={700}
+    height={466}
+    style={{
+      width: '100%',
+      height: 'auto',
+      display: 'block',
+      border: 'none',
+      position: 'relative',
+      zIndex: 1,
+      maxWidth: '100%',                // Ensures full scaling
+    }}
+    draggable={false}
+  />
+  {/* Flashing ON AIR text */}
+  <img
+    src="/onair-badge-text.png"
+    alt="ON AIR"
+    width={700}
+    height={466}
+    className="onair-text-flash"
+    style={{
+      width: '100%',
+      height: 'auto',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      zIndex: 2,
+      pointerEvents: 'none',
+      userSelect: 'none',
+      maxWidth: '100%',                // Ensures full scaling
+    }}
+    draggable={false}
+            />
+          </div>
         ) : (
           <Image
             src="/offair-badge.png"
             alt="OFF AIR"
-            width={350}
-            height={233}
-            sizes="(max-width: 600px) 80vw, 350px"
+            width={500}
+            height={333}
+            sizes="(max-width: 900px) 95vw, 700px"
             className="onair-badge"
             style={{
-              maxWidth: 'clamp(180px, 80vw, 350px)',
+              maxWidth: 'clamp(220px, 95vw, 700px)',
+              width: '100%',
               height: 'auto',
-              filter: 'grayscale(35%)'
+              filter: 'grayscale(35%)',
             }}
             priority
             draggable={false}
@@ -169,41 +220,26 @@ export default function Home() {
         <ActivationTable />
       </div>
 
-      {/* --- ON AIR FLASH ANIMATION KEYFRAMES & RESPONSIVE TITLE STYLES --- */}
+      {/* --- ON AIR FLASH ANIMATION KEYFRAMES & RESPONSIVE BADGE SIZING --- */}
       <style jsx global>{`
         @keyframes onAirFlash {
           0%, 60% {
             opacity: 1;
-            filter: drop-shadow(0 0 32px #e73c07) brightness(1.15);
+            filter: drop-shadow(0 0 54px #e73c07) brightness(1.22);
           }
           70%, 100% {
-            opacity: 0.4;
-            filter: drop-shadow(0 0 2px #e73c07) brightness(0.85);
+            opacity: 0.58;
+            filter: drop-shadow(0 0 4px #e73c07) brightness(0.93);
           }
         }
         .onair-flash {
-          animation: onAirFlash 1.07s steps(1) infinite;
+          animation: onAirFlash 1.09s steps(1) infinite;
+          will-change: filter, opacity;
         }
-
-        /* === AMERICA250 TITLE RESPONSIVE LINE CONTROL === */
-        @media (min-width: 1200px) {
-          .america250-title-line {
-            display: block;
-            white-space: normal;
-          }
-          .america250-title-line:nth-child(2),
-          .america250-title-line:nth-child(3) {
-            display: inline;
-            white-space: pre;
-          }
-          .america250-title-line:nth-child(3)::before {
-            content: " ";
-          }
-        }
-        @media (max-width: 1199px) {
-          .america250-title-line {
-            display: block !important;
-            white-space: nowrap;
+        @media (max-width: 900px) {
+          .onair-badge {
+            max-width: 96vw !important;
+            width: 100% !important;
           }
         }
       `}</style>

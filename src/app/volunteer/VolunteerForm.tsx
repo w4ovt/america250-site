@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./VolunteerForm.module.css";
 
 const VOLUNTEERS = [
@@ -26,7 +26,7 @@ const MODES = [
   "SSB","CW","AM","FM","FT8","FT4","PSK31","Olivia","EchoLink"
 ];
 
-
+const LOCAL_STORAGE_KEY = "a250_volunteer_activation";
 
 export default function VolunteerForm({ locked = false }: { locked?: boolean }) {
   // Regular form state
@@ -35,13 +35,29 @@ export default function VolunteerForm({ locked = false }: { locked?: boolean }) 
   const [state, setState] = useState("");
   const [frequency, setFrequency] = useState("");
   const [mode, setMode] = useState("");
-
-  // Activation number & message logic
   const [activationNumber, setActivationNumber] = useState<string | null>(null);
+  const [activationId, setActivationId] = useState<number | null>(null);
   const [activationMessage, setActivationMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // End Activation state
   const [endActivationInput, setEndActivationInput] = useState(""); // for controlled input
+
+  // === PERSIST ACTIVATION ON PAGE LOAD ===
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+      if (stored) {
+        const { activationNumber, activationId, activationMessage } = JSON.parse(stored);
+        if (activationNumber && activationId) {
+          setActivationNumber(activationNumber);
+          setActivationId(activationId);
+          setEndActivationInput(activationNumber);
+          setActivationMessage(activationMessage);
+        }
+      }
+    } catch {}
+  }, []);
 
   // Handle volunteer select
   function handleVolunteerChange(e: React.ChangeEvent<HTMLSelectElement>) {
@@ -53,29 +69,99 @@ export default function VolunteerForm({ locked = false }: { locked?: boolean }) 
   }
 
   // Handle new activation
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // Simulate assignment of unique activation number (replace with backend-generated value if needed)
-    const newActivationNumber = Math.floor(10000 + Math.random() * 90000).toString();
-    setActivationNumber(newActivationNumber);
-    setActivationMessage(
-      `Your Activation Number is: ${newActivationNumber}. Please use this number below to end your activation.`
-    );
-    setEndActivationInput(newActivationNumber); // auto-fill the field for user
-    setSelectedVolunteer("");
-    setCallsign("");
-    setState("");
-    setFrequency("");
-    setMode("");
+    setErrorMessage(null);
+
+    // Use Zulu time for start_time (format: "hh:mm:ss")
+    const now = new Date();
+    const start_time = now.toISOString().substr(11, 8);
+
+    const payload = {
+      frequency,
+      mode,
+      operator_name: selectedVolunteer,
+      callsign,
+      state,
+      start_time
+    };
+
+    const response = await fetch('/api/activations', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      setActivationNumber(result.activation_number?.toString() || null);
+      setActivationId(result.activation_id ?? null);
+      const msg = `Your Activation Number is: ${result.activation_number}. Please use this number below to end your activation.`;
+      setActivationMessage(msg);
+      setEndActivationInput(result.activation_number?.toString() || "");
+
+      // Persist to localStorage
+      try {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({
+          activationNumber: result.activation_number?.toString() || null,
+          activationId: result.activation_id ?? null,
+          activationMessage: msg
+        }));
+      } catch {}
+
+      setSelectedVolunteer("");
+      setCallsign("");
+      setState("");
+      setFrequency("");
+      setMode("");
+      setErrorMessage(null);
+    } else {
+      setErrorMessage(result.error || "Failed to start activation.");
+    }
   }
 
   // Handle end activation
-  function handleEndActivation(e: React.FormEvent) {
+  async function handleEndActivation(e: React.FormEvent) {
     e.preventDefault();
-    // Here you would call backend API to end activation
-    setActivationMessage("Your activation has ended. Thank you for volunteering!");
-    setActivationNumber(null);
-    setEndActivationInput("");
+    setErrorMessage(null);
+
+    if (!activationId) {
+      setErrorMessage("No activation in progress.");
+      return;
+    }
+
+    // Use Zulu time for end_time (format: "hh:mm:ss")
+    const now = new Date();
+    const end_time = now.toISOString().substr(11, 8);
+
+    // PATCH or POST to an endpoint to end activation
+    const response = await fetch(`/api/activations/end`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        activation_id: activationId,
+        end_time
+      }),
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      setActivationMessage("Your activation has ended. Thank you for volunteering!");
+      setActivationNumber(null);
+      setActivationId(null);
+      setEndActivationInput("");
+
+      // Remove persisted activation info
+      try {
+        localStorage.removeItem(LOCAL_STORAGE_KEY);
+      } catch {}
+
+      setErrorMessage(null);
+    } else {
+      setErrorMessage(result.error || "Failed to end activation.");
+    }
   }
 
   return (
@@ -99,6 +185,24 @@ export default function VolunteerForm({ locked = false }: { locked?: boolean }) 
           aria-live="polite"
         >
           {activationMessage}
+        </div>
+      )}
+      {errorMessage && (
+        <div
+          style={{
+            background: "#fff3ef",
+            color: "#b40000",
+            fontWeight: 600,
+            fontSize: "1.15rem",
+            margin: "1rem 0",
+            borderRadius: 8,
+            padding: "0.75rem 2rem",
+            textAlign: "center",
+            boxShadow: "0 0 6px #efdbb3"
+          }}
+          aria-live="assertive"
+        >
+          {errorMessage}
         </div>
       )}
       {/* --- ACTIVATE SECTION --- */}

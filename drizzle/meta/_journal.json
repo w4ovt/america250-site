@@ -8,6 +8,13 @@
       "when": 1748547975130,
       "tag": "0000_boring_human_torch",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1749680917848,
+      "tag": "0001_parched_malice",
+      "breakpoints": true
     }
   ]
 }

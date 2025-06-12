@@ -1,23 +1,57 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import VolunteerForm from './VolunteerForm';
 import K4ABoxDropzone from './K4ABoxDropzone';
 
 const VOLUNTEER_PIN = '7317';
+const LOCAL_STORAGE_KEY = 'volunteer_unlocked';
 
 export default function VolunteerPage() {
   const [pin, setPin] = useState('');
   const [unlocked, setUnlocked] = useState(false);
   const [pinError, setPinError] = useState('');
 
+  // Check localStorage on mount for persistent unlock
+  useEffect(() => {
+    try {
+      if (typeof window !== 'undefined') {
+        const flag = localStorage.getItem(LOCAL_STORAGE_KEY);
+        if (flag === 'true') setUnlocked(true);
+      }
+    } catch {
+      // Ignore errors if localStorage is unavailable (rare)
+    }
+  }, []);
+
   function handlePinSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (pin.trim() === VOLUNTEER_PIN) {
       setUnlocked(true);
       setPinError('');
+      try {
+        if (typeof window !== 'undefined') {
+          localStorage.setItem(LOCAL_STORAGE_KEY, 'true');
+        }
+      } catch {
+        // Ignore storage errors
+      }
     } else {
       setPinError('Incorrect PIN. Please try again.');
+    }
+  }
+
+  // Optional: Logout button to lock again
+  function handleLogout() {
+    setUnlocked(false);
+    setPin('');
+    setPinError('');
+    try {
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem(LOCAL_STORAGE_KEY);
+      }
+    } catch {
+      // Ignore errors
     }
   }
 
@@ -196,6 +230,27 @@ export default function VolunteerPage() {
         <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
           <K4ABoxDropzone locked={!unlocked} />
         </div>
+
+        {/* --- OPTIONAL: Logout Button (for admin/testing) --- */}
+        {unlocked && (
+          <button
+            style={{
+              marginTop: '2.5rem',
+              padding: '1.1rem 2.7rem',
+              background: '#b40000',
+              color: '#fffbea',
+              border: 'none',
+              borderRadius: 13,
+              fontWeight: 700,
+              fontSize: '1.33rem',
+              letterSpacing: '0.04em',
+              boxShadow: '0 3px 13.5px #7c552040'
+            }}
+            onClick={handleLogout}
+          >
+            Lock Volunteer Tools
+          </button>
+        )}
       </div>
     </main>
   );

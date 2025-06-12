@@ -1,7 +1,9 @@
+// src/app/api/activations/route.ts
+
 import { NextResponse } from 'next/server';
 import { db } from '../../../../db/drizzle';
 import { volunteer_activations } from '../../../../db/schema';
-import { eq } from 'drizzle-orm';
+import { eq, and, sql } from 'drizzle-orm';
 
 export async function POST(req: Request) {
   try {
@@ -12,36 +14,53 @@ export async function POST(req: Request) {
       operator_name,
       callsign,
       state,
-      start_time,
-      end_time,
+      start_time
+      // end_time intentionally omitted
     } = data;
 
-    // Get the cumulative activation number
-    const totalCount = await db.select().from(volunteer_activations);
-    const activation_number = totalCount.length + 1;
+    // Validation
+    if (!frequency || !mode || !operator_name || !callsign || !state || !start_time) {
+      return NextResponse.json(
+        { success: false, error: 'All fields are required.' },
+        { status: 400 }
+      );
+    }
 
-    // Get the per-operator activation number
-    const operatorCount = await db
-      .select()
+    // Only one active activation per operator
+    const active = await db.select()
       .from(volunteer_activations)
-      .where(eq(volunteer_activations.operator_name, operator_name));
-    const operator_activation_number = operatorCount.length + 1;
+      .where(
+        and(
+          eq(volunteer_activations.operator_name, operator_name),
+          sql`${volunteer_activations.end_time} IS NULL`
+        )
+      );
 
-    // Insert new activation
-    await db.insert(volunteer_activations).values({
+    if (active.length > 0) {
+      return NextResponse.json(
+        { success: false, error: 'You already have an active activation. End it before starting a new one.' },
+        { status: 409 }
+      );
+    }
+
+    // Insert new activation (with null end_time)
+    const result = await db.insert(volunteer_activations).values({
       frequency,
       mode,
       operator_name,
       callsign,
       state,
       start_time,
-      end_time,
-    });
+      end_time: null
+    }).returning({ id: volunteer_activations.id });
+
+    // Get activation_number as the id of the inserted row
+    const activation_number = result[0]?.id;
 
     return NextResponse.json({
       success: true,
       activation_number,
-      operator_activation_number
+      activation_id: activation_number // both keys for clarity
     });
   } catch (error) {
     console.error('Submission error:', error);
