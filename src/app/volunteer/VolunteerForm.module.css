@@ -9,7 +9,7 @@
   background: linear-gradient(180deg, #f8ecd8 80%, #ede0c5 100%);
   border: 8px solid #6e4314;
   border-radius: 20px;
-  font-family: 'goudystd', serif;
+  font-family: 'librebaskerville-bold', serif;
   box-shadow:
     0 0 0 8px #a37c4c,
     0 8px 32px 0 #5d3b12a0,
@@ -70,7 +70,7 @@
   font-weight: bold;
   color: #4a2e05;
   margin-bottom: 1.4rem;
-  font-family: 'goudystd', serif;
+  font-family: 'librebaskerville-bold', serif;
   letter-spacing: 0.01em;
   text-shadow: 0 1.2px 2px #b99958;
 }

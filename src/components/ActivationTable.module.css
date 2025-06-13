@@ -113,23 +113,60 @@
   box-sizing: border-box;
   word-break: break-word;
 }
-
 /* --- MOBILE: Card View at ≤700px --- */
 .cardList {
-  display: none;
+  display: none; /* Hide the card list by default */
 }
 
 @media (max-width: 700px) {
+  /* Hide the table on mobile */
   .activationTable {
-    display: none !important;
+    display: none !important; /* Ensure table is hidden */
   }
 
+  /* Show the card list only on mobile */
   .cardList {
     display: flex;
     flex-direction: column;
     gap: 1.6rem;
     width: 100%;
     margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
+  }
+
+  /* Ensure only one card is displayed */
+  .cardList > .card {
+    display: block !important; /* Show cards */
+  }
+}
+
+/* --- MOBILE: Card View at ≤700px --- */
+.cardList {
+  display: none; /* Hide card list by default */
+}
+
+@media (max-width: 700px) {
+  .activationTable {
+    display: none !important; /* Ensure table is hidden */
+  }
+
+  /* Show the card list only on mobile */
+  .cardList {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    width: 100%;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
+  }
+
+  /* Ensure only one card is displayed */
+  .cardList > .card {
+    display: block !important; /* Show the card */
   }
 }
 

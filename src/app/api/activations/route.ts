@@ -3,40 +3,23 @@ import { db } from '@db/drizzle';
 import { volunteer_activations } from '@db/schema';
 import { eq, and, sql } from 'drizzle-orm';
 
-// POST: Create new activation
+// POST: Create new activation (UNCHANGED)
 export async function POST(req: Request) {
   try {
     const data = await req.json();
-
-    // Log the incoming data to check if 'callsign' is there
     console.log("Incoming data: ", data);
 
-    const {
-      frequency,
-      mode,
-      operator_name,
-      callsign,
-      state,
-      start_time
-      // end_time intentionally omitted on creation
-    } = data;
+    const { frequency, mode, operator_name, callsign, state, start_time } = data;
 
-    // Basic validation
-    if (
-      !frequency ||
-      !mode ||
-      !operator_name ||
-      !callsign ||
-      !state ||
-      !start_time
-    ) {
+    // Validation remains the same
+    if (!frequency || !mode || !operator_name || !callsign || !state || !start_time) {
       return NextResponse.json(
         { success: false, error: 'All fields are required.' },
         { status: 400 }
       );
     }
 
-    // Enforce only one active activation per operator
+    // Existing active activation check
     const active = await db.select()
       .from(volunteer_activations)
       .where(
@@ -53,7 +36,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // Insert new activation (end_time = NULL)
+    // Insert logic remains the same
     const result = await db.insert(volunteer_activations).values({
       frequency,
       mode,
@@ -65,12 +48,8 @@ export async function POST(req: Request) {
     }).returning({ id: volunteer_activations.id });
 
     const activation_number = result[0]?.id;
+    return NextResponse.json({ success: true, activation_number, activation_id: activation_number });
 
-    return NextResponse.json({
-      success: true,
-      activation_number,
-      activation_id: activation_number
-    });
   } catch (error) {
     console.error('Submission error:', error);
     return NextResponse.json(
@@ -80,10 +59,9 @@ export async function POST(req: Request) {
   }
 }
 
-// GET: List all current ON AIR activations
+// GET: List ALL activations (CORRECTED VERSION)
 export async function GET() {
   try {
-    // Only show activations where end_time IS NULL (still ON AIR)
     const activations = await db
       .select({
         id: volunteer_activations.id,
@@ -92,20 +70,21 @@ export async function GET() {
         operator_name: volunteer_activations.operator_name,
         callsign: volunteer_activations.callsign,
         state: volunteer_activations.state,
-        // Optionally include: start_time, end_time if desired for later features
+        start_time: volunteer_activations.start_time,  // Added for UI
+        end_time: volunteer_activations.end_time       // Added for UI
       })
       .from(volunteer_activations)
-      .where(sql`${volunteer_activations.end_time} IS NULL`)
       .orderBy(volunteer_activations.id);
 
-    return NextResponse.json({ activations });
+    // Return array directly instead of wrapping in {activations}
+    return NextResponse.json(activations);
+
   } catch (error) {
     console.error('GET /api/activations error:', error);
-    return NextResponse.json(
-      { activations: [], error: 'Failed to load activations' },
-      { status: 500 }
-    );
+    // Return empty array on error to match expected format
+    return NextResponse.json([], { status: 500 });
   }
 }
+
 
 

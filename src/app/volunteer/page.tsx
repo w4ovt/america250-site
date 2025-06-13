@@ -3,56 +3,67 @@
 import React, { useState, useEffect } from 'react';
 import VolunteerForm from './VolunteerForm';
 import K4ABoxDropzone from './K4ABoxDropzone';
+import AdminActivationManager from '@/components/AdminActivationManager'; // Use combined admin panel
 
 const VOLUNTEER_PIN = '7317';
 const LOCAL_STORAGE_KEY = 'volunteer_unlocked';
+const PIN_STORAGE_KEY = 'volunteerPin';
 
 export default function VolunteerPage() {
   const [pin, setPin] = useState('');
   const [unlocked, setUnlocked] = useState(false);
   const [pinError, setPinError] = useState('');
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [checkedPin, setCheckedPin] = useState(false);
 
-  // Check localStorage on mount for persistent unlock
+  // Check localStorage on mount for persistent unlock and admin status
   useEffect(() => {
     try {
       if (typeof window !== 'undefined') {
         const flag = localStorage.getItem(LOCAL_STORAGE_KEY);
-        if (flag === 'true') setUnlocked(true);
+        const storedPin = localStorage.getItem(PIN_STORAGE_KEY);
+        if (flag === 'true') {
+          setUnlocked(true);
+        }
+        if (storedPin === VOLUNTEER_PIN && flag === 'true') {
+          setIsAdmin(true);
+        }
+        setCheckedPin(true);
       }
     } catch {
-      // Ignore errors if localStorage is unavailable (rare)
+      setCheckedPin(true);
     }
   }, []);
 
   function handlePinSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (pin.trim() === VOLUNTEER_PIN) {
+    const enteredPin = pin.trim();
+    if (enteredPin === VOLUNTEER_PIN) {
       setUnlocked(true);
       setPinError('');
       try {
         if (typeof window !== 'undefined') {
           localStorage.setItem(LOCAL_STORAGE_KEY, 'true');
+          localStorage.setItem(PIN_STORAGE_KEY, enteredPin);
         }
-      } catch {
-        // Ignore storage errors
-      }
+      } catch {}
+      setIsAdmin(true);
     } else {
       setPinError('Incorrect PIN. Please try again.');
     }
   }
 
-  // Optional: Logout button to lock again
   function handleLogout() {
     setUnlocked(false);
     setPin('');
     setPinError('');
+    setIsAdmin(false);
     try {
       if (typeof window !== 'undefined') {
         localStorage.removeItem(LOCAL_STORAGE_KEY);
+        localStorage.removeItem(PIN_STORAGE_KEY);
       }
-    } catch {
-      // Ignore errors
-    }
+    } catch {}
   }
 
   return (
@@ -82,6 +93,7 @@ export default function VolunteerPage() {
           boxSizing: 'border-box',
         }}
       >
+
         {/* --- NCS GUIDE BUTTON --- */}
         <div
           style={{
@@ -230,6 +242,11 @@ export default function VolunteerPage() {
         <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
           <K4ABoxDropzone locked={!unlocked} />
         </div>
+
+        {/* --- ADMIN CONSOLE (only visible with admin PIN) --- */}
+        {checkedPin && isAdmin && (
+          <AdminActivationManager />
+        )}
 
         {/* --- OPTIONAL: Logout Button (for admin/testing) --- */}
         {unlocked && (
