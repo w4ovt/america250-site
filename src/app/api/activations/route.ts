@@ -7,6 +7,10 @@ import { eq, and, sql } from 'drizzle-orm';
 export async function POST(req: Request) {
   try {
     const data = await req.json();
+
+    // Log the incoming data to check if 'callsign' is there
+    console.log("Incoming data: ", data);
+
     const {
       frequency,
       mode,
@@ -103,4 +107,5 @@ export async function GET() {
     );
   }
 }
+
 
