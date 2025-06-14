@@ -29,7 +29,8 @@ export default function ActivationTable() {
         if (!res.ok) throw new Error('Failed to fetch activations');
         const data = await res.json();
         if (isMounted) {
-          setRows(Array.isArray(data.activations) ? data.activations : []);
+          // === ONLY THIS LINE IS CHANGED ===
+          setRows(Array.isArray(data) ? data : []);
           setError(null);
         }
       } catch (err: any) {
@@ -40,11 +41,10 @@ export default function ActivationTable() {
       }
       if (isMounted) setLoading(false);
     }
-    fetchActivations();
-    const interval = setInterval(fetchActivations, 30000);
+    fetchActivations(); // Fetch once on mount
+    // No interval, no polling
     return () => {
       isMounted = false;
-      clearInterval(interval);
     };
   }, []);
 

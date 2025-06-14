@@ -1,0 +1,158 @@
+/* VolunteerTabs.module.css */
+
+/* === MAIN TABS WRAPPER === */
+.tabsWrapper {
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+  background: linear-gradient(180deg, #f8ecd8 90%, #ede0c5 100%);
+  border: 7px solid #6e4314;
+  border-radius: 24px;
+  box-shadow: 0 3px 24px #af864e33, 0 0 32px #d6ba8222;
+  min-height: 600px;
+  font-family: 'librebaskerville-bold', serif;
+}
+
+/* === TAB BAR === */
+.tabBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(90deg, #f8ecd8 80%, #ede0c5 100%);
+  border-bottom: 5px solid #a47c37;
+  border-radius: 16px 16px 0 0;
+  margin: 0 auto;
+  max-width: 820px;
+  box-shadow: 0 2px 12px #b9995822;
+  padding: 0;
+  gap: 2rem;
+  font-family: 'librebaskerville-bold', serif;
+}
+
+/* === TAB BUTTONS === */
+.tabButton,
+.tabLabel {
+  font-family: 'librebaskerville-bold', serif;
+  font-size: 1.32rem;
+  font-weight: 700;
+  background: none;
+  border: none;
+  border-bottom: 4px solid transparent;
+  color: #43290c;
+  padding: 0.7rem 2.5rem;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  border-radius: 9px 9px 0 0;
+}
+
+.tabButton.active,
+.tabLabel.active {
+  border-bottom: 4px solid #a47c37;
+  color: #7d5312;
+  background: linear-gradient(180deg, #fdf6e5 80%, #e1cfab 100%);
+}
+
+/* === TAB PANEL CONTENT === */
+.tabPanel {
+  margin-top: 1.5rem;
+  min-height: 420px;
+  position: relative;
+  font-family: 'librebaskerville-bold', serif;
+  font-size: 1.14rem;
+}
+
+/* === ADMIN PANEL WRAPPER & GRAYED OUT STATE === */
+.adminPanelWrapper {
+  position: relative;
+}
+
+.adminContent {
+  position: relative;
+  z-index: 1;
+}
+
+.panelDisabled, .grayedOut {
+  pointer-events: none;
+  opacity: 0.48;
+  filter: grayscale(1) blur(1.5px);
+  transition: opacity 0.15s, filter 0.15s;
+}
+
+/* === ADMIN OVERLAY WITH MESSAGE === */
+.adminOverlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255, 245, 217, 0.88);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  border-radius: 17px;
+}
+
+.lockedMessage {
+  font-family: 'librebaskerville-bold', serif;
+  color: #b40000;
+  font-size: 1.35rem;
+  background: #fff6e7;
+  border: 2.5px solid #b40000;
+  border-radius: 14px;
+  padding: 2rem 2.5rem;
+  text-align: center;
+  box-shadow: 0 2px 16px #c37b7b33;
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 900px) {
+  .tabsWrapper {
+    max-width: 99vw;
+    padding: 1.1rem 0.6rem;
+    border-width: 4px;
+    border-radius: 13px;
+    min-height: 410px;
+  }
+  .tabBar {
+    max-width: 99vw;
+    gap: 1.1rem;
+    font-size: 1rem;
+    border-radius: 13px 13px 0 0;
+  }
+  .tabButton,
+  .tabLabel {
+    font-size: 1.03rem;
+    padding: 0.5rem 1.2rem;
+    border-radius: 7px 7px 0 0;
+  }
+  .tabPanel {
+    font-size: 1.01rem;
+    min-height: 300px;
+  }
+}
+
+/* === EXTRA SMALL DEVICES === */
+@media (max-width: 600px) {
+  .tabsWrapper {
+    padding: 0.5rem 0.2rem;
+    border-width: 3px;
+    border-radius: 7px;
+    min-height: 230px;
+  }
+  .tabBar {
+    gap: 0.4rem;
+    font-size: 0.88rem;
+    border-radius: 7px 7px 0 0;
+  }
+  .tabButton,
+  .tabLabel {
+    font-size: 0.91rem;
+    padding: 0.31rem 0.8rem;
+    border-radius: 5px 5px 0 0;
+  }
+  .tabPanel {
+    font-size: 0.96rem;
+    min-height: 110px;
+  }
+}
+

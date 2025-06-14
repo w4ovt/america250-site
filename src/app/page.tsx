@@ -6,28 +6,50 @@ import ActivationTable from '../components/ActivationTable';
 
 export default function Home() {
   const [isOnAir, setIsOnAir] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [rows, setRows] = useState<any[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Poll every 15 seconds for ON AIR status
+  // Fetch activations once on mount (no polling)
   useEffect(() => {
-    let mounted = true;
-
-    async function fetchOnAirStatus() {
+    let isMounted = true;
+    async function fetchActivations() {
+      setLoading(true);
       try {
-        const res = await fetch('/api/activations/onair');
+        const res = await fetch('/api/activations');
+        if (!res.ok) throw new Error('Failed to fetch activations');
         const data = await res.json();
-        if (mounted) setIsOnAir(Boolean(data.onAir));
-      } catch {
-        if (mounted) setIsOnAir(false);
+        if (isMounted) {
+          setRows(Array.isArray(data.activations) ? data.activations : []);
+          setError(null);
+          // Optionally set isOnAir based on activations
+          setIsOnAir(
+            Array.isArray(data.activations) && data.activations.length > 0
+          );
+        }
+      } catch (err: any) {
+        if (isMounted) {
+          setError('Could not load activations.');
+          setRows([]);
+          setIsOnAir(false);
+        }
       }
+      if (isMounted) setLoading(false);
     }
-
-    fetchOnAirStatus();
-    const interval = setInterval(fetchOnAirStatus, 15000);
-
+    fetchActivations(); // Fetch once on mount
     return () => {
-      mounted = false;
-      clearInterval(interval);
+      isMounted = false;
     };
+  }, []);
+
+  useEffect(() => {
+    function handleResize() {
+      setIsMobile(window.innerWidth <= 700);
+    }
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const pledgeText = `And for the support of this Declaration, with a firm reliance on the protection of divine Providence, we mutually pledge to each other our Lives, our Fortunes and our sacred Honor.`;
@@ -133,84 +155,84 @@ export default function Home() {
       </section>
 
       {/* --- ON AIR / OFF AIR BADGE --- */}
-<div
-  className="onair-status-block fullwidth-block"
-  style={{
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: '2.5vw 0 1.2vw 0',
-    minHeight: 210,
-  }}
->
-  {isOnAir ? (
-    // === ON AIR BADGE STACK: BG + FLASHING TEXT ===
-    <div
-      className="onair-badge-stack"
-      style={{
-        position: 'relative',
-        width: 'clamp(220px, 95vw, 700px)',
-        maxWidth: 700,
-        margin: '0 auto',
-        display: 'block',
-        background: 'transparent',
-        height: 'auto',
-      }}
-    >
-      {/* Static badge background */}
-      <img
-        src="/onair-badge-blank.png"
-        alt="ON AIR Badge Background"
-        width={700}
-        height={466}
+      <div
+        className="onair-status-block fullwidth-block"
         style={{
-          width: '100%',
-          height: 'auto',
-          display: 'block',
-          border: 'none',
-          position: 'relative',
-          zIndex: 1,
-          maxWidth: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          margin: '2.5vw 0 1.2vw 0',
+          minHeight: 210,
         }}
-        draggable={false}
-      />
-      {/* Flashing ON AIR text */}
-      <img
-        src="/onair-badge-text.png"
-        alt="ON AIR"
-        width={700}
-        height={466}
-        className="onair-text-flash"
-        style={{
-          width: '100%',
-          height: 'auto',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          zIndex: 2,
-          pointerEvents: 'none',
-          userSelect: 'none',
-          maxWidth: '100%',
-        }}
-        draggable={false}
-      />
-    </div>
-  ) : (
-    <Image
-      src="/offair-badge.png"
-      alt="OFF AIR"
-      width={500}
-      height={333}
-      sizes="(max-width: 900px) 50vw, 700px"
-      className="onair-badge"
-      style={{
-        maxWidth: 'clamp(220px, 95vw, 700px)',
-        width: '100%',
-        height: 'auto',
-        filter: 'grayscale(35%)',
-      }}
-      priority
-      draggable={false}
+      >
+        {isOnAir ? (
+          // === ON AIR BADGE STACK: BG + FLASHING TEXT ===
+          <div
+            className="onair-badge-stack"
+            style={{
+              position: 'relative',
+              width: 'clamp(220px, 95vw, 700px)',
+              maxWidth: 700,
+              margin: '0 auto',
+              display: 'block',
+              background: 'transparent',
+              height: 'auto',
+            }}
+          >
+            {/* Static badge background */}
+            <img
+              src="/onair-badge-blank.png"
+              alt="ON AIR Badge Background"
+              width={700}
+              height={466}
+              style={{
+                width: '100%',
+                height: 'auto',
+                display: 'block',
+                border: 'none',
+                position: 'relative',
+                zIndex: 1,
+                maxWidth: '100%',
+              }}
+              draggable={false}
+            />
+            {/* Flashing ON AIR text */}
+            <img
+              src="/onair-badge-text.png"
+              alt="ON AIR"
+              width={700}
+              height={466}
+              className="onair-text-flash"
+              style={{
+                width: '100%',
+                height: 'auto',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                zIndex: 2,
+                pointerEvents: 'none',
+                userSelect: 'none',
+                maxWidth: '100%',
+              }}
+              draggable={false}
+            />
+          </div>
+        ) : (
+          <Image
+            src="/offair-badge.png"
+            alt="OFF AIR"
+            width={500}
+            height={333}
+            sizes="(max-width: 900px) 50vw, 700px"
+            className="onair-badge"
+            style={{
+              maxWidth: 'clamp(220px, 95vw, 700px)',
+              width: '100%',
+              height: 'auto',
+              filter: 'grayscale(35%)',
+            }}
+            priority
+            draggable={false}
           />
         )}
       </div>

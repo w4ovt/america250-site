@@ -6,59 +6,70 @@ import React, { useRef, useState } from 'react';
 import Image from 'next/image';
 import styles from './VolunteerForm.module.css';
 
+// --- Constants for dropbox image dimensions ---
 const BOX_WIDTH = 700;
 const BOX_HEIGHT = 380;
 
+// --- Props type for K4ABoxDropzone ---
 type K4ABoxDropzoneProps = {
-  locked?: boolean;
+  locked?: boolean; // If true, disables drop/upload actions
 };
 
+// --- K4ABoxDropzone Component ---
 export default function K4ABoxDropzone({ locked = false }: K4ABoxDropzoneProps) {
+  // --- Ref for playing audio feedback on drop ---
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  // Drag animation state
+  // --- State for drag animation (highlight dropzone on drag) ---
   const [isDragging, setIsDragging] = useState(false);
 
-  // Optionally, for more advanced UX, you could use a toast/snackbar here
-  // For now, a simple alert on unauthorized drop
-
-  // Drag event handlers
+  // --- Handler: Prevent default drag behavior and bubbling ---
   const handleDrag = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
   };
 
+  // --- Handler: When drag enters dropzone, highlight it ---
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
     handleDrag(e);
     setIsDragging(true);
   };
 
+  // --- Handler: When drag leaves dropzone, remove highlight ---
   const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
     handleDrag(e);
     setIsDragging(false);
   };
 
+  // --- Handler: When file is dropped on dropzone ---
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     handleDrag(e);
     setIsDragging(false);
 
+    // --- If locked, prevent upload and alert user ---
     if (locked) {
       alert('Please enter volunteer PIN to upload logs.');
       return;
     }
 
+    // --- Play drop sound for feedback ---
     audioRef.current?.play();
+
+    // --- Access dropped files and handle upload logic ---
     const files = e.dataTransfer.files;
     if (files && files.length > 0) {
-      // Handle dropped files here
+      // Handle dropped files here (e.g., upload to server)
       console.log('Dropped files:', files);
       // ...your file upload/processing logic here
     }
   };
 
+  // --- Render the dropzone with all visual and accessibility features ---
   return (
     <div className={styles.panelContainer} style={{ marginTop: '100px' }}>
+      {/* --- Title for the dropzone panel --- */}
       <div className={styles.panelTitle}>Drop .adi Log Files Here</div>
+      {/* --- Instructional note about file requirements --- */}
       <div
         style={{
           color: '#b40000',
@@ -72,6 +83,7 @@ export default function K4ABoxDropzone({ locked = false }: K4ABoxDropzoneProps) 
         NOTE: Your .adi file must include<br />
         &lt;Station_Callsign:3&gt;K4A
       </div>
+      {/* --- Secondary instruction --- */}
       <div
         style={{
           color: '#4a2e05',
@@ -84,6 +96,7 @@ export default function K4ABoxDropzone({ locked = false }: K4ABoxDropzoneProps) 
       >
         Drag and Drop Your Log File Into the Box Below
       </div>
+      {/* --- Main dropzone area --- */}
       <div
         style={{
           width: '100%',
@@ -113,6 +126,7 @@ export default function K4ABoxDropzone({ locked = false }: K4ABoxDropzoneProps) 
         onDrop={handleDrop}
         role="region"
       >
+        {/* --- Dropbox image with drag animation and accessibility --- */}
         <Image
           src="/K4A-Log-Dropbox.png"
           alt="K4A Log Dropbox"
@@ -139,6 +153,7 @@ export default function K4ABoxDropzone({ locked = false }: K4ABoxDropzoneProps) 
           draggable={false}
           priority={false}
         />
+        {/* --- Hidden audio element for drop sound --- */}
         <audio
           ref={audioRef}
           src="/logdrop.mp3"

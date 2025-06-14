@@ -3,7 +3,7 @@ import { db } from '@db/drizzle';
 import { volunteer_activations } from '@db/schema';
 import { eq, and, sql } from 'drizzle-orm';
 
-// POST: Create new activation (UNCHANGED)
+// POST: Create new activation with proper start_time handling
 export async function POST(req: Request) {
   try {
     const data = await req.json();
@@ -11,7 +11,7 @@ export async function POST(req: Request) {
 
     const { frequency, mode, operator_name, callsign, state, start_time } = data;
 
-    // Validation remains the same
+    // Validate required fields
     if (!frequency || !mode || !operator_name || !callsign || !state || !start_time) {
       return NextResponse.json(
         { success: false, error: 'All fields are required.' },
@@ -19,7 +19,16 @@ export async function POST(req: Request) {
       );
     }
 
-    // Existing active activation check
+    // Convert start_time to Date object
+    const parsedStartTime = new Date(start_time);
+    if (isNaN(parsedStartTime.getTime())) {
+      return NextResponse.json(
+        { success: false, error: 'Invalid start_time format' },
+        { status: 400 }
+      );
+    }
+
+    // Check for existing active activation
     const active = await db.select()
       .from(volunteer_activations)
       .where(
@@ -31,24 +40,28 @@ export async function POST(req: Request) {
 
     if (active.length > 0) {
       return NextResponse.json(
-        { success: false, error: 'You already have an active activation. End it before starting a new one.' },
+        { success: false, error: 'Existing active activation found' },
         { status: 409 }
       );
     }
 
-    // Insert logic remains the same
+    // Insert with proper Date type
     const result = await db.insert(volunteer_activations).values({
       frequency,
       mode,
       operator_name,
       callsign,
       state,
-      start_time,
+      start_time: parsedStartTime, // Date object instead of string
       end_time: null
     }).returning({ id: volunteer_activations.id });
 
     const activation_number = result[0]?.id;
-    return NextResponse.json({ success: true, activation_number, activation_id: activation_number });
+    return NextResponse.json({ 
+      success: true, 
+      activation_number, 
+      activation_id: activation_number 
+    });
 
   } catch (error) {
     console.error('Submission error:', error);
@@ -59,7 +72,8 @@ export async function POST(req: Request) {
   }
 }
 
-// GET: List ALL activations (CORRECTED VERSION)
+
+// GET: List ALL activations (no changes)
 export async function GET() {
   try {
     const activations = await db
@@ -70,21 +84,16 @@ export async function GET() {
         operator_name: volunteer_activations.operator_name,
         callsign: volunteer_activations.callsign,
         state: volunteer_activations.state,
-        start_time: volunteer_activations.start_time,  // Added for UI
-        end_time: volunteer_activations.end_time       // Added for UI
+        start_time: volunteer_activations.start_time,
+        end_time: volunteer_activations.end_time
       })
       .from(volunteer_activations)
       .orderBy(volunteer_activations.id);
 
-    // Return array directly instead of wrapping in {activations}
     return NextResponse.json(activations);
 
   } catch (error) {
     console.error('GET /api/activations error:', error);
-    // Return empty array on error to match expected format
     return NextResponse.json([], { status: 500 });
   }
 }
-
-
-

@@ -1,11 +1,10 @@
+// src/app/volunteer/page.tsx
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import VolunteerForm from './VolunteerForm';
-import K4ABoxDropzone from './K4ABoxDropzone';
-import AdminActivationManager from '@/components/AdminActivationManager'; // Use combined admin panel
+import VolunteerTabs from '@/components/VolunteerTabs';
 
-const VOLUNTEER_PIN = '7317';
 const LOCAL_STORAGE_KEY = 'volunteer_unlocked';
 const PIN_STORAGE_KEY = 'volunteerPin';
 
@@ -13,57 +12,73 @@ export default function VolunteerPage() {
   const [pin, setPin] = useState('');
   const [unlocked, setUnlocked] = useState(false);
   const [pinError, setPinError] = useState('');
-  const [isAdmin, setIsAdmin] = useState(false);
   const [checkedPin, setCheckedPin] = useState(false);
+  const [volunteerInfo, setVolunteerInfo] = useState<{
+    name: string;
+    callsign: string;
+    state: string;
+    isAdmin: boolean;
+  } | null>(null);
 
-  // Check localStorage on mount for persistent unlock and admin status
+  // On mount, check localStorage for unlocked state and PIN
   useEffect(() => {
-    try {
-      if (typeof window !== 'undefined') {
-        const flag = localStorage.getItem(LOCAL_STORAGE_KEY);
-        const storedPin = localStorage.getItem(PIN_STORAGE_KEY);
-        if (flag === 'true') {
-          setUnlocked(true);
-        }
-        if (storedPin === VOLUNTEER_PIN && flag === 'true') {
-          setIsAdmin(true);
-        }
-        setCheckedPin(true);
-      }
-    } catch {
+    const flag = localStorage.getItem(LOCAL_STORAGE_KEY);
+    const storedPin = localStorage.getItem(PIN_STORAGE_KEY);
+    if (flag === 'true' && storedPin) {
+      fetch('/api/volunteers/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pin: storedPin }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            setUnlocked(true);
+            setVolunteerInfo({
+              name: data.name,
+              callsign: data.callsign,
+              state: data.state,
+              isAdmin: !!data.isAdmin,
+            });
+          } else {
+            setUnlocked(false);
+            setVolunteerInfo(null);
+          }
+          setCheckedPin(true);
+        });
+    } else {
+      setUnlocked(false);
+      setVolunteerInfo(null);
       setCheckedPin(true);
     }
   }, []);
 
+  // PIN submission logic
   function handlePinSubmit(e: React.FormEvent) {
     e.preventDefault();
     const enteredPin = pin.trim();
-    if (enteredPin === VOLUNTEER_PIN) {
-      setUnlocked(true);
-      setPinError('');
-      try {
-        if (typeof window !== 'undefined') {
+    fetch('/api/volunteers/auth', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ pin: enteredPin }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          setUnlocked(true);
+          setVolunteerInfo({
+            name: data.name,
+            callsign: data.callsign,
+            state: data.state,
+            isAdmin: !!data.isAdmin,
+          });
+          setPinError('');
           localStorage.setItem(LOCAL_STORAGE_KEY, 'true');
           localStorage.setItem(PIN_STORAGE_KEY, enteredPin);
+        } else {
+          setPinError('PIN not recognized. Please try again.');
         }
-      } catch {}
-      setIsAdmin(true);
-    } else {
-      setPinError('Incorrect PIN. Please try again.');
-    }
-  }
-
-  function handleLogout() {
-    setUnlocked(false);
-    setPin('');
-    setPinError('');
-    setIsAdmin(false);
-    try {
-      if (typeof window !== 'undefined') {
-        localStorage.removeItem(LOCAL_STORAGE_KEY);
-        localStorage.removeItem(PIN_STORAGE_KEY);
-      }
-    } catch {}
+      });
   }
 
   return (
@@ -79,7 +94,6 @@ export default function VolunteerPage() {
         boxSizing: 'border-box',
       }}
     >
-      {/* === FLEX CONTAINER FOR ALL BLOCKS === */}
       <div
         style={{
           width: '100%',
@@ -93,61 +107,8 @@ export default function VolunteerPage() {
           boxSizing: 'border-box',
         }}
       >
-
-        {/* --- NCS GUIDE BUTTON --- */}
-        <div
-          style={{
-            background: 'linear-gradient(90deg, #f5e1bc 0%, #c5a564 100%)',
-            border: '4.5px solid #a47c37',
-            borderRadius: 25.5,
-            padding: '2.25rem 3.75rem',
-            boxShadow: '0 6px 24px #7c552028, 0 2.25px 15px #9a7c4722',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            maxWidth: 900,
-            fontFamily: "'old claude', 'librebaskerville-bold', serif"
-          }}
-        >
-          <a
-            href="/ncs-guide.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: 'inline-block',
-              background: 'linear-gradient(180deg, #fff6e0 70%, #b49768 100%)',
-              color: '#43290c',
-              border: '3.75px solid #ad8a45',
-              borderRadius: 13.5,
-              fontWeight: 700,
-              padding: '1.5rem 3.75rem',
-              fontSize: '2.1rem',
-              textDecoration: 'none',
-              boxShadow: '0 3px 13.5px #cfad7533',
-              letterSpacing: '0.045em',
-              transition: 'background 0.18s, box-shadow 0.18s',
-              textAlign: 'center'
-            }}
-            onMouseOver={e => (e.currentTarget.style.background = '#f5e1bc')}
-            onMouseOut={e => (e.currentTarget.style.background = 'linear-gradient(180deg, #fff6e0 70%, #b49768 100%)')}
-          >
-            <span role="img" aria-label="scroll" style={{ marginRight: 18, fontSize: '1.8em' }}>📜</span>
-            View the NCS Guide (PDF)
-          </a>
-        </div>
-
-        {/* --- PIN ENTRY --- */}
-        <div
-          className="pin-form-container"
-          style={{
-            width: '100%',
-            maxWidth: 900,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            marginBottom: 0,
-          }}
-        >
+        {/* --- PIN ENTRY FORM --- */}
+        {!unlocked && checkedPin && (
           <form
             onSubmit={handlePinSubmit}
             style={{
@@ -159,10 +120,10 @@ export default function VolunteerPage() {
               minWidth: 555,
               maxWidth: 1050,
               width: '100%',
-              display: unlocked ? 'none' : 'flex',
+              display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              marginBottom: 0
+              marginBottom: 0,
             }}
           >
             <div
@@ -172,7 +133,7 @@ export default function VolunteerPage() {
                 color: '#513404',
                 letterSpacing: '0.03em',
                 marginBottom: '3rem',
-                fontFamily: "'goudystd', serif"
+                fontFamily: "'goudystd', serif",
               }}
             >
               ENTER VOLUNTEER PIN:
@@ -192,7 +153,7 @@ export default function VolunteerPage() {
                 letterSpacing: '0.19em',
                 background: '#fff6e1',
                 fontFamily: "'goudystd', serif",
-                marginBottom: 15
+                marginBottom: 15,
               }}
               maxLength={12}
               inputMode="numeric"
@@ -210,7 +171,7 @@ export default function VolunteerPage() {
                 fontWeight: 700,
                 letterSpacing: '0.06em',
                 marginTop: 27,
-                boxShadow: '0 3px 13.5px #7c552040'
+                boxShadow: '0 3px 13.5px #7c552040',
               }}
             >
               Unlock Volunteer Tools
@@ -224,50 +185,23 @@ export default function VolunteerPage() {
                   fontSize: '1.8rem',
                   marginTop: 24,
                   borderRadius: 9,
-                  padding: '0.75rem 2rem'
+                  padding: '0.75rem 2rem',
                 }}
               >
                 {pinError}
               </div>
             )}
           </form>
-        </div>
-
-        {/* --- VOLUNTEER FORM --- */}
-        <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-          <VolunteerForm locked={!unlocked} />
-        </div>
-
-        {/* --- K4A LOG DROPBOX --- */}
-        <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-          <K4ABoxDropzone locked={!unlocked} />
-        </div>
-
-        {/* --- ADMIN CONSOLE (only visible with admin PIN) --- */}
-        {checkedPin && isAdmin && (
-          <AdminActivationManager />
         )}
 
-        {/* --- OPTIONAL: Logout Button (for admin/testing) --- */}
-        {unlocked && (
-          <button
-            style={{
-              marginTop: '2.5rem',
-              padding: '1.1rem 2.7rem',
-              background: '#b40000',
-              color: '#fffbea',
-              border: 'none',
-              borderRadius: 13,
-              fontWeight: 700,
-              fontSize: '1.33rem',
-              letterSpacing: '0.04em',
-              boxShadow: '0 3px 13.5px #7c552040'
-            }}
-            onClick={handleLogout}
-          >
-            Lock Volunteer Tools
-          </button>
-        )}
+        {/* --- TABBED DASHBOARD BLOCK (Always Visible) --- */}
+        <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+          <VolunteerTabs
+            volunteerInfo={volunteerInfo}
+            locked={!unlocked}
+            // onRemovePin={handleRemovePin}  <-- REMOVE THIS LINE ENTIRELY!
+          />
+        </div>
       </div>
     </main>
   );

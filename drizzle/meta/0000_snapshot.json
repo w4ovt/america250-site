@@ -1,9 +1,55 @@
 {
-  "id": "b27f889f-e6fc-4d90-81e2-2a0c74c50373",
+  "id": "bbb481de-8e94-470f-94f0-0198631aae37",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
+    "public.pins": {
+      "name": "pins",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "pin": {
+          "name": "pin",
+          "type": "varchar(16)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "volunteer": {
+          "name": "volunteer",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "pins_pin_unique": {
+          "name": "pins_pin_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "pin"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.volunteer_activations": {
       "name": "volunteer_activations",
       "schema": "",
@@ -22,19 +68,19 @@
         },
         "mode": {
           "name": "mode",
-          "type": "varchar(12)",
+          "type": "varchar(10)",
           "primaryKey": false,
           "notNull": true
         },
         "operator_name": {
           "name": "operator_name",
-          "type": "varchar(24)",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
         },
         "callsign": {
           "name": "callsign",
-          "type": "varchar(12)",
+          "type": "varchar(10)",
           "primaryKey": false,
           "notNull": true
         },
@@ -46,13 +92,13 @@
         },
         "start_time": {
           "name": "start_time",
-          "type": "varchar(8)",
+          "type": "timestamp with time zone",
           "primaryKey": false,
           "notNull": true
         },
         "end_time": {
           "name": "end_time",
-          "type": "varchar(8)",
+          "type": "timestamp with time zone",
           "primaryKey": false,
           "notNull": false
         }
@@ -61,6 +107,71 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.volunteers": {
+      "name": "volunteers",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "callsign": {
+          "name": "callsign",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "state": {
+          "name": "state",
+          "type": "varchar(2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pin": {
+          "name": "pin",
+          "type": "varchar(8)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "volunteers_callsign_unique": {
+          "name": "volunteers_callsign_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "callsign"
+          ]
+        },
+        "volunteers_pin_unique": {
+          "name": "volunteers_pin_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "pin"
+          ]
+        }
+      },
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false

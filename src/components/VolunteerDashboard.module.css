@@ -1,0 +1,166 @@
+/* VolunteerDashboard.module.css */
+
+.dashboardWrapper {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2.2rem 1.6rem 1.5rem 1.6rem;
+  background: linear-gradient(180deg, #f8ecd8 92%, #ede0c5 100%);
+  border: 5px solid #6e4314;
+  border-radius: 22px;
+  box-shadow: 0 3px 24px #af864e33, 0 0 32px #d6ba8222;
+  font-family: 'librebaskerville-bold', serif;
+}
+
+.dashboardHeader {
+  font-size: 2.1rem;
+  font-family: 'librebaskerville-bold', serif;
+  text-align: center;
+  color: #51350a;
+  margin-bottom: 2rem;
+  letter-spacing: 0.02em;
+  font-weight: 700;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+  margin-bottom: 1.5rem;
+}
+
+.fieldset {
+  border: 2.5px solid #bfa060;
+  border-radius: 15px;
+  background: #fdf6e4;
+  padding: 1.4rem 1.4rem 1.1rem 1.4rem;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+}
+
+.legend {
+  font-family: 'librebaskerville-bold', serif;
+  color: #79551c;
+  font-size: 1.13rem;
+  font-weight: 700;
+  padding: 0 0.7rem;
+  letter-spacing: 0.05em;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  font-family: 'librebaskerville-bold', serif;
+  font-size: 1.04rem;
+  color: #4b3010;
+  gap: 0.23rem;
+}
+
+.input {
+  font-family: 'librebaskerville-bold', serif;
+  font-size: 1.05rem;
+  color: #2e200b;
+  background: #fffbe8;
+  border: 1.8px solid #beae85;
+  border-radius: 7px;
+  padding: 0.45rem 0.95rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0.15rem;
+  transition: border 0.15s;
+}
+.input:focus {
+  outline: none;
+  border: 2.5px solid #bb8636;
+}
+
+.button {
+  font-family: 'librebaskerville-bold', serif;
+  background: linear-gradient(180deg, #f9d8a0 75%, #d6ba82 100%);
+  color: #614100;
+  font-size: 1.13rem;
+  font-weight: 700;
+  border: 2px solid #a47c37;
+  border-radius: 10px;
+  padding: 0.82rem 0;
+  margin-top: 0.6rem;
+  cursor: pointer;
+  transition: background 0.18s, border 0.18s, color 0.13s;
+  box-shadow: 0 1.5px 6px #beae8522;
+}
+.button:active {
+  background: #f1cc91;
+}
+
+.buttonSecondary {
+  font-family: 'librebaskerville-bold', serif;
+  background: linear-gradient(180deg, #ffe7c3 75%, #dfc290 100%);
+  color: #6e4314;
+  font-size: 1.13rem;
+  border: 2px solid #c27b2b;
+  border-radius: 10px;
+  padding: 0.82rem 0;
+  margin-top: 0.4rem;
+  cursor: pointer;
+  transition: background 0.18s, border 0.18s, color 0.13s;
+}
+.buttonSecondary:active {
+  background: #ffe4ba;
+}
+
+.removePinButton {
+  font-family: 'librebaskerville-bold', serif;
+  background: linear-gradient(180deg, #f8cac6 70%, #ecd2d2 100%);
+  color: #b40000;
+  font-size: 1.07rem;
+  border: 2px solid #b40000;
+  border-radius: 10px;
+  padding: 0.82rem 0;
+  margin: 2rem 0 0.8rem 0;
+  cursor: pointer;
+  transition: background 0.16s, border 0.16s, color 0.13s;
+  box-shadow: 0 2px 12px #b4000033;
+}
+.removePinButton:active {
+  background: #fde3e3;
+}
+
+.activationNumber {
+  font-family: 'librebaskerville-bold', serif;
+  font-size: 1.18rem;
+  color: #7d5312;
+  background: #f3e7c6;
+  border: 2px solid #bea061;
+  border-radius: 8px;
+  padding: 0.8rem 1.2rem;
+  margin: 1.1rem 0 0.2rem 0;
+  text-align: center;
+  box-shadow: 0 1.5px 6px #bfa06022;
+}
+
+.success {
+  font-family: 'librebaskerville-bold', serif;
+  color: #317609;
+  background: #f2fff3;
+  border: 2px solid #85ba62;
+  border-radius: 9px;
+  padding: 1rem 1.3rem;
+  margin: 1.1rem 0 0.3rem 0;
+  font-size: 1.08rem;
+  text-align: center;
+  box-shadow: 0 2px 8px #e4fae133;
+}
+
+.error {
+  font-family: 'librebaskerville-bold', serif;
+  color: #b40000;
+  background: #fff6e7;
+  border: 2px solid #b40000;
+  border-radius: 9px;
+  padding: 1rem 1.3rem;
+  margin: 1.1rem 0 0.3rem 0;
+  font-size: 1.08rem;
+  text-align: center;
+  box-shadow: 0 2px 8px #c37b7b33;
+}

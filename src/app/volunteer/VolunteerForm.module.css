@@ -2,7 +2,9 @@
 
 /* --- MAIN PANEL CONTAINER --- */
 .panelContainer,
-.widePanel {
+.widePanel,
+.volunteerFormWrapper,
+.page {
   width: 100%;
   max-width: 820px;
   margin: 2.2rem auto 0 auto;
@@ -21,66 +23,41 @@
   box-sizing: border-box;
 }
 
-/* --- NCS GUIDE BUTTON STYLES --- */
-.ncsGuideButton {
-  width: 100%;
-  background: linear-gradient(90deg, #f5e1bc 0%, #c5a564 100%);
-  border: 2.5px solid #a47c37;
-  border-radius: 12px;
-  padding: 1rem 1.8rem;
-  box-shadow: 0 4px 16px #7c552028, 0 1.5px 10px #9a7c4722;
-  font-family: 'old claude', 'librebaskerville-bold', serif;
-  text-align: center;
-  margin-bottom: 0;
-}
-
-.ncsGuideLink {
-  display: inline-block;
-  width: 100%;
-  background: linear-gradient(180deg, #fff6e0 70%, #b49768 100%);
-  color: #43290c;
-  border: 2px solid #ad8a45;
-  border-radius: 8px;
-  font-weight: 700;
-  padding: 1.3rem 2.2rem;
-  font-size: 1.25rem;
-  text-decoration: none;
-  box-shadow: 0 2px 9px #cfad7533;
-  letter-spacing: 0.045em;
-  transition: background 0.18s, box-shadow 0.18s;
-  text-align: center;
-}
-
-.ncsGuideLink:hover,
-.ncsGuideLink:focus {
-  background: #f5e1bc;
-  text-decoration: underline;
-}
-
-.ncsGuideIcon {
-  margin-right: 16px;
-  font-size: 1.4em;
-  vertical-align: middle;
-}
-
-/* --- FORM TITLE --- */
-.panelTitle {
-  text-align: center;
-  font-size: 2.1rem;
+/* --- PAGE HEADER --- */
+.header {
+  font-size: 2.2rem;
   font-weight: bold;
   color: #4a2e05;
-  margin-bottom: 1.4rem;
+  margin-bottom: 1.6rem;
+  text-align: center;
   font-family: 'librebaskerville-bold', serif;
   letter-spacing: 0.01em;
   text-shadow: 0 1.2px 2px #b99958;
 }
 
-/* --- FORM FIELDS LAYOUT --- */
-.formFields {
+/* --- FORM & FIELDSET --- */
+.form {
   width: 100%;
+  margin-bottom: 1.8rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.fieldset {
+  border: none;
+  padding: 0;
+  margin: 0 0 1.2rem 0;
+  width: 100%;
+}
+
+.legend {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #7d5312;
+  margin-bottom: 1rem;
+  text-align: center;
+  letter-spacing: 0.01em;
 }
 
 /* --- LABEL STYLING --- */
@@ -118,8 +95,8 @@
 }
 
 /* --- BUTTONS --- */
-.submitButton,
-.endButton {
+.button,
+.submitButton {
   width: 100%;
   padding: 1.1rem 0;
   font-size: 1.17rem;
@@ -134,41 +111,141 @@
   margin-bottom: 1.2rem;
 }
 
-.submitButton:hover:not(:disabled),
-.endButton:hover:not(:disabled) {
+.button:hover:not(:disabled),
+.submitButton:hover:not(:disabled) {
   background-color: #6a3e07;
 }
 
-.submitButton:disabled,
+.button:disabled,
+.submitButton:disabled {
+  background-color: #d1b75a;
+  cursor: not-allowed;
+  opacity: 0.82;
+}
+
+.buttonSecondary,
+.endButton {
+  width: 100%;
+  padding: 1.1rem 0;
+  font-size: 1.17rem;
+  background: #a37c4c;
+  color: #fffbea;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  margin-bottom: 1.2rem;
+}
+
+.buttonSecondary:hover:not(:disabled),
+.endButton:hover:not(:disabled) {
+  background-color: #7d5312;
+}
+
+.buttonSecondary:disabled,
 .endButton:disabled {
   background-color: #d1b75a;
   cursor: not-allowed;
   opacity: 0.82;
 }
 
+/* --- SUCCESS & ERROR MESSAGES --- */
+.success {
+  color: #0a6a24;
+  background: #e6ffe6;
+  border: 1.5px solid #1b893b;
+  border-radius: 7px;
+  padding: 0.9rem 1.2rem;
+  margin: 1.1rem 0;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.13rem;
+  letter-spacing: 0.03em;
+}
+
+.error {
+  color: #a41b1b;
+  background: #ffeaea;
+  border: 1.5px solid #d45b5b;
+  border-radius: 7px;
+  padding: 0.9rem 1.2rem;
+  margin: 1.1rem 0;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.13rem;
+  letter-spacing: 0.03em;
+}
+
+/* --- LOADING & EMPTY STATES --- */
+.loading,
+.empty {
+  color: #7d5312;
+  background: #fff6e0;
+  border-radius: 7px;
+  padding: 0.8rem 1rem;
+  margin: 1.1rem 0;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* --- TABLE STYLES --- */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+  background: #fffbea;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px #b9995822;
+}
+
+.table th,
+.table td {
+  border: 1.5px solid #b8860b;
+  padding: 0.7em 1.1em;
+  text-align: center;
+  font-size: 1.07rem;
+}
+
+.table th {
+  background: #f8ecd8;
+  color: #4a2e05;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.table tr:nth-child(even) {
+  background: #f5e1bc;
+}
+
 /* --- RESPONSIVE: TABLET & MOBILE --- */
 @media (max-width: 900px) {
   .panelContainer,
-  .widePanel {
+  .widePanel,
+  .volunteerFormWrapper,
+  .page {
     max-width: 99vw;
     padding: 1.1rem 0.6rem;
     border-width: 4px;
     border-radius: 9px;
   }
-  .panelTitle { font-size: 1.32rem; }
+  .header { font-size: 1.32rem; }
   .label { font-size: 1rem; }
   .input, .select { font-size: 1rem; padding: 0.6em 0.7em; }
-  .submitButton, .endButton { font-size: 1rem; padding: 0.7em 0; }
-  .ncsGuideLink { font-size: 1rem; padding: 0.7em 1em; }
-  .ncsGuideIcon { font-size: 1em; margin-right: 8px; }
+  .button, .buttonSecondary, .submitButton, .endButton { font-size: 1rem; padding: 0.7em 0; }
+  .table th, .table td { font-size: 0.95rem; padding: 0.5em 0.6em; }
 }
+
 .centeredPage {
   width: 100vw;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; /* If you want vertical centering: use 'center' */
+  justify-content: flex-start;
   gap: 2.8rem;
   padding-top: 3.4rem;
   box-sizing: border-box;
@@ -177,7 +254,9 @@
 /* === RESPONSIVE FIX: MOBILE PORTRAIT & LANDSCAPE (≤767px) === */
 @media (max-width: 767px) {
   .panelContainer,
-  .widePanel {
+  .widePanel,
+  .volunteerFormWrapper,
+  .page {
     max-width: 98vw;
     padding-left: 4vw !important;
     padding-right: 4vw !important;
